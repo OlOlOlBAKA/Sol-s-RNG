@@ -108,3 +108,5 @@ channel.MessageReceived:Connect(function(message)
        end
    end
 end)
+
+print("Loaded")
