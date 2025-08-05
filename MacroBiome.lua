@@ -1,17 +1,20 @@
 
+
+
 local HttpService = game:GetService("HttpService")
 local TextChatService = game:GetService("TextChatService")
 
 local channel = TextChatService.TextChannels["RBXGeneral"]
 
-local URL = "https://discord.com/api/webhooks/1401863494181064785/d5jCAV2Uzct4BgQwfhJahYmviX3huH9uzmZUDkF9K7W77YryXQ8bcufDhHlP5DinuhTv"
+local BiomeURL = "https://discord.com/api/webhooks/1401863494181064785/d5jCAV2Uzct4BgQwfhJahYmviX3huH9uzmZUDkF9K7W77YryXQ8bcufDhHlP5DinuhTv"
+local AuraURL = "https://discord.com/api/webhooks/1402263661308936272/QKTw1r0bxbVuZWTivCVlvkrpXwSuYSYfQCWzGpmlos20glq3rVh28TkRcs0TvtU2qfqO"
 local urlimage = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/images%20(13).jpeg"
 -- credit to regular vynixu
 local Module = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/refs/heads/main/Functions.lua"))()
 
-local function SendWebhook(title, desc, imageURL, color, anothermessage)
+local function SendWebhook(title, desc, imageURL, color, anothermessage, webhookURL)
    local Response = request({
-Url = URL,
+Url = webhookURL,
 Method = "POST",
 Headers = {
 ["Content-Type"] = "application/json"
@@ -97,16 +100,54 @@ local function findKeyword(text)
    return nil
 end
 
-channel.MessageReceived:Connect(function(message)
-   if message.TextSource == nil then
+TextChatService.OnIncomingMessage = function(message)
+    if not message.Text then return end
+    if message.TextChannel and message.TextChannel.Name == "Server Message" then
+            local text = message.Text
+    text = text:gsub("<.->","")
+
+    local numberStr = string.match(text, "CHANCE%s+OF%s+1%s+IN%s+([%d,]+)")
+print(numberStr)
+    if numberStr then
+        numberStr = numberStr:gsub(",","")
+        local number = tonumber(numberStr)
+        if number then
+            local length = #tostring(number)
+
+            local color = nil
+
+            if length == 4 then
+                color = 0x800080 -- ม่วง
+            elseif length == 5 then
+                color = 0xFFA500 -- ฟ้า
+            elseif length == 6 then
+                color = 0x00BFFF -- ฟ้า
+            elseif length == 7 then
+                color = 0xFF69B4 -- ชมพู
+            elseif length == 8 then
+                color = 0x0000FF -- น้ำเงิน
+            elseif length == 9 then
+                color = 0xFF0000 -- แดง
+            elseif length >= 10 then
+                color = 0x808080 -- เทา
+            end
+
+            if color then
+                SendWebhook("**Aura Detected**",text,"",color,text,AuraURL)
+            end
+        end
+    end
+    elseif message.TextChannel and message.TextChannel.Name == "General" then
+          if message.TextSource == nil then
        local keyword, color, display, image = findKeyword(message.Text)
        if keyword then
            local cleanMsg = message.Text:gsub('<font color=".-">', ""):gsub("</font>","")
            if keyword ~= "merchant" then
-               SendWebhook("**Biome Detected**", display .. " Has Spawned!", image, color, cleanMsg)
+               SendWebhook("**Biome Detected**", display .. " Has Spawned!", image, color, cleanMsg, BiomeURL)
            end
        end
    end
-end)
+    end
+end
 
-print("Loaded")
+print("V2 Loaded")
