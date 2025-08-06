@@ -13,7 +13,7 @@ local urlimage = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/he
 -- credit to regular vynixu
 local Module = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/refs/heads/main/Functions.lua"))()
 
-local function SendWebhook(title, desc, imageURL, color, anothermessage, webhookURL)
+local function SendBiomeWebhook(title, desc, imageURL, color, anothermessage, webhookURL, spawnTime, despawnTime)
    local Response = request({
 Url = webhookURL,
 Method = "POST",
@@ -30,8 +30,79 @@ Body = HttpService:JSONEncode({
 ["color"] = tonumber(color),
 ["fields"] = {
 {
-["name"] = "Date",
-["value"] = os.date(),
+["name"] = "Spawn Time",
+["value"] = spawnTime,
+["inline"] = true,
+},
+{
+["name"] = "Despawn Time",
+["value"] = despawnTime,
+["inline"] = true,
+},
+{
+["name"] = "Original Message",
+["value"] = anothermessage,
+["inline"] = true,
+},
+}
+}}
+})
+}
+)
+end
+
+local function SendAuraWebhook(title, desc, imageURL, color, anothermessage, webhookURL, GotTime)
+   local Response = request({
+Url = webhookURL,
+Method = "POST",
+Headers = {
+["Content-Type"] = "application/json"
+},
+Body = HttpService:JSONEncode({
+["content"] = "",
+["embeds"] = {{
+["title"] = title,
+["description"] = desc,
+["image"] = {["url"] = imageURL},
+["type"] = "rich",
+["color"] = tonumber(color),
+["fields"] = {
+{
+["name"] = "Time",
+["value"] = GotTime,
+["inline"] = true,
+},
+}
+}}
+})
+}
+)
+end
+
+local function SendMerchantWebhook(title, desc, imageURL, color, anothermessage, webhookURL, spawnTime, despawnTime)
+   local Response = request({
+Url = webhookURL,
+Method = "POST",
+Headers = {
+["Content-Type"] = "application/json"
+},
+Body = HttpService:JSONEncode({
+["content"] = "",
+["embeds"] = {{
+["title"] = title,
+["description"] = desc,
+["image"] = {["url"] = imageURL},
+["type"] = "rich",
+["color"] = tonumber(color),
+["fields"] = {
+{
+["name"] = "Spawn Time",
+["value"] = spawnTime,
+["inline"] = true,
+},
+{
+["name"] = "Despawn Time",
+["value"] = despawnTime,
 ["inline"] = true,
 },
 {
@@ -60,6 +131,22 @@ local keywordsToColor = {
 ["dreamspace"] = 0xFF70D9,
 ["mari"] = 0xFFFFFF,
 ["jester"] = 0x800080,
+}
+
+local keywordsToNumber = {
+["windy"] = 120,
+["snowy"] = 120,
+["rainy"] = 120,
+["blazing sun"] = 140,
+["sand storm"] = 660,
+["hell"] = 660,
+["starfall"] = 600,
+["corruption"] = 660,
+["null"] = 99,
+["manager"] = 124,
+["dreamspace"] = 128,
+["mari"] = 180,
+["jester"] = 180,
 }
 
 local keywordsToDisplayName = {
@@ -141,7 +228,9 @@ print(numberStr)
             end
 
             if color then
-                SendWebhook("**Aura Detected**",text,"",color,text,AuraURL)
+                local time = os.time()
+                local discordTime = "<t:" .. time .. ":F>"
+                SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime)
             end
         end
     end
@@ -151,13 +240,43 @@ print(numberStr)
        if keyword then
            local cleanMsg = message.Text:gsub('<font color=".-">', ""):gsub("</font>","")
            if keyword ~= "mari" and keyword ~= "jester" then
-               SendWebhook("**Biome Detected**", display .. " Has Spawned!", image, color, cleanMsg, BiomeURL)
+               local despawnTime = 0
+               if display == "Windy" then
+                   despawnTime = 120
+               elseif display == "Snowy" then
+                   despawnTime = 120
+               elseif display == "Rainy" then
+                   despawnTime = 120
+               elseif display == "Blazing Sun" then
+                   despawnTime = 140
+               elseif display == "Sand Storm" then
+                   despawnTime = 660
+               elseif display == "Hell" then
+                   despawnTime = 660
+               elseif display == "Starfall" then
+                   despawnTime = 600
+               elseif display == "Corruption" then
+                   despawnTime = 660
+               elseif display == "Null" then
+                   despawnTime = 120
+               elseif display == "Glitched" then
+                   despawnTime = 124
+               elseif display == "Dreamspace" then
+                   despawnTime = 128
+               end
+               local time = os.time()
+               local discordTime = "<t:" .. time .. ":F>"
+               local discordDespawnTime = "<t:" .. time + despawnTime .. ":F>"
+               SendBiomeWebhook("**Biome Detected**", display .. " Has Spawned!", image, color, cleanMsg, BiomeURL, discordTime, discordDespawnTime)
            else
-              SendWebhook("**Merchant Detected**", display .. " Has Spawned!", image, color, cleanMsg, MerchantURL)
+               local time = os.time()
+               local discordTime = "<t:" .. time .. ":F>"
+               local discordDespawnTime = "<t:" .. time + 180 .. ":F>"
+              SendMerchantWebhook("**Merchant Detected**", display .. " Has Spawned!", image, color, cleanMsg, MerchantURL, discordTime, discordDespawnTime)
            end
        end
    end
     end
 end
 
-print("V3 Loaded")
+print("V4 Loaded")
