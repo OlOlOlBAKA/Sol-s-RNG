@@ -216,6 +216,7 @@ TextChatService.OnIncomingMessage = function(message)
         local number = tonumber(numberStr)
         if number then
             local color = nil
+           local contentmsg = ""
 
             if number < 9999  then
                 color = 0x800080 -- ม่วง
@@ -227,13 +228,11 @@ TextChatService.OnIncomingMessage = function(message)
                 color = 0xFF69B4 -- ชมพู
             elseif number < 99999999 then
                 color = 0x0000FF -- น้ำเงิน
-            elseif number < 999999999 then
+            elseif number >= 99999998 then
                 color = 0xFF0000 -- แดง
-            else
-                color = 0xFFFFFF
+                contentmsg = "<@&1404039499587260416>"
             end
             if color then
-                local contentmsg = "<@&1404039499587260416>"
                 local time = os.time()
                 local discordTime = "<t:" .. time .. ":F>"
                 SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
@@ -312,4 +311,4 @@ local contentmsg = "<@&1404039598400737341>"
     end
 end
 
-print("V6 Loaded")
+print("V7 Loaded")
