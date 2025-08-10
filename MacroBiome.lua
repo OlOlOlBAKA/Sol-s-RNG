@@ -51,7 +51,7 @@ Body = HttpService:JSONEncode({
 )
 end
 
-local function SendAuraWebhook(title, desc, imageURL, color, anothermessage, webhookURL, GotTime)
+local function SendAuraWebhook(title, desc, imageURL, color, anothermessage, webhookURL, GotTime, contentmsg)
    local Response = request({
 Url = webhookURL,
 Method = "POST",
@@ -59,7 +59,7 @@ Headers = {
 ["Content-Type"] = "application/json"
 },
 Body = HttpService:JSONEncode({
-["content"] = "",
+["content"] = contentmsg,
 ["embeds"] = {{
 ["title"] = title,
 ["description"] = desc,
@@ -198,11 +198,19 @@ TextChatService.OnIncomingMessage = function(message)
     if not message.Text then return end
     print(message.TextChannel.Name)
     if message.TextChannel and message.TextChannel.Name == "Server Message" then
-            local text = message.Text
-    text = text:gsub("<.->","")
+          local text = message.Text
+    local numberStr = nil
 
-    local numberStr = string.match(text, "CHANCE OF 1 IN ([%d,]+)")
-print(numberStr)
+    if string.match(text, "<.->") then
+        text = text:gsub("<.->","")
+        print(text)
+    end
+    if string.match(text,",") then
+        numberStr = string.match(text, "CHANCE OF 1 IN ([%d,]+)")
+        print(text)
+    end
+    print(text)
+     print(numberStr)
     if numberStr then
         numberStr = numberStr:gsub(",","")
         local number = tonumber(numberStr)
@@ -224,13 +232,31 @@ print(numberStr)
             else
                 color = 0xFFFFFF
             end
-
             if color then
+                local contentmsg = "<@&1404039499587260416>"
                 local time = os.time()
                 local discordTime = "<t:" .. time .. ":F>"
-                SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime)
+                SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
             end
         end
+    elseif string.match(text,"Pixel") then
+local contentmsg = "<@&1404039598400737341>"
+                   local color = 0xFF70D9
+                local time = os.time()
+                local discordTime = "<t:" .. time .. ":F>"
+      SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentsmg)
+             elseif string.match(text,"Blinding") then
+local contentmsg = "<@&1404039598400737341>"
+                   local color = 0xFFFFFF
+                local time = os.time()
+                local discordTime = "<t:" .. time .. ":F>"
+      SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
+             elseif string.match(text,"POSITIVE") then
+local contentmsg = "<@&1404039598400737341>"
+                   local color = 0x000000
+                local time = os.time()
+                local discordTime = "<t:" .. time .. ":F>"
+      SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
     end
     elseif message.TextChannel and message.TextChannel.Name == "RBXGeneral" then
           if message.TextSource == nil then
@@ -286,4 +312,4 @@ print(numberStr)
     end
 end
 
-print("V5 Loaded")
+print("V6 Loaded")
