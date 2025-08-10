@@ -13,7 +13,7 @@ local urlimage = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/he
 -- credit to regular vynixu
 local Module = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/refs/heads/main/Functions.lua"))()
 
-local function SendBiomeWebhook(title, desc, imageURL, color, anothermessage, webhookURL, spawnTime, despawnTime)
+local function SendBiomeWebhook(title, desc, imageURL, color, anothermessage, webhookURL, spawnTime, despawnTime, contentmsg)
    local Response = request({
 Url = webhookURL,
 Method = "POST",
@@ -21,7 +21,7 @@ Headers = {
 ["Content-Type"] = "application/json"
 },
 Body = HttpService:JSONEncode({
-["content"] = "",
+["content"] = contentmsg,
 ["embeds"] = {{
 ["title"] = title,
 ["description"] = desc,
@@ -79,7 +79,7 @@ Body = HttpService:JSONEncode({
 )
 end
 
-local function SendMerchantWebhook(title, desc, imageURL, color, anothermessage, webhookURL, spawnTime, despawnTime)
+local function SendMerchantWebhook(title, desc, imageURL, color, anothermessage, webhookURL, spawnTime, despawnTime, contentmsg)
    local Response = request({
 Url = webhookURL,
 Method = "POST",
@@ -87,7 +87,7 @@ Headers = {
 ["Content-Type"] = "application/json"
 },
 Body = HttpService:JSONEncode({
-["content"] = "",
+["content"] = contentmsg,
 ["embeds"] = {{
 ["title"] = title,
 ["description"] = desc,
@@ -201,30 +201,28 @@ TextChatService.OnIncomingMessage = function(message)
             local text = message.Text
     text = text:gsub("<.->","")
 
-    local numberStr = string.match(text, "CHANCE%s+OF%s+1%s+IN%s+([%d,]+)")
+    local numberStr = string.match(text, "CHANCE OF 1 IN ([%d,]+)")
 print(numberStr)
     if numberStr then
         numberStr = numberStr:gsub(",","")
         local number = tonumber(numberStr)
         if number then
-            local length = #tostring(number)
-
             local color = nil
 
-            if length == 4 then
+            if number < 9999  then
                 color = 0x800080 -- ม่วง
-            elseif length == 5 then
+            elseif number < 99999 then
                 color = 0xFFA500 -- ฟ้า
-            elseif length == 6 then
+            elseif number < 999999 then
                 color = 0x00BFFF -- ฟ้า
-            elseif length == 7 then
+            elseif number < 9999999 then
                 color = 0xFF69B4 -- ชมพู
-            elseif length == 8 then
+            elseif number < 99999999 then
                 color = 0x0000FF -- น้ำเงิน
-            elseif length == 9 then
+            elseif number < 999999999 then
                 color = 0xFF0000 -- แดง
-            elseif length >= 10 then
-                color = 0x808080 -- เทา
+            else
+                color = 0xFFFFFF
             end
 
             if color then
@@ -241,6 +239,7 @@ print(numberStr)
            local cleanMsg = message.Text:gsub('<font color=".-">', ""):gsub("</font>","")
            if keyword ~= "mari" and keyword ~= "jester" then
                local despawnTime = 0
+               local contentmsg = ""
                if display == "Windy" then
                    despawnTime = 120
                elseif display == "Snowy" then
@@ -261,22 +260,30 @@ print(numberStr)
                    despawnTime = 120
                elseif display == "Glitched" then
                    despawnTime = 124
+                   contentmsg = "@everyone"
                elseif display == "Dreamspace" then
                    despawnTime = 128
+                   contentmsg = "@everyone"
                end
                local time = os.time()
                local discordTime = "<t:" .. time .. ":F>"
                local discordDespawnTime = "<t:" .. time + despawnTime .. ":F>"
-               SendBiomeWebhook("**Biome Detected**", display .. " Has Spawned!", image, color, cleanMsg, BiomeURL, discordTime, discordDespawnTime)
+               SendBiomeWebhook("**Biome Detected**", display .. " Has Spawned!", image, color, cleanMsg, BiomeURL, discordTime, discordDespawnTime, contentmsg)
            else
                local time = os.time()
                local discordTime = "<t:" .. time .. ":F>"
                local discordDespawnTime = "<t:" .. time + 180 .. ":F>"
-              SendMerchantWebhook("**Merchant Detected**", display .. " Has Spawned!", image, color, cleanMsg, MerchantURL, discordTime, discordDespawnTime)
+               local contentmsg = ""
+           if keyword == "jester" then
+                          contentmsg = "<@&1404029495073046619>"
+                         SendMerchantWebhook("**Merchant Detected**", display .. " Has Spawned!", image, color, cleanMsg, MerchantURL, discordTime, discordDespawnTime, contentmsg)
+           else
+                      SendMerchantWebhook("**Merchant Detected**", display .. " Has Spawned!", image, color, cleanMsg, MerchantURL, discordTime, discordDespawnTime,contentmsg)
+           end
            end
        end
    end
     end
 end
 
-print("V4 Loaded")
+print("V5 Loaded")
