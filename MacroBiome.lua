@@ -253,7 +253,7 @@ local contentmsg = "<@&1404039598400737341>"
                    local color = 0xFF70D9
                 local time = os.time()
                 local discordTime = "<t:" .. time .. ":F>"
-      SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentsmg)
+      SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
              elseif string.match(text,"Blinding") then
 local contentmsg = "<@&1404039598400737341>"
                    local color = 0xFFFFFF
