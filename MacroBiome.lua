@@ -256,6 +256,12 @@ local contentmsg = "<@&1404039598400737341>"
                 local time = os.time()
                 local discordTime = "<t:" .. time .. ":F>"
       SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
+             elseif string.match(text,"CRAFTED") then
+local contentmsg = "<@&1404039598400737341>"
+                   local color = 0xFF0000
+                local time = os.time()
+                local discordTime = "<t:" .. time .. ":F>"
+      SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
     end
     elseif message.TextChannel and message.TextChannel.Name == "RBXGeneral" then
           if message.TextSource == nil then
@@ -311,4 +317,4 @@ local contentmsg = "<@&1404039598400737341>"
     end
 end
 
-print("V7 Loaded")
+print("V8 Loaded")
