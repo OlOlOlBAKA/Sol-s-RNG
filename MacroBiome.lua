@@ -44,6 +44,11 @@ Body = HttpService:JSONEncode({
 ["value"] = anothermessage,
 ["inline"] = true,
 },
+{
+["name"] = "Private Server Link",
+["value"] = "https://www.roblox.com/th/games/15532962292/Sols-RNG-Fishing-Beta?privateServerLinkCode=60426804869505446691875439115801",
+["inline"] = true,
+},
 }
 }}
 })
@@ -108,6 +113,11 @@ Body = HttpService:JSONEncode({
 {
 ["name"] = "Original Message",
 ["value"] = anothermessage,
+["inline"] = true,
+},
+{
+["name"] = "Private Server Link",
+["value"] = "https://www.roblox.com/th/games/15532962292/Sols-RNG-Fishing-Beta?privateServerLinkCode=60426804869505446691875439115801",
 ["inline"] = true,
 },
 }
