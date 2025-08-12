@@ -332,4 +332,4 @@ local contentmsg = "<@&1404039499587260416>"
     end
 end
 
-print("V8 Loaded")
+print("V9 Loaded")
