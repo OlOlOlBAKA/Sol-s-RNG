@@ -291,14 +291,19 @@ local contentmsg = "<@&1404039499587260416>"
                    despawnTime = 140
                elseif display == "Sand Storm" then
                    despawnTime = 660
+                  contentmsg = "<@&1404697152537497770>"
                elseif display == "Hell" then
                    despawnTime = 660
+                  contentmsg = "<@&1404697074611519509>"
                elseif display == "Starfall" then
                    despawnTime = 600
+                  contentmsg = "<@&1404697006353678356>"
                elseif display == "Corruption" then
                    despawnTime = 660
+                  contentmsg = "<@&1404696919430795284>"
                elseif display == "Null" then
                    despawnTime = 99
+                  contentmsg = "<@&1404696767420825760>"
                elseif display == "Glitched" then
                    despawnTime = 124
                    contentmsg = "@everyone"
