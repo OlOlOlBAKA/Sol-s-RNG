@@ -298,7 +298,7 @@ local contentmsg = "<@&1404039499587260416>"
                elseif display == "Corruption" then
                    despawnTime = 660
                elseif display == "Null" then
-                   despawnTime = 120
+                   despawnTime = 99
                elseif display == "Glitched" then
                    despawnTime = 124
                    contentmsg = "@everyone"
