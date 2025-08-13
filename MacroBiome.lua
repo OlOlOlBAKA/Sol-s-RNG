@@ -192,6 +192,7 @@ local keywordsToImage = {
 ["dreamspace"] = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/images%20(13).jpeg",
 ["mari"] = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/images%20(15).jpeg",
 ["jester"] = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/images%20(16).jpeg",
+["eden"] = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/IMG_20250813_213446.jpg",
 }
 
 local function findKeyword(text)
@@ -329,7 +330,7 @@ local contentmsg = "<@&1404039499587260416>"
            elseif keyword == "mari" then
                       SendMerchantWebhook("**Merchant Detected**", display .. " Has Spawned!", image, color, cleanMsg, MerchantURL, discordTime, discordDespawnTime,contentmsg)
          elseif keyword == "eden" then
-                SendAuraWebhook("**Aura Detected**","Eden Has Spawned On ".. game.Players.LocalPlayer.Name .. "Side!" ,"",color,text,AuraURL, discordTime, contentmsg)  
+                SendBiomeWebhook("**Eden Detected**","Eden Has Spawned On "..  game.Players.LocalPlayer.Name .. " Side!", image, color, cleanMsg, AuraURL, discordTime, discordDespawnTime, contentmsg)
            end
            end
        end
@@ -337,4 +338,4 @@ local contentmsg = "<@&1404039499587260416>"
     end
 end
 
-print("V9 Loaded")
+print("V10 Loaded")
