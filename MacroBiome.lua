@@ -141,6 +141,7 @@ local keywordsToColor = {
 ["dreamspace"] = 0xFF70D9,
 ["mari"] = 0xFFFFFF,
 ["jester"] = 0x800080,
+["eden"] = 0x000000,
 }
 
 local keywordsToNumber = {
@@ -157,6 +158,7 @@ local keywordsToNumber = {
 ["dreamspace"] = 128,
 ["mari"] = 180,
 ["jester"] = 180,
+["eden"] = 1800,
 }
 
 local keywordsToDisplayName = {
@@ -173,6 +175,7 @@ local keywordsToDisplayName = {
 ["dreamspace"] = "Dreamspace",
 ["mari"] = "Mari",
 ["jester"] = "Jester",
+["eden"] = "Eden",
 }
 
 local keywordsToImage = {
@@ -278,7 +281,7 @@ local contentmsg = "<@&1404039499587260416>"
        local keyword, color, display, image = findKeyword(message.Text)
        if keyword then
            local cleanMsg = message.Text:gsub('<font color=".-">', ""):gsub("</font>","")
-           if keyword ~= "mari" and keyword ~= "jester" then
+           if keyword ~= "mari" and keyword ~= "jester" and keyword ~= "eden" then
                local despawnTime = 0
                local contentmsg = ""
                if display == "Windy" then
@@ -323,8 +326,10 @@ local contentmsg = "<@&1404039499587260416>"
            if keyword == "jester" then
                           contentmsg = "<@&1404029495073046619>"
                          SendMerchantWebhook("**Merchant Detected**", display .. " Has Spawned!", image, color, cleanMsg, MerchantURL, discordTime, discordDespawnTime, contentmsg)
-           else
+           elseif keyword == "mari" then
                       SendMerchantWebhook("**Merchant Detected**", display .. " Has Spawned!", image, color, cleanMsg, MerchantURL, discordTime, discordDespawnTime,contentmsg)
+         elseif keyword == "eden" then
+                SendAuraWebhook("**Aura Detected**","Eden Has Spawned On ".. game.Players.LocalPlayer.Name .. "Side!" ,"",color,text,AuraURL, discordTime, contentmsg)  
            end
            end
        end
