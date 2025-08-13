@@ -13,7 +13,7 @@ local urlimage = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/he
 -- credit to regular vynixu
 local Module = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/refs/heads/main/Functions.lua"))()
 
-local function SendBiomeWebhook(title, desc, imageURL, color, anothermessage, webhookURL, spawnTime, despawnTime, contentmsg)
+local function SendBiomeWebhook(title, desc, imageURL, color, anothermessage, webhookURL, spawnTime, despawnTime, contentmsg, Link)
    local Response = request({
 Url = webhookURL,
 Method = "POST",
@@ -46,7 +46,7 @@ Body = HttpService:JSONEncode({
 },
 {
 ["name"] = "Private Server Link",
-["value"] = "https://www.roblox.com/th/games/15532962292/Sols-RNG-Fishing-Beta?privateServerLinkCode=60426804869505446691875439115801",
+["value"] = Link,
 ["inline"] = true,
 },
 }
@@ -318,11 +318,15 @@ local contentmsg = "<@&1404039499587260416>"
                local time = os.time()
                local discordTime = "<t:" .. time .. ":F>"
                local discordDespawnTime = "<t:" .. time + despawnTime .. ":F>"
-               SendBiomeWebhook("**Biome Detected**", display .. " Has Spawned!", image, color, cleanMsg, BiomeURL, discordTime, discordDespawnTime, contentmsg)
+               SendBiomeWebhook("**Biome Detected**", display .. " Has Spawned!", image, color, cleanMsg, BiomeURL, discordTime, discordDespawnTime, contentmsg, "https://www.roblox.com/th/games/15532962292/Sols-RNG-Fishing-Beta?privateServerLinkCode=60426804869505446691875439115801")
            else
+               local despawnTime = 180
+               if display == "Eden" then
+                  despawnTime = 1800
+               end
                local time = os.time()
                local discordTime = "<t:" .. time .. ":F>"
-               local discordDespawnTime = "<t:" .. time + 180 .. ":F>"
+               local discordDespawnTime = "<t:" .. time + despawnTime .. ":F>"
                local contentmsg = ""
            if keyword == "jester" then
                           contentmsg = "<@&1404029495073046619>"
@@ -330,7 +334,7 @@ local contentmsg = "<@&1404039499587260416>"
            elseif keyword == "mari" then
                       SendMerchantWebhook("**Merchant Detected**", display .. " Has Spawned!", image, color, cleanMsg, MerchantURL, discordTime, discordDespawnTime,contentmsg)
          elseif keyword == "eden" then
-                SendBiomeWebhook("**Eden Detected**","Eden Has Spawned On "..  game.Players.LocalPlayer.Name .. " Side!", image, color, cleanMsg, AuraURL, discordTime, discordDespawnTime, contentmsg)
+                SendBiomeWebhook("**Eden Detected**","Eden Has Spawned On "..  game.Players.LocalPlayer.Name .. " Side!", image, color, cleanMsg, AuraURL, discordTime, discordDespawnTime, contentmsg, "")
            end
            end
        end
@@ -338,4 +342,4 @@ local contentmsg = "<@&1404039499587260416>"
     end
 end
 
-print("V10 Loaded")
+print("V11 Loaded")
