@@ -334,6 +334,7 @@ local contentmsg = "<@&1404039499587260416>"
            elseif keyword == "mari" then
                       SendMerchantWebhook("**Merchant Detected**", display .. " Has Spawned!", image, color, cleanMsg, MerchantURL, discordTime, discordDespawnTime,contentmsg)
          elseif keyword == "eden" then
+                  contentmsg = "<@&1405497438638178365>"
                 SendBiomeWebhook("**Eden Detected**","Eden Has Spawned On "..  game.Players.LocalPlayer.Name .. " Side!", image, color, cleanMsg, AuraURL, discordTime, discordDespawnTime, contentmsg, "")
            end
            end
