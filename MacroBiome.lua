@@ -270,9 +270,14 @@ local contentmsg = "<@&1404039598400737341>"
                 local time = os.time()
                 local discordTime = "<t:" .. time .. ":F>"
       SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
-             elseif string.match(text,"CRAFTED") then
+             elseif string.match(text,"GLORIOUS") then
 local contentmsg = "<@&1404039499587260416>"
                    local color = 0xFF0000
+                local time = os.time()
+                local discordTime = "<t:" .. time .. ":F>"
+      SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
+         elseif string.match(text,"EXALTED") then
+                   local color = 0x0000FF
                 local time = os.time()
                 local discordTime = "<t:" .. time .. ":F>"
       SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
