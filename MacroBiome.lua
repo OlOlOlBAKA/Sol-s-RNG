@@ -1,4 +1,4 @@
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/OlOlOlBAKA/Utilities/refs/heads/main/JoinLog.lua"))()
 
 
 local HttpService = game:GetService("HttpService")
@@ -348,4 +348,4 @@ local contentmsg = "<@&1404039499587260416>"
     end
 end
 
-print("V12 Loaded")
+print("V13 Loaded")
