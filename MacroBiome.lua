@@ -46,11 +46,6 @@ local function SendBiomeWebhook(title, desc, imageURL, color, anothermessage, we
                        ["value"] = anothermessage,
                        ["inline"] = true,
                    },
-                   {
-                       ["name"] = "Link",
-                       ["value"] = Link,
-                       ["inline"] = false,
-                   },
                }
            }}
        })
