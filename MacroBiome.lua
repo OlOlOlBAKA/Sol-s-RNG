@@ -13,106 +13,116 @@ local urlimage = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/he
 -- credit to regular vynixu
 local Module = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/refs/heads/main/Functions.lua"))()
 
+local HttpService = game:GetService("HttpService")
+
 local function SendBiomeWebhook(title, desc, imageURL, color, anothermessage, webhookURL, spawnTime, despawnTime, contentmsg, Link)
    local Response = request({
-Url = webhookURL,
-Method = "POST",
-Headers = {
-["Content-Type"] = "application/json"
-},
-Body = HttpService:JSONEncode({
-["content"] = contentmsg,
-["embeds"] = {{
-["title"] = title,
-["description"] = desc,
-["image"] = {["url"] = imageURL},
-["type"] = "rich",
-["color"] = tonumber(color),
-["fields"] = {
-{
-["name"] = "Spawn Time",
-["value"] = spawnTime,
-["inline"] = true,
-},
-{
-["name"] = "Despawn Time",
-["value"] = despawnTime,
-["inline"] = true,
-},
-{
-["name"] = "Original Message",
-["value"] = anothermessage,
-["inline"] = true,
-},
-}}
-})
-}
-)
+       Url = webhookURL,
+       Method = "POST",
+       Headers = {
+           ["Content-Type"] = "application/json"
+       },
+       Body = HttpService:JSONEncode({
+           ["content"] = contentmsg,
+           ["embeds"] = {{
+               ["title"] = title,
+               ["description"] = desc,
+               ["image"] = {["url"] = imageURL},
+               ["type"] = "rich",
+               ["color"] = tonumber(color),
+               ["fields"] = {
+                   {
+                       ["name"] = "Spawn Time",
+                       ["value"] = spawnTime,
+                       ["inline"] = true,
+                   },
+                   {
+                       ["name"] = "Despawn Time",
+                       ["value"] = despawnTime,
+                       ["inline"] = true,
+                   },
+                   {
+                       ["name"] = "Original Message",
+                       ["value"] = anothermessage,
+                       ["inline"] = true,
+                   },
+                   {
+                       ["name"] = "Link",
+                       ["value"] = Link,
+                       ["inline"] = false,
+                   },
+               }
+           }}
+       })
+   })
 end
 
-local function SendAuraWebhook(title, desc, imageURL, color, anothermessage, webhookURL, GotTime, contentmsg)
-   local Response = request({
-Url = webhookURL,
-Method = "POST",
-Headers = {
-["Content-Type"] = "application/json"
-},
-Body = HttpService:JSONEncode({
-["content"] = contentmsg,
-["embeds"] = {{
-["title"] = title,
-["description"] = desc,
-["image"] = {["url"] = imageURL},
-["type"] = "rich",
-["color"] = tonumber(color),
-["fields"] = {
-{
-["name"] = "Time",
-["value"] = GotTime,
-["inline"] = true,
-},
-}
-}}
-})
-}
-)
+local HttpService = game:GetService("HttpService")
+
+local function SendAuraWebhook(title, desc, imageURL, color, webhookURL, GotTime, contentmsg)
+    local Response = request({
+        Url = webhookURL,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = HttpService:JSONEncode({
+            ["content"] = contentmsg,
+            ["embeds"] = {{
+                ["title"] = title,
+                ["description"] = desc,
+                ["image"] = {["url"] = imageURL},
+                ["type"] = "rich",
+                ["color"] = tonumber(color),
+                ["fields"] = {
+                    {
+                        ["name"] = "Time",
+                        ["value"] = GotTime,
+                        ["inline"] = true,
+                    },
+                }
+            }}
+        })
+    })
 end
+
+local HttpService = game:GetService("HttpService")
 
 local function SendMerchantWebhook(title, desc, imageURL, color, anothermessage, webhookURL, spawnTime, despawnTime, contentmsg)
-   local Response = request({
-Url = webhookURL,
-Method = "POST",
-Headers = {
-["Content-Type"] = "application/json"
-},
-Body = HttpService:JSONEncode({
-["content"] = contentmsg,
-["embeds"] = {{
-["title"] = title,
-["description"] = desc,
-["image"] = {["url"] = imageURL},
-["type"] = "rich",
-["color"] = tonumber(color),
-["fields"] = {
-{
-["name"] = "Spawn Time",
-["value"] = spawnTime,
-["inline"] = true,
-},
-{
-["name"] = "Despawn Time",
-["value"] = despawnTime,
-["inline"] = true,
-},
-{
-["name"] = "Original Message",
-["value"] = anothermessage,
-["inline"] = true,
-},
-}}
-})
-}
-)
+    local Response = request({
+        Url = webhookURL,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = HttpService:JSONEncode({
+            ["content"] = contentmsg,
+            ["embeds"] = {{
+                ["title"] = title,
+                ["description"] = desc,
+                ["image"] = {["url"] = imageURL},
+                ["type"] = "rich",
+                ["color"] = tonumber(color),
+                ["fields"] = {
+                    {
+                        ["name"] = "Spawn Time",
+                        ["value"] = spawnTime,
+                        ["inline"] = true,
+                    },
+                    {
+                        ["name"] = "Despawn Time",
+                        ["value"] = despawnTime,
+                        ["inline"] = true,
+                    },
+                    {
+                        ["name"] = "Original Message",
+                        ["value"] = anothermessage,
+                        ["inline"] = false, -- ปรับเป็น false จะได้แสดงเต็มบรรทัด
+                    },
+                }
+            }}
+        })
+    })
 end
 
 local keywordsToColor = {
