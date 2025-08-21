@@ -44,12 +44,6 @@ Body = HttpService:JSONEncode({
 ["value"] = anothermessage,
 ["inline"] = true,
 },
-{
-["name"] = "Private Server Link",
-["value"] = Link,
-["inline"] = true,
-},
-}
 }}
 })
 }
@@ -115,12 +109,6 @@ Body = HttpService:JSONEncode({
 ["value"] = anothermessage,
 ["inline"] = true,
 },
-{
-["name"] = "Private Server Link",
-["value"] = "https://www.roblox.com/th/games/15532962292/Sols-RNG-Fishing-Beta?privateServerLinkCode=60426804869505446691875439115801",
-["inline"] = true,
-},
-}
 }}
 })
 }
@@ -348,4 +336,4 @@ local contentmsg = "<@&1404039499587260416>"
     end
 end
 
-print("V13 Loaded")
+print("V14 Loaded")
