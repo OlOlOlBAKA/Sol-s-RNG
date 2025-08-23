@@ -240,7 +240,7 @@ TextChatService.OnIncomingMessage = function(message)
                 SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
             end
         end
-    elseif string.match(text,"Pixel") then
+    elseif string.match(text,"PIXELATED") then
 local contentmsg = "<@&1404039598400737341>"
                    local color = 0xFF70D9
                 local time = os.time()
