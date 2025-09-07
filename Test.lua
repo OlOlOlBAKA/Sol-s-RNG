@@ -12,7 +12,7 @@ local StarterGui = game:GetService("StarterGui")
 
 local player = Players["LocalPlayer"]
 local channel1 = TextChatService["TextChannels"]["RBXGeneral"]
-local channel2 = TextChatService["TextChannels"]["Server Message"]
+local channel2 = TextChatService["Server Message"]
 
 -- Webhooks
 local BiomeURL = _G["BiomeWebhook"]
