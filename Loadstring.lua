@@ -3,20 +3,20 @@ _G.BiomeWebhook = "https://discord.com/api/webhooks/1401863494181064785/d5jCAV2U
 _G.AuraWebhook = ""
 _G.MerchantWebhook = "https://discord.com/api/webhooks/1402263937071845396/PMHFPLS3OrpYEOR-zp8SHaJ3GB9jW3tjiRLtrUOi0bnUOU-oCLpFSeqVTYMzz2xW_gLu"
 -- Biome Ping Type Your Role ID here
-_G.SandStorm = "@&YOURROLEID"
-_G.Hell = "@&YOURROLEID"
-_G.Starfall = "@&YOURROLEID"
-_G.Corruption = "@&YOURROLEID"
-_G.Null = "@&YOURROLEID"
+_G.SandStorm = ""
+_G.Hell = ""
+_G.Starfall = ""
+_G.Corruption = ""
+_G.Null = ""
 -- For Glitched And Dreamspace You Need To Type Only true or false for allow ping everyone or not
 _G.Glitched = false
 _G.Dreamspace = true
 -- Merchant Ping Type Your Role ID here
-_G.Jester = "@&YOURROLEID"
+_G.Jester = ""
 -- Auras Ping Type Your Role ID here
-_G.Globals = "@&YOURROLEID"
-_G.OneBillion = "@&YOURROLEID"
+_G.Globals = ""
+_G.OneBillion = ""
 -- Eden (ONLY FOR PERSON WHO USED MACRO) Role ID too
-_G.Eden = "@&YOURROLEID"
+_G.Eden = ""
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/Test.lua"))()
