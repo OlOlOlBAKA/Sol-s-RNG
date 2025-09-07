@@ -1,4 +1,10 @@
 
+if not _G.AlreadyRun then
+   _G.AlreadyRun = true
+else
+   return
+end
+
 local HttpService = game:GetService("HttpService")
 local TextChatService = game:GetService("TextChatService")
 
