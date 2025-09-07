@@ -242,14 +242,10 @@ TextChatService.OnIncomingMessage = function(message)
 
     if string.match(text, "<.->") then
         text = text:gsub("<.->","")
-        print(text)
     end
     if string.match(text,",") then
         numberStr = string.match(text, "CHANCE OF 1 IN ([%d,]+)")
-        print(text)
     end
-    print(text)
-     print(numberStr)
     if numberStr then
         numberStr = numberStr:gsub(",","")
         local number = tonumber(numberStr)
