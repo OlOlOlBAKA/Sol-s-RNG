@@ -254,7 +254,7 @@ TextChatService.OnIncomingMessage = function(message)
                 color = 0x0000FF -- BLUE
             elseif number >= 99999998 then
                 color = 0xFF0000 -- RED
-                contentmsg = GlobalPing
+                contentmsg = "<" .. GlobalPing .. ">"
             end
             if color then
                 local time = os.time()
@@ -263,25 +263,25 @@ TextChatService.OnIncomingMessage = function(message)
             end
         end
     elseif string.match(text,"PIXELATED") then
-local contentmsg = _G.BillionPing
+local contentmsg = "<" .. BillionPing .. ">"
                    local color = 0xFF70D9
                 local time = os.time()
                 local discordTime = "<t:" .. time .. ":F>"
       SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
              elseif string.match(text,"Blinding") then
-local contentmsg = _G.BillionPing
+local contentmsg = "<" .. BillionPing .. ">"
                    local color = 0xFFFFFF
                 local time = os.time()
                 local discordTime = "<t:" .. time .. ":F>"
       SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
              elseif string.match(text,"POSITIVE") then
-local contentmsg = _G.BillionPing
+local contentmsg = "<" .. BillionPing .. ">"
                    local color = 0x000000
                 local time = os.time()
                 local discordTime = "<t:" .. time .. ":F>"
       SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
              elseif string.match(text,"GLORIOUS") then
-local contentmsg = GlobalPing
+local contentmsg =  "<" .. GlobalPing .. ">"
                    local color = 0xFF0000
                 local time = os.time()
                 local discordTime = "<t:" .. time .. ":F>"
@@ -310,19 +310,19 @@ local contentmsg = GlobalPing
                    despawnTime = 140
                elseif display == "Sand Storm" then
                    despawnTime = 660
-                  contentmsg = SandStormPing
+                  contentmsg = "<" .. SandStormPing .. ">"
                elseif display == "Hell" then
                    despawnTime = 660
-                  contentmsg = HellPing
+                  contentmsg = "<" .. HellPing .. ">"
                elseif display == "Starfall" then
                    despawnTime = 600
-                  contentmsg = StarfallPing
+                  contentmsg = "<" .. StarfallPing .. ">"
                elseif display == "Corruption" then
                    despawnTime = 660
-                  contentmsg = CorruptionPing
+                  contentmsg = "<" .. CorruptionPing .. ">"
                elseif display == "Null" then
                    despawnTime = 99
-                  contentmsg = NullPing
+                  contentmsg = "<" .. NullPing .. ">"
                elseif display == "Glitched" then
                    despawnTime = 124
                    if GlitchedPing then
@@ -348,12 +348,12 @@ local contentmsg = GlobalPing
                local discordDespawnTime = "<t:" .. time + despawnTime .. ":F>"
                local contentmsg = ""
            if keyword == "jester" then
-                          contentmsg = JesterPing
+                          contentmsg = "<" .. JesterPing .. ">"
                          SendMerchantWebhook("**Merchant Detected**", display .. " Has Spawned!", image, color, cleanMsg, MerchantURL, discordTime, discordDespawnTime, contentmsg)
            elseif keyword == "mari" then
                       SendMerchantWebhook("**Merchant Detected**", display .. " Has Spawned!", image, color, cleanMsg, MerchantURL, discordTime, discordDespawnTime,contentmsg)
          elseif keyword == "eden" then
-                  contentmsg = EdenPing
+                  contentmsg = "<" .. EdenPing .. ">"
                 SendBiomeWebhook("**Eden Detected**","Eden Has Spawned On "..  game.Players.LocalPlayer.Name .. " Side!", image, color, cleanMsg, AuraURL, discordTime, discordDespawnTime, contentmsg, "")
            end
            end
