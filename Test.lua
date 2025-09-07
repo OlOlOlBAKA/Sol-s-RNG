@@ -235,7 +235,9 @@ end)
 
 TextChatService.OnIncomingMessage = function(message)
     if not message.Text then return end
-    print(message.TextChannel.Name)
+if message.TextChannel.Name ~= "Server Message" and message.TextChannel.Name ~= "RBXGeneral" then 
+    return 
+end
     if message.TextChannel and message.TextChannel.Name == "Server Message" and AuraURL then
           local text = message.Text
     local numberStr = nil
