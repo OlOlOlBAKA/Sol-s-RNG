@@ -208,24 +208,6 @@ task.spawn(function()
         end
     end)
 end)
-    -- ตรวจจับ Aura keywords
-    local auraKeywords = {
-        ["PIXELATED"] = {0xFF70D9, BillionPing},
-        ["BLINDING"] = {0xFFFFFF, BillionPing},
-        ["POSITIVE"] = {0x000000, BillionPing},
-        ["GLORIOUS"] = {0xFF0000, GlobalPing},
-        ["EXALTED"] = {0x0000FF, nil}
-    }
-
-    for k, v in pairs(auraKeywords) do
-        if upperText:find(k,1,true) then
-            local color, ping = v[1], v[2]
-            local contentmsg = ping and "<"..ping..">" or ""
-            SendAuraWebhook("**Aura Detected**", text, "", color, text, AuraURL, discordTime, contentmsg)
-            break
-        end
-    end
-end)
 
 -- ===================== Biome / Merchant / Eden Detection (RBXGeneral) =====================
 channel.MessageReceived:Connect(function(message)
