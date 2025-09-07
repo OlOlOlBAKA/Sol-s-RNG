@@ -129,6 +129,7 @@ task.spawn(function()
     channel2["MessageReceived"]:Connect(function(message)
         if not message["Text"] then return end
         local text = message["Text"]
+        text = text:gsub("<.->","")
         local numberStr = string.match(text, "CHANCE OF 1 IN ([%d,]+)")
         if numberStr then
             numberStr = numberStr:gsub(",", "")
