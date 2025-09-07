@@ -9,6 +9,7 @@ local HttpService = game:GetService("HttpService")
 local TextChatService = game:GetService("TextChatService")
 local Players = game:GetService("Players")
 local VirtualUser = game:GetService("VirtualUser")
+local StarterGui = game:GetService("StarterGui")
 
 local player = Players.LocalPlayer
 local channel = TextChatService.TextChannels["RBXGeneral"]
@@ -230,7 +231,7 @@ player.Idled:Connect(function()
         VirtualUser:CaptureController()
         VirtualUser:ClickButton1(Vector2.new(0,0))
     end)
-end
+end)
 
 TextChatService.OnIncomingMessage = function(message)
     if not message.Text then return end
@@ -376,4 +377,10 @@ local contentmsg =  "<" .. GlobalPing .. ">"
     end
 end
 
+StarterGui:SetCore("SendNotification", {
+    Title = "Macro Script",
+    Text = "Made by Chosen and Sega",
+    Duration = 5
+})
+   
 print("V15 Loaded")
