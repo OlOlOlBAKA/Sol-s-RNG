@@ -215,7 +215,7 @@ end
 TextChatService.OnIncomingMessage = function(message)
     if not message.Text then return end
     print(message.TextChannel.Name)
-    if message.TextChannel and message.TextChannel.Name == "Server Message" then
+    if message.TextChannel and message.TextChannel.Name == "Server Message" and AuraURL then
           local text = message.Text
     local numberStr = nil
 
@@ -291,7 +291,7 @@ local contentmsg = GlobalPing
        local keyword, color, display, image = findKeyword(message.Text)
        if keyword then
            local cleanMsg = message.Text:gsub('<font color=".-">', ""):gsub("</font>","")
-           if keyword ~= "mari" and keyword ~= "jester" and keyword ~= "eden" then
+           if keyword ~= "mari" and keyword ~= "jester" and keyword ~= "eden" and BiomeURL then
                local despawnTime = 0
                local contentmsg = ""
                if display == "Windy" then
