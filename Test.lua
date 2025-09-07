@@ -317,12 +317,16 @@ local contentmsg = GlobalPing
                elseif display == "Null" then
                    despawnTime = 99
                   contentmsg = NullPing
-               elseif display == "Glitched" and GlitchedPing then
+               elseif display == "Glitched" then
                    despawnTime = 124
-                   contentmsg = "@everyone"
-               elseif display == "Dreamspace" and DreamspacePing then
+                   if GlitchedPing then
+                      contentmsg = "@everyone"
+                   end
+               elseif display == "Dreamspace" then
                    despawnTime = 128
-                   contentmsg = "@everyone"
+                   if DreamspacePing then
+                      contentmsg = "@everyone"
+                   end
                end
                local time = os.time()
                local discordTime = "<t:" .. time .. ":F>"
