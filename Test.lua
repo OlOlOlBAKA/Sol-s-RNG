@@ -363,5 +363,3 @@ local contentmsg = GlobalPing
 end
 
 print("V15 Loaded")
-
-SendAuraWebhook("**Macro Status**","Macro Status: Started","",tonumber(0xFFFFFF),"","https://discord.com/api/webhooks/1407327551092949094/gb1tGaFkepie8povvZA60IT3B27BB9Er9B7DQXzCLlSKn8Df7W9wGznocqvZvytieMBQ","<t:" .. os.time() .. ":F>", "")
