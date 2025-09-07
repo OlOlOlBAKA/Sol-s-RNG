@@ -7,7 +7,10 @@ end
 
 local HttpService = game:GetService("HttpService")
 local TextChatService = game:GetService("TextChatService")
+local Players = game:GetService("Players")
+local VirtualUser = game:GetService("VirtualUser")
 
+local player = Players.LocalPlayer
 local channel = TextChatService.TextChannels["RBXGeneral"]
 
 -- Webhooks
@@ -216,6 +219,17 @@ local function findKeyword(text)
        end
    end
    return nil
+end
+
+task.spawn(function()
+   -- AntiAFK
+player.Idled:Connect(function()
+        print("[AntiAFK] ผู้เล่น Idle! กำลังทำ VirtualInput")
+        
+        -- กดเมาส์ปลอม 1 ครั้ง
+        VirtualUser:CaptureController()
+        VirtualUser:ClickButton1(Vector2.new(0,0))
+    end)
 end
 
 TextChatService.OnIncomingMessage = function(message)
