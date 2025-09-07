@@ -149,38 +149,79 @@ player.Idled:Connect(function()
     VirtualUser:ClickButton1(Vector2.new(0,0))
 end)
 
--- ===================== Aura Detection =====================
-channel2.MessageReceived:Connect(function(message)
-    local text = message.Text
-    if not text then return end
-    text = text:gsub("<.->","")
-    local now = os.time()
-    local discordTime = "<t:"..now..":F>"
+-- ===================== Server Message / Aura Detection =====================
+task.spawn(function()
+    channel2.MessageReceived:Connect(function(message)
+        if not message.Text then return end
+        local text = message.Text
 
-    local numberStr = text:match("CHANCE OF 1 IN ([%d,]+)")
-    if numberStr then
-        local number = tonumber(numberStr:gsub(",",""))
-        if number then
-            local color, contentmsg = nil,""
-            if number<9999 then color=0x800080
-            elseif number<99999 then color=0xFFA500
-            elseif number<999999 then color=0x00BFFF
-            elseif number<9999999 then color=0xFF69B4
-            elseif number<99999999 then color=0x0000FF
-            else color=0xFF0000 contentmsg="<"..GlobalPing..">"
+        -- ลบ tag ทั้งหมด
+        text = text:gsub("<.->","")
+
+        -- แปลงเป็น uppercase เพื่อ match ไม่ case-sensitive
+        local upperText = string.upper(text)
+        local now = os.time()
+        local discordTime = "<t:"..now..":F>"
+
+        -- ตรวจจับเลข CHANCE OF 1 IN ...
+        local numberStr = upperText:match("CHANCE OF 1 IN ([%d,]+)")
+        if numberStr then
+            numberStr = numberStr:gsub(",","")
+            local number = tonumber(numberStr)
+            if number then
+                local color, contentmsg = nil, ""
+                if number < 9999 then
+                    color = 0x800080 -- PURPLE
+                elseif number < 99999 then
+                    color = 0xFFA500 -- ORANGE
+                elseif number < 999999 then
+                    color = 0x00BFFF -- CYAN
+                elseif number < 9999999 then
+                    color = 0xFF69B4 -- PINK
+                elseif number < 99999999 then
+                    color = 0x0000FF -- BLUE
+                else
+                    color = 0xFF0000 -- RED
+                    contentmsg = "<"..GlobalPing..">"
+                end
+                SendAuraWebhook("**Aura Detected**", text, "", color, text, AuraURL, discordTime, contentmsg)
             end
-            SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL,discordTime,contentmsg)
+            return
         end
-        return
-    end
 
-    local auraKeywords={["PIXELATED"]={0xFF70D9,BillionPing},["Blinding"]={0xFFFFFF,BillionPing},
-    ["POSITIVE"]={0x000000,BillionPing},["GLORIOUS"]={0xFF0000,GlobalPing},["EXALTED"]={0x0000FF,nil}}
-    for k,v in pairs(auraKeywords) do
-        if text:find(k,1,true) then
-            local color,ping=v[1],v[2]
-            local contentmsg=ping and "<"..ping..">" or ""
-            SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL,discordTime,contentmsg)
+        -- ตรวจจับ Aura keywords
+        local auraKeywords = {
+            ["PIXELATED"] = {0xFF70D9, BillionPing},
+            ["BLINDING"] = {0xFFFFFF, BillionPing},
+            ["POSITIVE"] = {0x000000, BillionPing},
+            ["GLORIOUS"] = {0xFF0000, GlobalPing},
+            ["EXALTED"] = {0x0000FF, nil}
+        }
+
+        for k, v in pairs(auraKeywords) do
+            if upperText:find(k,1,true) then
+                local color, ping = v[1], v[2]
+                local contentmsg = ping and "<"..ping..">" or ""
+                SendAuraWebhook("**Aura Detected**", text, "", color, text, AuraURL, discordTime, contentmsg)
+                break
+            end
+        end
+    end)
+end)
+    -- ตรวจจับ Aura keywords
+    local auraKeywords = {
+        ["PIXELATED"] = {0xFF70D9, BillionPing},
+        ["BLINDING"] = {0xFFFFFF, BillionPing},
+        ["POSITIVE"] = {0x000000, BillionPing},
+        ["GLORIOUS"] = {0xFF0000, GlobalPing},
+        ["EXALTED"] = {0x0000FF, nil}
+    }
+
+    for k, v in pairs(auraKeywords) do
+        if upperText:find(k,1,true) then
+            local color, ping = v[1], v[2]
+            local contentmsg = ping and "<"..ping..">" or ""
+            SendAuraWebhook("**Aura Detected**", text, "", color, text, AuraURL, discordTime, contentmsg)
             break
         end
     end
