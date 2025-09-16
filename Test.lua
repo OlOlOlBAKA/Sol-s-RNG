@@ -166,7 +166,7 @@ task.spawn(function()
             elseif string.match(lowerText,"glorious") then
                 SendAuraWebhook("**Aura Detected**", text, 0xFF0000, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["Globals"] .. ">")
             elseif string.match(lowerText,"exalted") then
-                SendAuraWebhook("**Aura Detected**", text, 0x0000FF, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["Globals"] .. ">")
+                SendAuraWebhook("**Aura Detected**", text, 0x0000FF, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "")
             end
         end
     end)
