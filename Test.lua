@@ -160,9 +160,9 @@ task.spawn(function()
             if string.match(lowerText,"pixelated") then
                 SendAuraWebhook("**Aura Detected**", text, 0x00FF00, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
             elseif string.match(lowerText,"blinding") then
-                SendAuraWebhook("**Aura Detected**", text, 0xFFFFFF, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
+                SendAuraWebhook("**Aura Detected**", text, 0xADD8E6, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
             elseif string.match(lowerText,"positive") then
-                SendAuraWebhook("**Aura Detected**", text, 0x000000, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
+                SendAuraWebhook("**Aura Detected**", text, 0x777777, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
             elseif string.match(lowerText,"glorious") then
                 SendAuraWebhook("**Aura Detected**", text, 0xFF0000, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["Globals"] .. ">")
             elseif string.match(lowerText,"transcendent") then
