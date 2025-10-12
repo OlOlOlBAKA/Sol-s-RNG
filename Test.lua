@@ -100,9 +100,9 @@ end
 
 -- Keyword Cache
 local keywordCache = {
-    ["windy"]       = {["color"]=0xFFFFFF, ["display"]="Windy", ["despawn"]=120},
+    ["windy"]       = {["color"]=0xADD8E6, ["display"]="Windy", ["despawn"]=120},
     ["snowy"]       = {["color"]=0xFFFFFF, ["display"]="Snowy", ["despawn"]=120},
-    ["rainy"]       = {["color"]=0xADD8E6, ["display"]="Rainy", ["despawn"]=120},
+    ["rainy"]       = {["color"]=0x024DAF, ["display"]="Rainy", ["despawn"]=120},
     ["blazing sun"] = {["color"]=0xFFA500, ["display"]="Blazing Sun", ["despawn"]=140},
     ["sand storm"]  = {["color"]=0xDAA520, ["display"]="Sand Storm", ["despawn"]=660, ["ping"]=_G["SandStorm"]},
     ["hell"]        = {["color"]=0x8B0000, ["display"]="Hell", ["despawn"]=660, ["ping"]=_G["Hell"]},
