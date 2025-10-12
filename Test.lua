@@ -175,6 +175,8 @@ task.spawn(function()
                 SendAuraWebhook("**Aura Detected**", text, 0x3A00AF, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<".. _G["Globals"] .. ">")
             elseif string.match(lowerText,"neferkhaf") then
                 SendAuraWebhook("**Aura Detected**", text, 0x957802, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<".. _G["OneBillion"] .. ">")
+            else
+                SendAuraWebhook("**Unknown Aura Detected**", text, 0xFFFFFF, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "")
             end
         end
     end)
