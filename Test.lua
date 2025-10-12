@@ -158,7 +158,7 @@ task.spawn(function()
         else
             local lowerText = text:lower()
             if string.match(lowerText,"pixelated") then
-                SendAuraWebhook("**Aura Detected**", text, 0xFF70D9, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
+                SendAuraWebhook("**Aura Detected**", text, 0x00FF00, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
             elseif string.match(lowerText,"blinding") then
                 SendAuraWebhook("**Aura Detected**", text, 0xFFFFFF, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
             elseif string.match(lowerText,"positive") then
