@@ -203,7 +203,7 @@ task.spawn(function()
 
         local time = os.time()
         local discordTime = "<t:" .. time .. ":F>"
-        local discordDespawnTime = "<t:" .. (time + despawnTime) .. ":F>"
+        local discordDespawnTime = "<t:" .. (time + despawnTime) .. ":R>"
 
         if keyword == "mari" or keyword == "jester" then
             SendMerchantWebhook(
