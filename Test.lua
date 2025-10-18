@@ -106,7 +106,7 @@ local keywordCache = {
     ["blazing sun"] = {["color"]=0xFFA500, ["display"]="Blazing Sun", ["despawn"]=140},
     ["graveyard"] = {["color"]=0xFFFFFF, ["display"]="Graveyard", ["despawn"]=140},
     ["pumpkin moon"] = {["color"]=0xFFA500, ["display"]="Pumpkin Moon", ["despawn"]=140},
-    ["bloodrain"] = {["color"]=0x8B0000, ["display"]="Bloodrain", ["despawn"]=140},
+    ["blood rain"] = {["color"]=0x8B0000, ["display"]="Blood Rain", ["despawn"]=140},
     ["sand storm"]  = {["color"]=0xDAA520, ["display"]="Sand Storm", ["despawn"]=660, ["ping"]=_G["SandStorm"]},
     ["hell"]        = {["color"]=0x8B0000, ["display"]="Hell", ["despawn"]=660, ["ping"]=_G["Hell"]},
     ["starfall"]    = {["color"]=0x1E90FF, ["display"]="Starfall", ["despawn"]=600, ["ping"]=_G["Starfall"]},
