@@ -145,13 +145,13 @@ task.spawn(function()
             elseif number < 99999 then
                 color = 0xFFA500
             elseif number < 999999 then
-                color = 0x00BFFF
+                color = 0x39FFE8
             elseif number < 9999999 then
-                color = 0xFF69B4
+                color = 0xFF73FD
             elseif number < 99999999 then
                 color = 0x0000FF
             elseif number >= 99999998 then
-                color = 0xFF0000
+                color = 0xFF0088
                 contentmsg = "<" .. _G["Globals"] .. ">"
             end
 
