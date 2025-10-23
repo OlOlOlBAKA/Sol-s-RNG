@@ -98,25 +98,35 @@ local function SendMerchantWebhook(title, desc, color, anothermessage, webhookUR
     })
 end
 
+local function extractHexColor(input)
+    local hex = string.match(input, 'color="[#]?(%x%x%x%x%x%x)"')
+
+    if hex then
+        return "0x"..hex
+    end
+
+    return "0xFFFFFF"
+end
+
 -- Keyword Cache
 local keywordCache = {
-    ["windy"]       = {["color"]=0xADD8E6, ["display"]="Windy", ["despawn"]=120},
-    ["snowy"]       = {["color"]=0xFFFFFF, ["display"]="Snowy", ["despawn"]=120},
-    ["rainy"]       = {["color"]=0x024DAF, ["display"]="Rainy", ["despawn"]=120},
-    ["blazing sun"] = {["color"]=0xFFA500, ["display"]="Blazing Sun", ["despawn"]=140},
-    ["graveyard"] = {["color"]=0xFFFFFF, ["display"]="Graveyard", ["despawn"]=140},
-    ["pumpkin moon"] = {["color"]=0xFFA500, ["display"]="Pumpkin Moon", ["despawn"]=140},
-    ["blood rain"] = {["color"]=0x8B0000, ["display"]="Blood Rain", ["despawn"]=140},
-    ["sand storm"]  = {["color"]=0xDAA520, ["display"]="Sand Storm", ["despawn"]=660, ["ping"]=_G["SandStorm"]},
-    ["hell"]        = {["color"]=0x8B0000, ["display"]="Hell", ["despawn"]=660, ["ping"]=_G["Hell"]},
-    ["starfall"]    = {["color"]=0x1E90FF, ["display"]="Starfall", ["despawn"]=600, ["ping"]=_G["Starfall"]},
-    ["corruption"]  = {["color"]=0x800080, ["display"]="Corruption", ["despawn"]=660, ["ping"]=_G["Corruption"]},
-    ["null"]        = {["color"]=0x000000, ["display"]="Null", ["despawn"]=99, ["ping"]=_G["Null"]},
-    ["manager"]     = {["color"]=0x228B22, ["display"]="Glitched", ["despawn"]=124, ["ping"]=_G["Glitched"]},
-    ["dreamspace"]  = {["color"]=0xFF70D9, ["display"]="Dreamspace", ["despawn"]=128, ["ping"]=_G["Dreamspace"]},
-    ["mari"]        = {["color"]=0xFFFFFF, ["display"]="Mari", ["despawn"]=180},
-    ["jester"]      = {["color"]=0x800080, ["display"]="Jester", ["despawn"]=180, ["ping"]=_G["Jester"]},
-    ["eden"]        = {["color"]=0x000000, ["display"]="Eden", ["despawn"]=1800, ["ping"]=_G["Eden"]},
+    ["windy"]       = {["display"]="Windy", ["despawn"]=120},
+    ["snowy"]       = {["display"]="Snowy", ["despawn"]=120},
+    ["rainy"]       = {["display"]="Rainy", ["despawn"]=120},
+    ["blazing sun"] = {["display"]="Blazing Sun", ["despawn"]=140},
+    ["graveyard"] = {["display"]="Graveyard", ["despawn"]=140},
+    ["pumpkin moon"] = {["display"]="Pumpkin Moon", ["despawn"]=140},
+    ["blood rain"] = {["display"]="Blood Rain", ["despawn"]=140},
+    ["sand storm"]  = {["display"]="Sand Storm", ["despawn"]=660, ["ping"]=_G["SandStorm"]},
+    ["hell"]        = {["display"]="Hell", ["despawn"]=660, ["ping"]=_G["Hell"]},
+    ["starfall"]    = {["display"]="Starfall", ["despawn"]=600, ["ping"]=_G["Starfall"]},
+    ["corruption"]  = {["display"]="Corruption", ["despawn"]=660, ["ping"]=_G["Corruption"]},
+    ["null"]        = {["display"]="Null", ["despawn"]=99, ["ping"]=_G["Null"]},
+    ["manager"]     = {["display"]="Glitched", ["despawn"]=124, ["ping"]=_G["Glitched"]},
+    ["dreamspace"]  = {["display"]="Dreamspace", ["despawn"]=128, ["ping"]=_G["Dreamspace"]},
+    ["mari"]        = {["display"]="Mari", ["despawn"]=180},
+    ["jester"]      = {["display"]="Jester", ["despawn"]=180, ["ping"]=_G["Jester"]},
+    ["eden"]        = {["display"]="Eden", ["despawn"]=1800, ["ping"]=_G["Eden"]},
 }
 
 -- AntiAFK
@@ -132,26 +142,15 @@ task.spawn(function()
     channel2["MessageReceived"]:Connect(function(message)
         if not message["Text"] then return end
         local text = message["Text"]
+        local color = extractHexColor(message.Text)
         text = text:gsub("<.->","")
         local numberStr = string.match(text, "CHANCE OF 1 IN ([%d,]+)")
         if numberStr then
             numberStr = numberStr:gsub(",", "")
             local number = tonumber(numberStr)
-            local color = 0xFFFFFF
             local contentmsg = ""
-
-            if number < 9999 then
-                color = 0x800080
-            elseif number < 99999 then
-                color = 0xFFA500
-            elseif number < 999999 then
-                color = 0x39FFE8
-            elseif number < 9999999 then
-                color = 0xFF73FD
-            elseif number < 99999999 then
-                color = 0x0000FF
-            elseif number >= 99999998 then
-                color = 0xFF0088
+            
+            if number >= 99999998 then
                 contentmsg = "<" .. _G["Globals"] .. ">"
             end
 
@@ -161,25 +160,25 @@ task.spawn(function()
         else
             local lowerText = text:lower()
             if string.match(lowerText,"pixelated") then
-                SendAuraWebhook("**Aura Detected**", text, 0x00FF00, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
             elseif string.match(lowerText,"blinding") then
-                SendAuraWebhook("**Aura Detected**", text, 0xADD8E6, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
             elseif string.match(lowerText,"positive") then
-                SendAuraWebhook("**Aura Detected**", text, 0x777777, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
             elseif string.match(lowerText,"glorious") then
-                SendAuraWebhook("**Aura Detected**", text, 0xFF0000, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["Globals"] .. ">")
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["Globals"] .. ">")
             elseif string.match(lowerText,"transcendent") then
-                SendAuraWebhook("**Aura Detected**", text, 0xADD8E6, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
             elseif string.match(lowerText,"exalted") then
-                SendAuraWebhook("**Aura Detected**", text, 0x0000FF, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "")
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "")
             elseif string.match(lowerText,"the truth") then
-                SendAuraWebhook("**Aura Detected**", text, 0x3A00AF, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<".. _G["OneBillion"] .. ">")
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<".. _G["OneBillion"] .. ">")
             elseif string.match(lowerText,"memory") then
-                SendAuraWebhook("**Aura Detected**", text, 0x3A00AF, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<".. _G["Globals"] .. ">")
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<".. _G["Globals"] .. ">")
             elseif string.match(lowerText,"neferkhaf") then
-                SendAuraWebhook("**Aura Detected**", text, 0x957802, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<".. _G["OneBillion"] .. ">")
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<".. _G["OneBillion"] .. ">")
             else
-                SendAuraWebhook("**Unknown Aura Detected**", text, 0xFFFFFF, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "")
+                SendAuraWebhook("**Unknown Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "")
             end
         end
     end)
@@ -190,6 +189,7 @@ task.spawn(function()
     channel1["MessageReceived"]:Connect(function(message)
         if not message["Text"] or message["TextSource"] ~= nil then return end
         local text = message["Text"]:lower()
+        local color = extractHexColor(message.Text)
         local keyword, data
         for k, v in pairs(keywordCache) do
             if string.find(text, k) then
@@ -212,7 +212,7 @@ task.spawn(function()
             SendMerchantWebhook(
                 "**Merchant Detected**",
                 data["display"] .. " Has Spawned!",
-                data["color"],
+                color,
                 cleanMsg,
                 _G["MerchantWebhook"],
                 discordTime,
@@ -223,7 +223,7 @@ task.spawn(function()
             SendBiomeWebhook(
                 "**Eden Detected**",
                 "Eden Has Spawned On " .. player["Name"] .. " Side!",
-                data["color"],
+                color,
                 cleanMsg,
                 _G["AuraWebhook"],
                 discordTime,
@@ -234,7 +234,7 @@ task.spawn(function()
             SendBiomeWebhook(
                 "**Biome Detected**",
                 data["display"] .. " Has Spawned!",
-                data["color"],
+                color,
                 cleanMsg,
                 _G["BiomeWebhook"],
                 discordTime,
