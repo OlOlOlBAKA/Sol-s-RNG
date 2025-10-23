@@ -56,7 +56,7 @@ local function SendBiomeWebhook(title, desc, color, anothermessage, webhookURL, 
     })
 end
 
-local function SendAuraWebhook(title, desc, color, anothermessage, webhookURL, GotTime, contentmsg,roll)
+local function SendAuraWebhook(title, desc, color, anothermessage, webhookURL, GotTime, contentmsg)
     request({
         ["Url"] = webhookURL,
         ["Method"] = "POST",
@@ -70,8 +70,7 @@ local function SendAuraWebhook(title, desc, color, anothermessage, webhookURL, G
                 ["type"] = "rich",
                 ["color"] = tonumber(color),
                 ["fields"] = {
-                    {["name"]="Time", ["value"]=GotTime, ["inline"]=true},
-                    {["name"]="Roll At Around", ["value"]=roll, ["inline"]=true},
+                    {["name"]="Time", ["value"]=GotTime, ["inline"]=true}
                 }
             }}
         })
