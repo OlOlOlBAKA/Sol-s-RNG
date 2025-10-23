@@ -113,11 +113,11 @@ local keywordCache = {
     ["windy"]       = {["display"]="Windy", ["despawn"]=120},
     ["snowy"]       = {["display"]="Snowy", ["despawn"]=120},
     ["rainy"]       = {["display"]="Rainy", ["despawn"]=120},
-    ["blazing sun"] = {["display"]="Blazing Sun", ["despawn"]=140},
+    ["blazingsun"] = {["display"]="Blazing Sun", ["despawn"]=140},
     ["graveyard"] = {["display"]="Graveyard", ["despawn"]=140},
-    ["pumpkin moon"] = {["display"]="Pumpkin Moon", ["despawn"]=140},
-    ["blood rain"] = {["display"]="Blood Rain", ["despawn"]=140},
-    ["sand storm"]  = {["display"]="Sand Storm", ["despawn"]=660, ["ping"]=_G["SandStorm"]},
+    ["pumpkinmoon"] = {["display"]="Pumpkin Moon", ["despawn"]=140},
+    ["bloodrain"] = {["display"]="Blood Rain", ["despawn"]=140},
+    ["sandstorm"]  = {["display"]="Sand Storm", ["despawn"]=660, ["ping"]=_G["SandStorm"]},
     ["hell"]        = {["display"]="Hell", ["despawn"]=660, ["ping"]=_G["Hell"]},
     ["starfall"]    = {["display"]="Starfall", ["despawn"]=600, ["ping"]=_G["Starfall"]},
     ["corruption"]  = {["display"]="Corruption", ["despawn"]=660, ["ping"]=_G["Corruption"]},
@@ -189,10 +189,11 @@ task.spawn(function()
     channel1["MessageReceived"]:Connect(function(message)
         if not message["Text"] or message["TextSource"] ~= nil then return end
         local text = message["Text"]:lower()
+        local gsubText = message.Text:lower():gsub(" ","")
         local color = extractHexColor(message.Text)
         local keyword, data
         for k, v in pairs(keywordCache) do
-            if string.find(text, k) then
+            if string.find(gsubText, k) then
                 keyword = k
                 data = v
                 break
