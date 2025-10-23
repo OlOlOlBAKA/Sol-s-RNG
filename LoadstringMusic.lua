@@ -3,6 +3,6 @@ _G.MusicEnabled = true
 -- Link Of Music
 _G.MusicLink = ""
 -- Music File Name if you want to use another music do not use same name with the previous one but if you want to execute the previous one just change file name to the previous one
-_G.MusicFileName = ""
+_G.FileName = ""
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/CustomMusic.lua"))()
