@@ -116,7 +116,7 @@ local keywordCache = {
     ["blazingsun"] = {["display"]="Blazing Sun", ["despawn"]=140},
     ["graveyard"] = {["display"]="Graveyard", ["despawn"]=140},
     ["pumpkinmoon"] = {["display"]="Pumpkin Moon", ["despawn"]=140},
-    ["bloodrain"] = {["display"]="Blood Rain", ["despawn"]=140},
+    ["bloodrain"] = {["display"]="Blood Rain", ["despawn"]=600},
     ["sandstorm"]  = {["display"]="Sand Storm", ["despawn"]=660, ["ping"]=_G["SandStorm"]},
     ["hell"]        = {["display"]="Hell", ["despawn"]=660, ["ping"]=_G["Hell"]},
     ["starfall"]    = {["display"]="Starfall", ["despawn"]=600, ["ping"]=_G["Starfall"]},
