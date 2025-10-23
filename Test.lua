@@ -162,13 +162,7 @@ task.spawn(function()
     channel2["MessageReceived"]:Connect(function(message)
         if not message["Text"] then return end
         local text = message["Text"]
-        local playerRoll = "[ Unknown ]"
         local color = extractHexColor(message.Text)
-        for _,player in ipairs(Players:GetPlayers()) do
-            if string.match(text, player.Name) then
-                playerRoll = tostring(formatNumberWithCommas(player.leaderstats.Rolls.Value))
-            end
-        end
         text = text:gsub("<.->","")
         local numberStr = string.match(text, "CHANCE OF 1 IN ([%d,]+)")
         if numberStr then
@@ -183,29 +177,29 @@ task.spawn(function()
             local time = os.time()
             local discordTime = "<t:" .. time .. ":F>"
             
-            SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, contentmsg, playerRoll)
+            SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, contentmsg)
         else
             local lowerText = text:lower()
             if string.match(lowerText,"pixelated") then
-                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">", playerRoll)
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
             elseif string.match(lowerText,"blinding") then
-                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">", playerRoll)
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
             elseif string.match(lowerText,"positive") then
-                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">", playerRoll)
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
             elseif string.match(lowerText,"glorious") then
-                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["Globals"] .. ">", playerRoll)
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["Globals"] .. ">")
             elseif string.match(lowerText,"transcendent") then
-                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">", playerRoll)
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<" .. _G["OneBillion"] .. ">")
             elseif string.match(lowerText,"exalted") then
-                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "", playerRoll)
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "")
             elseif string.match(lowerText,"the truth") then
-                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<".. _G["OneBillion"] .. ">", playerRoll)
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<".. _G["OneBillion"] .. ">")
             elseif string.match(lowerText,"memory") then
-                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<".. _G["Globals"] .. ">", playerRoll)
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<".. _G["Globals"] .. ">")
             elseif string.match(lowerText,"neferkhaf") then
-                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<".. _G["OneBillion"] .. ">", playerRoll)
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "<".. _G["OneBillion"] .. ">")
             else
-                SendAuraWebhook("**Unknown Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "", playerRoll)
+                SendAuraWebhook("**Unknown Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", "")
             end
         end
     end)
