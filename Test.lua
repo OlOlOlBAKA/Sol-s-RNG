@@ -185,7 +185,8 @@ task.spawn(function()
 
         -- ตรวจสอบ Aura พิเศษ (1 in 99,999,998+)
         if numberStr then
-            local number = tonumber(numberStr:gsub(",", ""))
+            numberStr = numberStr:gsub(",", "")
+            local number = tonumber(numberStr)
             if number >= 99999998 then
                 contentmsg = "<" .. _G["Globals"] .. ">"
             end
