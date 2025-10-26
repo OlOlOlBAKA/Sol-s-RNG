@@ -164,52 +164,58 @@ task.spawn(function()
     channel2["MessageReceived"]:Connect(function(message)
         if not message["Text"] then return end
         if string.match(message.Text:lower(), "global") then return end
+
         local text = message["Text"]
         local playerRolled = nil
-        for _,v in pairs(Players:GetPlayers()) do
-           if string.match(text, v.Name) then
-              playerRolled = v
-           else
-              playerRolled = nil
-           end
-        end
-        local color = extractHexColor(message.Text)
-        text = text:gsub("<.->","")
-        local numberStr = string.match(text, "CHANCE OF 1 IN ([%d,]+)")
-        if numberStr then
-            numberStr = numberStr:gsub(",", "")
-            local number = tonumber(numberStr)
-            local contentmsg = ""
-            local RollAmount = "[ Unknown ]"
-            if playerRolled then
-                RollAmount = formatNumberWithCommas(playerRolled:GetAttribute("Rolls"))
+
+        -- ค้นหาผู้เล่นจากชื่อในข้อความ
+        for _, v in pairs(Players:GetPlayers()) do
+            if string.match(text, v.Name) then
+                playerRolled = v
+                break  -- พบแล้ว ออกจากลูป
             end
-            
+        end
+
+        local color = extractHexColor(message.Text)
+        text = text:gsub("<.->", "")  -- ลบแท็ก HTML
+
+        local lowerText = text:lower()
+        local numberStr = string.match(text, "CHANCE OF 1 IN ([%d,]+)")
+        local RollAmount = playerRolled and formatNumberWithCommas(playerRolled:GetAttribute("Rolls")) or "[ Unknown ]"
+        local contentmsg = ""
+        local pingRole = ""
+
+        -- ตรวจสอบ Aura พิเศษ (1 in 99,999,998+)
+        if numberStr then
+            local number = tonumber(numberStr:gsub(",", ""))
             if number >= 99999998 then
                 contentmsg = "<" .. _G["Globals"] .. ">"
             end
 
-            local time = os.time()
-            local discordTime = "<t:" .. time .. ":F>"
-            
+            local discordTime = "<t:" .. os.time() .. ":F>"
             SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, contentmsg)
+
         else
-            local lowerText = text:lower()
-            local pingRole = ""
+            -- Aura พิเศษอื่น ๆ
             if string.match(lowerText, "pixelated")
-    or string.match(lowerText, "blinding")
-    or string.match(lowerText, "positive")
-    or string.match(lowerText, "transcendent")
-    or string.match(lowerText, "the truth")
-    or string.match(lowerText, "neferkhaf") 
-    or string.match(lowerText, "nightmare") 
-    or string.match(lowerText, "calamity")
-    pingRole = "<" .. BillionPing .. ">"
-elseif string.match(lowerText, "glorious")
-    or string.match(lowerText, "memory") then
-     pingRole = "<" .. GlobalPing .. ">"
-                    end
-    SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], "<t:" .. os.time() .. ":F>", pingRole, RollAmount)
+                or string.match(lowerText, "blinding")
+                or string.match(lowerText, "positive")
+                or string.match(lowerText, "transcendent")
+                or string.match(lowerText, "the truth")
+                or string.match(lowerText, "neferkhaf")
+                or string.match(lowerText, "nightmare")
+                or string.match(lowerText, "calamity") then
+
+                pingRole = "<" .. BillionPing .. ">"
+
+            elseif string.match(lowerText, "glorious")
+                or string.match(lowerText, "memory") then
+
+                pingRole = "<" .. GlobalPing .. ">"
+            end
+
+            local discordTime = "<t:" .. os.time() .. ":F>"
+            SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, pingRole, RollAmount)
         end
     end)
 end)
