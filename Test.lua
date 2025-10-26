@@ -160,6 +160,7 @@ end)
 task.spawn(function()
     channel2["MessageReceived"]:Connect(function(message)
         if not message["Text"] then return end
+        if string.match(message.Text:lower(), "global") then return end
         local text = message["Text"]
         local color = extractHexColor(message.Text)
         text = text:gsub("<.->","")
