@@ -70,10 +70,8 @@ local function SendAuraWebhook(title, desc, color, anothermessage, webhookURL, G
                 ["type"] = "rich",
                 ["color"] = tonumber(color),
                 ["fields"] = {
-                    {
-                    ["name"]="Time Discovered", ["value"]=GotTime, ["inline"]=true,
-                    ["name"]="Roll At Around", ["value"]=rolls, ["inline"]=true,
-                    }
+                    {["name"]="Time Discovered", ["value"]=GotTime, ["inline"]=true},
+                    {["name"]="Roll At Around", ["value"]=rolls, ["inline"]=true},
                 }
             }}
         })
