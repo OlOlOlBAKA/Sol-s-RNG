@@ -179,6 +179,7 @@ task.spawn(function()
 
         local lowerText = text:lower()
         local numberStr = string.match(text, "CHANCE OF 1 IN ([%d,]+)")
+                
         local RollAmount = playerRolled and formatNumberWithCommas(playerRolled:GetAttribute("Rolls")) or "[ Unknown ]"
         local contentmsg = ""
         local pingRole = ""
@@ -192,7 +193,7 @@ task.spawn(function()
             end
 
             local discordTime = "<t:" .. os.time() .. ":F>"
-            SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, contentmsg)
+            SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, contentmsg, RollAmount)
 
         else
             -- Aura พิเศษอื่น ๆ
