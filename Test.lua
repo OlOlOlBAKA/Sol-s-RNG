@@ -32,7 +32,7 @@ local GlobalPing = _G["Globals"]
 local BillionPing = _G["OneBillion"]
 local EdenPing = _G["Eden"]
 
--- Webhook Functions (เอารูปออก)
+-- Webhook Functions
 local function SendBiomeWebhook(title, desc, color, anothermessage, webhookURL, spawnTime, despawnTime, contentmsg, roll)
     request({
         ["Url"] = webhookURL,
@@ -192,7 +192,7 @@ task.spawn(function()
                 contentmsg = "<" .. _G["Globals"] .. ">"
             end
 
-            local discordTime = "<t:" .. os.time() .. ":F>"
+            local discordTime = "<t:" .. os.time() .. ":F>" .. " Or " .. "<t:" .. os.time() .. ":R>"
             SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, contentmsg, RollAmount)
 
         else
@@ -242,8 +242,8 @@ task.spawn(function()
         local contentmsg = data["ping"] and ("<" .. data["ping"] .. ">") or ""
 
         local time = os.time()
-        local discordTime = "<t:" .. time .. ":F>"
-        local discordDespawnTime = "<t:" .. (time + despawnTime) .. ":R>"
+        local discordTime = "<t:" .. time .. ":F>" .. " Or " .. "<t:" .. time .. ":R>"
+        local discordDespawnTime = "<t:" .. (time + despawnTime) .. ":F>" .. " Or " .. "<t:" .. (time + despawnTime) .. ":R>"
 
         if keyword == "mari" or keyword == "jester" then
             SendMerchantWebhook(
