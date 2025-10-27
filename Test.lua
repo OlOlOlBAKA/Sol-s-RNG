@@ -214,7 +214,7 @@ task.spawn(function()
                 pingRole = "<" .. GlobalPing .. ">"
             end
 
-            local discordTime = "<t:" .. os.time() .. ":F>"
+            local discordTime = "<t:" .. os.time() .. ":F>" .. " Or " .. "<t:" .. os.time() .. ":R>"
             SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, pingRole, RollAmount)
         end
     end)
