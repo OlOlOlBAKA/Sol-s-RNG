@@ -157,7 +157,7 @@ task.spawn(function()
     end)
 end)
 
--- Channel2: Aura (ตัวเลข + keywords)
+-- Channel2: Aura (rarity checks + keywords)
 task.spawn(function()
     channel2["MessageReceived"]:Connect(function(message)
         if not message["Text"] then return end
@@ -166,16 +166,16 @@ task.spawn(function()
         local text = message["Text"]
         local playerRolled = nil
 
-        -- ค้นหาผู้เล่นจากชื่อในข้อความ
+        -- check player name in message sent
         for _, v in pairs(Players:GetPlayers()) do
             if string.match(text, v.Name) then
                 playerRolled = v
-                break  -- พบแล้ว ออกจากลูป
+                break  -- found, break the loop
             end
         end
 
         local color = extractHexColor(message.Text)
-        text = text:gsub("<.->", "")  -- ลบแท็ก HTML
+        text = text:gsub("<.->", "")
 
         local lowerText = text:lower()
         local numberStr = string.match(text, "CHANCE OF 1 IN ([%d,]+)")
@@ -184,11 +184,11 @@ task.spawn(function()
         local contentmsg = ""
         local pingRole = ""
 
-        -- ตรวจสอบ Aura พิเศษ (1 in 99,999,998+)
+        -- check global aura (1 in 99,999,999+)
         if numberStr then
             numberStr = numberStr:gsub(",", "")
             local number = tonumber(numberStr)
-            if number >= 99999998 then
+            if number >= 99999999 then
                 contentmsg = "<" .. _G["Globals"] .. ">"
             end
 
@@ -196,7 +196,7 @@ task.spawn(function()
             SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, contentmsg, RollAmount)
 
         else
-            -- Aura พิเศษอื่น ๆ
+            -- 1B auras check + special auras
             if string.match(lowerText, "pixelated")
                 or string.match(lowerText, "blinding")
                 or string.match(lowerText, "positive")
@@ -284,7 +284,7 @@ end)
 
 StarterGui:SetCore("SendNotification", {
     ["Title"] = "Macro Script",
-    ["Text"] = "Made by Chosen and Sega",
+    ["Text"] = "Made by Chosen and P Joe",
     ["Duration"] = 5
 })
 
