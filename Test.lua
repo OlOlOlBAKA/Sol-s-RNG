@@ -4,6 +4,8 @@ else
     return
 end
 
+local currentVersion = "1.21.4"
+
 local HttpService = game:GetService("HttpService")
 local TextChatService = game:GetService("TextChatService")
 local Players = game:GetService("Players")
@@ -46,6 +48,10 @@ local function SendBiomeWebhook(title, desc, color, anothermessage, webhookURL, 
                 ["image"] = {["url"] = ""},
                 ["type"] = "rich",
                 ["color"] = tonumber(color),
+                ["footer"] = {
+                    ["text"] = "Bao Macro (v." .. currentVersion ..")",
+                    ["icon_url"] = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/images%20(13).jpeg?raw=true",
+                },
                 ["fields"] = {
                     {["name"]="Spawn Time", ["value"]=spawnTime, ["inline"]=true},
                     {["name"]="Despawn Time", ["value"]=despawnTime, ["inline"]=true},
@@ -69,6 +75,10 @@ local function SendAuraWebhook(title, desc, color, anothermessage, webhookURL, G
                 ["image"] = {["url"] = ""},
                 ["type"] = "rich",
                 ["color"] = tonumber(color),
+                ["footer"] = {
+                    ["text"] = "Bao Macro (v." .. currentVersion ..")",
+                    ["icon_url"] = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/images%20(13).jpeg?raw=true",
+                },
                 ["fields"] = {
                     {["name"]="Time Discovered", ["value"]=GotTime, ["inline"]=true},
                     {["name"]="Roll At Around", ["value"]=rolls, ["inline"]=true},
@@ -91,6 +101,10 @@ local function SendMerchantWebhook(title, desc, color, anothermessage, webhookUR
                 ["image"] = {["url"] = ""},
                 ["type"] = "rich",
                 ["color"] = tonumber(color),
+                ["footer"] = {
+                    ["text"] = "Bao Macro (v." .. currentVersion ..")",
+                    ["icon_url"] = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/images%20(13).jpeg?raw=true",
+                },
                 ["fields"] = {
                     {["name"]="Spawn Time", ["value"]=spawnTime, ["inline"]=true},
                     {["name"]="Despawn Time", ["value"]=despawnTime, ["inline"]=true},
@@ -283,7 +297,7 @@ task.spawn(function()
 end)
 
 StarterGui:SetCore("SendNotification", {
-    ["Title"] = "Macro Script",
+    ["Title"] = "Macro Script (V. " ..currentVersion ..")",
     ["Text"] = "Made by Chosen and P Joe",
     ["Duration"] = 5
 })
