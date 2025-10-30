@@ -34,6 +34,8 @@ local GlobalPing = _G["Globals"]
 local BillionPing = _G["OneBillion"]
 local EdenPing = _G["Eden"]
 
+local Blacklisted = loadstring(game:HttpGet("https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/Blacklisted.lua"))()
+
 -- Webhook Functions
 local function SendBiomeWebhook(title, desc, color, anothermessage, webhookURL, spawnTime, despawnTime, contentmsg, roll)
     request({
@@ -179,13 +181,24 @@ task.spawn(function()
 
         local text = message["Text"]
         local playerRolled = nil
-
+        local blacklistedPlayer = nil
+                
         -- check player name in message sent
         for _, v in pairs(Players:GetPlayers()) do
             if string.match(text, v.Name) then
                 playerRolled = v
                 break  -- found, break the loop
             end
+        end
+
+        if playerRolled then
+            for _,v in pairs(Blacklisted) do
+                if string.match(playerRolled, v) then
+                    blacklistedPlayer = v
+                    break
+                end
+            end
+            if blacklistedPlayer then return end
         end
 
         local color = extractHexColor(message.Text)
