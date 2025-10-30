@@ -193,7 +193,7 @@ task.spawn(function()
 
         if playerRolled then
             for _,v in pairs(Blacklisted) do
-                if string.match(playerRolled, v) then
+                if string.match(playerRolled.Name, v) then
                     blacklistedPlayer = v
                     break
                 end
