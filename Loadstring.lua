@@ -18,7 +18,7 @@ _G.Globals = ""
 _G.OneBillion = ""
 -- type user in table here
 -- blacklist users will disable message that blacklisted user found the aura in chat
-_G.BlacklistUsers = {"Player1","Player2"}
+_G.BlacklistedUsers = {"Player1","Player2"}
 -- Eden (ONLY FOR PERSON WHO USED MACRO) Role ID too
 _G.Eden = ""
 
