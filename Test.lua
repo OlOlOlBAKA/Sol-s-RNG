@@ -4,7 +4,7 @@ else
     return
 end
 
-local currentVersion = "1.22.1"
+local currentVersion = "1.22.3"
 
 local HttpService = game:GetService("HttpService")
 local TextChatService = game:GetService("TextChatService")
@@ -298,7 +298,7 @@ task.spawn(function()
             if keyword == "manager" then
                 if string.match(cleanMsg:lower(), "resolved") then return end
             elseif keyword == "dreamspace" then
-                if string.match(cleanMsg:lower(), "waking" then return end
+                if string.match(cleanMsg:lower(), "waking") then return end
             end
             SendBiomeWebhook(
                 "**Biome Detected**",
