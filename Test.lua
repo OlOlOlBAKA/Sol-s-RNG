@@ -4,7 +4,7 @@ else
     return
 end
 
-local currentVersion = "1.21.4"
+local currentVersion = "1.22.1"
 
 local HttpService = game:GetService("HttpService")
 local TextChatService = game:GetService("TextChatService")
@@ -34,7 +34,7 @@ local GlobalPing = _G["Globals"]
 local BillionPing = _G["OneBillion"]
 local EdenPing = _G["Eden"]
 
-local Blacklisted = loadstring(game:HttpGet("https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/Blacklisted.lua"))()
+local Blacklisted = _G.BlacklistedUsers or loadstring(game:HttpGet("https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/Blacklisted.lua"))()
 
 -- Webhook Functions
 local function SendBiomeWebhook(title, desc, color, anothermessage, webhookURL, spawnTime, despawnTime, contentmsg, roll)
@@ -316,3 +316,4 @@ StarterGui:SetCore("SendNotification", {
 })
 
 print("Script Loaded")
+print(currentVersion)
