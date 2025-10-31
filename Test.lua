@@ -298,7 +298,7 @@ task.spawn(function()
             if keyword == "manager" then
                 if string.match(cleanMsg:lower(), "resolved") then return end
             elseif keyword == "dreamspace" then
-                if string.match(cleanMsg:lower(), "waking" then return end
+                if string.match(cleanMsg:lower(), "waking") then return end
             end
             SendBiomeWebhook(
                 "**Biome Detected**",
