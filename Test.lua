@@ -216,7 +216,7 @@ task.spawn(function()
             numberStr = numberStr:gsub(",", "")
             local number = tonumber(numberStr)
             if number >= 99999999 then
-                contentmsg = "<" .. _G["Globals"] .. ">"
+                contentmsg = _G["Globals"]
             end
 
             local discordTime = "<t:" .. os.time() .. ":F>" .. " Or " .. "<t:" .. os.time() .. ":R>"
@@ -233,12 +233,12 @@ task.spawn(function()
                 or string.match(lowerText, "nightmare")
                 or string.match(lowerText, "calamity") then
 
-                pingRole = "<" .. BillionPing .. ">"
+                pingRole = BillionPing
 
             elseif string.match(lowerText, "glorious")
                 or string.match(lowerText, "memory") then
 
-                pingRole = "<" .. GlobalPing .. ">"
+                pingRole = GlobalPing
             end
 
             local discordTime = "<t:" .. os.time() .. ":F>" .. " Or " .. "<t:" .. os.time() .. ":R>"
@@ -266,7 +266,7 @@ task.spawn(function()
 
         local cleanMsg = message["Text"]:gsub('<font color=".-">', ""):gsub("</font>", "")
         local despawnTime = data["despawn"]
-        local contentmsg = data["ping"] and ("<" .. data["ping"] .. ">") or ""
+        local contentmsg = data["ping"] or ""
 
         local time = os.time()
         local discordTime = "<t:" .. time .. ":F>" .. " Or " .. "<t:" .. time .. ":R>"
@@ -295,6 +295,11 @@ task.spawn(function()
                 contentmsg
             )
         else
+            if keyword == "manager" then
+                if string.match(cleanMsg:lower(), "resolved") then return end
+            elseif keyword == "dreamspace" then
+                if string.match(cleanMsg:lower(), "waking" then return end
+            end
             SendBiomeWebhook(
                 "**Biome Detected**",
                 data["display"] .. " Has Spawned!",
