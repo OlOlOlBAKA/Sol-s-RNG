@@ -1,7 +1,7 @@
--- Webhooks Type Your Webhook Link here
-_G.BiomeWebhook = "https://discord.com/api/webhooks/1401863494181064785/d5jCAV2Uzct4BgQwfhJahYmviX3huH9uzmZUDkF9K7W77YryXQ8bcufDhHlP5DinuhTv"
+-- Webhooks Type Your Webhook Link here (you can use same link if you want them be in 1 text channel of discord server
+_G.BiomeWebhook = ""
 _G.AuraWebhook = ""
-_G.MerchantWebhook = "https://discord.com/api/webhooks/1402263937071845396/PMHFPLS3OrpYEOR-zp8SHaJ3GB9jW3tjiRLtrUOi0bnUOU-oCLpFSeqVTYMzz2xW_gLu"
+_G.MerchantWebhook = ""
 -- Biome Ping Type Your Role ID here example <@&ROLE_ID>
 _G.SandStorm = ""
 _G.Hell = ""
