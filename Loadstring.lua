@@ -2,7 +2,7 @@
 _G.BiomeWebhook = "https://discord.com/api/webhooks/1401863494181064785/d5jCAV2Uzct4BgQwfhJahYmviX3huH9uzmZUDkF9K7W77YryXQ8bcufDhHlP5DinuhTv"
 _G.AuraWebhook = ""
 _G.MerchantWebhook = "https://discord.com/api/webhooks/1402263937071845396/PMHFPLS3OrpYEOR-zp8SHaJ3GB9jW3tjiRLtrUOi0bnUOU-oCLpFSeqVTYMzz2xW_gLu"
--- Biome Ping Type Your Role ID here
+-- Biome Ping Type Your Role ID here example <@&ROLE_ID>
 _G.SandStorm = ""
 _G.Hell = ""
 _G.Starfall = ""
@@ -16,6 +16,9 @@ _G.Jester = ""
 -- Auras Ping Type Your Role ID here
 _G.Globals = ""
 _G.OneBillion = ""
+-- type user in table here
+-- blacklist users will disable message that blacklisted user found the aura in chat
+_G.BlacklistUsers = {"Player1","Player2"}
 -- Eden (ONLY FOR PERSON WHO USED MACRO) Role ID too
 _G.Eden = ""
 
