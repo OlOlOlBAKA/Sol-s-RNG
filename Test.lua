@@ -4,7 +4,7 @@ else
     return
 end
 
-local currentVersion = "1.22.1"
+local currentVersion = "1.23.1"
 
 local HttpService = game:GetService("HttpService")
 local TextChatService = game:GetService("TextChatService")
@@ -37,7 +37,7 @@ local EdenPing = _G["Eden"]
 local Blacklisted = _G.BlacklistedUsers or loadstring(game:HttpGet("https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/Blacklisted.lua"))()
 
 -- Webhook Functions
-local function SendBiomeWebhook(title, desc, color, anothermessage, webhookURL, spawnTime, despawnTime, contentmsg, roll)
+local function SendBiomeWebhook(title, desc, color, anothermessage, webhookURL, spawnTime, despawnTime, contentmsg, image)
     request({
         ["Url"] = webhookURL,
         ["Method"] = "POST",
@@ -53,6 +53,9 @@ local function SendBiomeWebhook(title, desc, color, anothermessage, webhookURL, 
                 ["footer"] = {
                     ["text"] = "Bao Macro (v." .. currentVersion ..")",
                     ["icon_url"] = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/images%20(13).jpeg?raw=true",
+                },
+                ["thumbnail"] = {
+                    ["url"] = image
                 },
                 ["fields"] = {
                     {["name"]="Spawn Time", ["value"]=spawnTime, ["inline"]=true},
@@ -292,13 +295,41 @@ task.spawn(function()
                 _G["AuraWebhook"],
                 discordTime,
                 discordDespawnTime,
-                contentmsg
+                contentmsg,
+                ""
             )
         else
-            if keyword == "manager" then
+            local imageURL = ""
+            if keyword == "windy" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2039_20251108101501.png?raw=true"
+            elseif keyword == "snowy" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2040_20251108101523.png?raw=true"
+            elseif keyword == "rainy" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2041_20251108101642.png?raw=true"
+            elseif keyword == "sandstorm" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2042_20251108101707.png?raw=true"
+            elseif keyword == "hell" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2043_20251108101728.png?raw=true"
+            elseif keyword == "starfall" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2044_20251108101751.png?raw=true"
+            elseif keyword == "corruption" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2045_20251108101812.png?raw=true"
+            elseif keyword == "null" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2046_20251108101901.png?raw=true"
+            elseif keyword == "manager" then
+                imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2038_20251108095656.png?raw=true"
                 if string.match(cleanMsg:lower(), "resolved") then return end
             elseif keyword == "dreamspace" then
+                imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2037_20251108095605.png?raw=true"
                 if string.match(cleanMsg:lower(), "waking") then return end
+            elseif keyword == "graveyard" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2048_20251108102000.png?raw=true"
+            elseif keyword == "pumpkinmoon" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2047_20251108101932.png?raw=true"
+            elseif keyword == "bloodrain" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2049_20251108102024.png?raw=true"
+            elseif keyword == "blazingsun" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2050_20251108102110.png?raw=true"
             end
             SendBiomeWebhook(
                 "**Biome Detected**",
@@ -308,7 +339,8 @@ task.spawn(function()
                 _G["BiomeWebhook"],
                 discordTime,
                 discordDespawnTime,
-                contentmsg
+                contentmsg,
+                imageURL
             )
         end
     end)
