@@ -4,7 +4,8 @@ else
     return
 end
 
-local currentVersion = "1.23.1"
+local currentVersion = "1.24.1"
+local macroLOGO = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2036_20251104174445.png?raw=true")
 
 local HttpService = game:GetService("HttpService")
 local TextChatService = game:GetService("TextChatService")
@@ -52,7 +53,7 @@ local function SendBiomeWebhook(title, desc, color, anothermessage, webhookURL, 
                 ["color"] = tonumber(color),
                 ["footer"] = {
                     ["text"] = "Bao Macro (v." .. currentVersion ..")",
-                    ["icon_url"] = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/images%20(13).jpeg?raw=true",
+                    ["icon_url"] = macroLOGO,
                 },
                 ["thumbnail"] = {
                     ["url"] = image
@@ -82,7 +83,7 @@ local function SendAuraWebhook(title, desc, color, anothermessage, webhookURL, G
                 ["color"] = tonumber(color),
                 ["footer"] = {
                     ["text"] = "Bao Macro (v." .. currentVersion ..")",
-                    ["icon_url"] = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/images%20(13).jpeg?raw=true",
+                    ["icon_url"] = macroLOGO,
                 },
                 ["fields"] = {
                     {["name"]="Time Discovered", ["value"]=GotTime, ["inline"]=true},
@@ -108,7 +109,7 @@ local function SendMerchantWebhook(title, desc, color, anothermessage, webhookUR
                 ["color"] = tonumber(color),
                 ["footer"] = {
                     ["text"] = "Bao Macro (v." .. currentVersion ..")",
-                    ["icon_url"] = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/images%20(13).jpeg?raw=true",
+                    ["icon_url"] = macroLOGO,
                 },
                 ["fields"] = {
                     {["name"]="Spawn Time", ["value"]=spawnTime, ["inline"]=true},
