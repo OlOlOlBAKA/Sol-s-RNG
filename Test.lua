@@ -171,10 +171,10 @@ local keywordCache = {
 
 -- AntiAFK
 task.spawn(function()
-    player["Idled"]:Connect(function()
+    while task.wait(60) do
         VirtualUser:CaptureController()
         VirtualUser:ClickButton1(Vector2.new(0,0))
-    end)
+    end
 end)
 
 -- Channel2: Aura (rarity checks + keywords)
