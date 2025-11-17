@@ -168,6 +168,18 @@ local keywordCache = {
     ["jester"]      = {["display"]="Jester", ["despawn"]=180, ["ping"]=_G["Jester"]},
     ["eden"]        = {["display"]="Eden", ["despawn"]=1800, ["ping"]=_G["Eden"]},
 }
+local native = {
+    ["windy"]       = { display = "Windy",       multiplier = 3  },
+    ["snowy"]       = { display = "Snowy",       multiplier = 3  },
+    ["rainy"]       = { display = "Rainy",       multiplier = 4  },
+    ["sandstorm"]   = { display = "Sandstorm",   multiplier = 4  },
+    ["starfall"]    = { display = "Starfall",    multiplier = 5  },
+    ["corruption"]  = { display = "Corruption",  multiplier = 5  },
+    ["hell"]        = { display = "Hell",        multiplier = 6  },
+    ["day"]         = { display = "Day",         multiplier = 10 },
+    ["night"]       = { display = "Night",       multiplier = 10 },
+    ["null"]        = { display = "Null",        multiplier = 1000 },
+}
 
 -- AntiAFK
 task.spawn(function()
