@@ -1,341 +1,387 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/OlOlOlBAKA/Utilities/refs/heads/main/JoinLog.lua"))()
+if not _G["AlreadyRun"] then
+    _G["AlreadyRun"] = true
+else
+    return
+end
 
+local currentVersion = "1.24.2"
+local macroLOGO = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2036_20251104174445.png?raw=true"
 
 local HttpService = game:GetService("HttpService")
 local TextChatService = game:GetService("TextChatService")
+local Players = game:GetService("Players")
+local VirtualUser = game:GetService("VirtualUser")
+local StarterGui = game:GetService("StarterGui")
 
-local channel = TextChatService.TextChannels["RBXGeneral"]
+local player = Players["LocalPlayer"]
+local channel1 = TextChatService["TextChannels"]["RBXGeneral"]
+local channel2 = TextChatService["Server Message"]
 
-local BiomeURL = "https://discord.com/api/webhooks/1401863494181064785/d5jCAV2Uzct4BgQwfhJahYmviX3huH9uzmZUDkF9K7W77YryXQ8bcufDhHlP5DinuhTv"
-local AuraURL = "https://discord.com/api/webhooks/1402263661308936272/QKTw1r0bxbVuZWTivCVlvkrpXwSuYSYfQCWzGpmlos20glq3rVh28TkRcs0TvtU2qfqO"
-local MerchantURL = "https://discord.com/api/webhooks/1402263937071845396/PMHFPLS3OrpYEOR-zp8SHaJ3GB9jW3tjiRLtrUOi0bnUOU-oCLpFSeqVTYMzz2xW_gLu"
-local urlimage = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/images%20(13).jpeg"
--- credit to regular vynixu
-local Module = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/refs/heads/main/Functions.lua"))()
+-- Webhooks
+local BiomeURL = _G["BiomeWebhook"]
+local AuraURL = _G["AuraWebhook"]
+local MerchantURL = _G["MerchantWebhook"]
 
-local function SendBiomeWebhook(title, desc, imageURL, color, anothermessage, webhookURL, spawnTime, despawnTime, contentmsg, Link)
-   local Response = request({
-       Url = webhookURL,
-       Method = "POST",
-       Headers = {
-           ["Content-Type"] = "application/json"
-       },
-       Body = HttpService:JSONEncode({
-           ["content"] = contentmsg,
-           ["embeds"] = {{
-               ["title"] = title,
-               ["description"] = desc,
-               ["image"] = {["url"] = imageURL},
-               ["type"] = "rich",
-               ["color"] = tonumber(color),
-               ["fields"] = {
-                   {
-                       ["name"] = "Spawn Time",
-                       ["value"] = spawnTime,
-                       ["inline"] = true,
-                   },
-                   {
-                       ["name"] = "Despawn Time",
-                       ["value"] = despawnTime,
-                       ["inline"] = true,
-                   },
-                   {
-                       ["name"] = "Original Message",
-                       ["value"] = anothermessage,
-                       ["inline"] = true,
-                   },
-               }
-           }}
-       })
-   })
-end
+-- Ping Roles
+local SandStormPing = _G["SandStorm"]
+local HellPing = _G["Hell"]
+local StarfallPing = _G["Starfall"]
+local CorruptionPing = _G["Corruption"]
+local NullPing = _G["Null"]
+local GlitchedPing = _G["Glitched"]
+local DreamspacePing = _G["Dreamspace"]
+local JesterPing = _G["Jester"]
+local GlobalPing = _G["Globals"]
+local BillionPing = _G["OneBillion"]
+local EdenPing = _G["Eden"]
 
-local function SendAuraWebhook(title, desc, imageURL, color, anothermessage, webhookURL, GotTime, contentmsg)
-   local Response = request({
-Url = webhookURL,
-Method = "POST",
-Headers = {
-["Content-Type"] = "application/json"
-},
-Body = HttpService:JSONEncode({
-["content"] = contentmsg,
-["embeds"] = {{
-["title"] = title,
-["description"] = desc,
-["image"] = {["url"] = imageURL},
-["type"] = "rich",
-["color"] = tonumber(color),
-["fields"] = {
-{
-["name"] = "Time",
-["value"] = GotTime,
-["inline"] = true,
-},
-}
-}}
-})
-}
-)
-end
+local Blacklisted = _G.BlacklistedUsers or loadstring(game:HttpGet("https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/Blacklisted.lua"))()
 
-local function SendMerchantWebhook(title, desc, imageURL, color, anothermessage, webhookURL, spawnTime, despawnTime, contentmsg)
-    local Response = request({
-        Url = webhookURL,
-        Method = "POST",
-        Headers = {
-            ["Content-Type"] = "application/json"
-        },
-        Body = HttpService:JSONEncode({
+-- Webhook Functions
+local function SendBiomeWebhook(title, desc, color, anothermessage, webhookURL, spawnTime, despawnTime, contentmsg, image)
+    request({
+        ["Url"] = webhookURL,
+        ["Method"] = "POST",
+        ["Headers"] = {["Content-Type"] = "application/json"},
+        ["Body"] = HttpService:JSONEncode({
             ["content"] = contentmsg,
             ["embeds"] = {{
                 ["title"] = title,
                 ["description"] = desc,
-                ["image"] = {["url"] = imageURL},
+                ["image"] = {["url"] = ""},
                 ["type"] = "rich",
                 ["color"] = tonumber(color),
+                ["footer"] = {
+                    ["text"] = "Bao Macro (v." .. currentVersion ..")",
+                    ["icon_url"] = macroLOGO,
+                },
+                ["thumbnail"] = {
+                    ["url"] = image
+                },
                 ["fields"] = {
-                    {
-                        ["name"] = "Spawn Time",
-                        ["value"] = spawnTime,
-                        ["inline"] = true,
-                    },
-                    {
-                        ["name"] = "Despawn Time",
-                        ["value"] = despawnTime,
-                        ["inline"] = true,
-                    },
-                    {
-                        ["name"] = "Original Message",
-                        ["value"] = anothermessage,
-                        ["inline"] = false, -- ปรับเป็น false จะได้แสดงเต็มบรรทัด
-                    },
+                    {["name"]="Spawn Time", ["value"]=spawnTime, ["inline"]=true},
+                    {["name"]="Despawn Time", ["value"]=despawnTime, ["inline"]=true},
+                    {["name"]="Original Message", ["value"]=anothermessage, ["inline"]=true}
                 }
             }}
         })
     })
 end
 
-local keywordsToColor = {
-["windy"] = 0xFFFFFF,
-["snowy"] = 0xFFFFFF,
-["rainy"] = 0xADD8E6,
-["blazing sun"] = 0xFFA500,
-["sand storm"] = 0xDAA520,
-["hell"] = 0x8B0000,
-["starfall"] = 0x1E90FF,
-["corruption"] = 0x800080,
-["null"] = 0x000000,
-["manager"] = 0x228B22,
-["dreamspace"] = 0xFF70D9,
-["mari"] = 0xFFFFFF,
-["jester"] = 0x800080,
-["eden"] = 0x000000,
-}
-
-local keywordsToNumber = {
-["windy"] = 120,
-["snowy"] = 120,
-["rainy"] = 120,
-["blazing sun"] = 140,
-["sand storm"] = 660,
-["hell"] = 660,
-["starfall"] = 600,
-["corruption"] = 660,
-["null"] = 99,
-["manager"] = 124,
-["dreamspace"] = 128,
-["mari"] = 180,
-["jester"] = 180,
-["eden"] = 1800,
-}
-
-local keywordsToDisplayName = {
-["windy"] = "Windy",
-["snowy"] = "Snowy",
-["rainy"] = "Rainy",
-["blazing sun"] = "Blazing Sun",
-["sand storm"] = "Sand Storm",
-["hell"] = "Hell",
-["starfall"] = "Starfall",
-["corruption"] = "Corruption",
-["null"] = "Null",
-["manager"] = "Glitched",
-["dreamspace"] = "Dreamspace",
-["mari"] = "Mari",
-["jester"] = "Jester",
-["eden"] = "Eden",
-}
-
-local keywordsToImage = {
-["windy"] = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/Windy_Icon_(BloxTrap).png",
-["snowy"] = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/Snowy_Icon_(BloxTrap).png",
-["rainy"] = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/Rainy_Biome_(BloxTrap_Icon).png",
-["blazing sun"] = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/images%20(14).jpeg",
-["sand storm"] = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/Sand_Storm_Biome_(BloxTrap).png",
-["hell"] = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/Hell_Biome_(BloxTrap).png",
-["starfall"] = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/Starfall_Biome_(Bloxtrap_Icon).png",
-["corruption"] = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/Corruption_Biome_(BloxTrap).png",
-["null"] = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/Null_Biome_(BloxTrap).png",
-["manager"] = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/Glitch_Tree.png",
-["dreamspace"] = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/images%20(13).jpeg",
-["mari"] = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/images%20(15).jpeg",
-["jester"] = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/images%20(16).jpeg",
-["eden"] = "https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/IMG_20250813_213446.jpg",
-}
-
-local function findKeyword(text)
-   text = string.lower(text)
-   for keyword, _ in pairs(keywordsToColor) do
-       if string.find(text, keyword) then
-          local color = keywordsToColor[keyword]
-          local Display =  keywordsToDisplayName[keyword]
-          local IMAGE = keywordsToImage[keyword]
-          return keyword, color, Display, IMAGE
-       end
-   end
-   return nil
+local function SendAuraWebhook(title, desc, color, anothermessage, webhookURL, GotTime, contentmsg, rolls)
+    request({
+        ["Url"] = webhookURL,
+        ["Method"] = "POST",
+        ["Headers"] = {["Content-Type"] = "application/json"},
+        ["Body"] = HttpService:JSONEncode({
+            ["content"] = contentmsg,
+            ["embeds"] = {{
+                ["title"] = title,
+                ["description"] = desc,
+                ["image"] = {["url"] = ""},
+                ["type"] = "rich",
+                ["color"] = tonumber(color),
+                ["footer"] = {
+                    ["text"] = "Bao Macro (v." .. currentVersion ..")",
+                    ["icon_url"] = macroLOGO,
+                },
+                ["fields"] = {
+                    {["name"]="Time Discovered", ["value"]=GotTime, ["inline"]=true},
+                    {["name"]="Roll At Around", ["value"]=rolls, ["inline"]=true},
+                }
+            }}
+        })
+    })
 end
 
-TextChatService.OnIncomingMessage = function(message)
-    if not message.Text then return end
-    print(message.TextChannel.Name)
-    if message.TextChannel and message.TextChannel.Name == "Server Message" then
-          local text = message.Text
-    local numberStr = nil
+local function SendMerchantWebhook(title, desc, color, anothermessage, webhookURL, spawnTime, despawnTime, contentmsg)
+    request({
+        ["Url"] = webhookURL,
+        ["Method"] = "POST",
+        ["Headers"] = {["Content-Type"] = "application/json"},
+        ["Body"] = HttpService:JSONEncode({
+            ["content"] = contentmsg,
+            ["embeds"] = {{
+                ["title"] = title,
+                ["description"] = desc,
+                ["image"] = {["url"] = ""},
+                ["type"] = "rich",
+                ["color"] = tonumber(color),
+                ["footer"] = {
+                    ["text"] = "Bao Macro (v." .. currentVersion ..")",
+                    ["icon_url"] = macroLOGO,
+                },
+                ["fields"] = {
+                    {["name"]="Spawn Time", ["value"]=spawnTime, ["inline"]=true},
+                    {["name"]="Despawn Time", ["value"]=despawnTime, ["inline"]=true},
+                    {["name"]="Original Message", ["value"]=anothermessage, ["inline"]=false}
+                }
+            }}
+        })
+    })
+end
 
-    if string.match(text, "<.->") then
-        text = text:gsub("<.->","")
-        print(text)
-    end
-    if string.match(text,",") then
-        numberStr = string.match(text, "CHANCE OF 1 IN ([%d,]+)")
-        print(text)
-    end
-    print(text)
-     print(numberStr)
-    if numberStr then
-        numberStr = numberStr:gsub(",","")
-        local number = tonumber(numberStr)
-        if number then
-            local color = nil
-           local contentmsg = ""
+local function extractHexColor(input)
+    local hex = string.match(input, 'color="[#]?(%x%x%x%x%x%x)"')
 
-            if number < 9999  then
-                color = 0x800080 -- ม่วง
-            elseif number < 99999 then
-                color = 0xFFA500 -- ฟ้า
-            elseif number < 999999 then
-                color = 0x00BFFF -- ฟ้า
-            elseif number < 9999999 then
-                color = 0xFF69B4 -- ชมพู
-            elseif number < 99999999 then
-                color = 0x0000FF -- น้ำเงิน
-            elseif number >= 99999998 then
-                color = 0xFF0000 -- แดง
-                contentmsg = "<@&1404039499587260416>"
-            end
-            if color then
-                local time = os.time()
-                local discordTime = "<t:" .. time .. ":F>"
-                SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
+    if hex then
+        return "0x"..hex
+    end
+
+    return "0xFFFFFF"
+end
+
+local function formatNumberWithCommas(number)
+    local formatted = tostring(number)
+    local result = ""
+    local isNegative = formatted:sub(1, 1) == "-"
+    if isNegative then
+        formatted = formatted:sub(2)
+    end
+    local length = #formatted
+    for i = 1, length do
+        result = formatted:sub(length - i + 1, length - i + 1) .. result
+        if i % 3 == 0 and i ~= length then
+            result = "," .. result
+        end
+    end
+    return isNegative and "-" .. result or result
+end
+
+-- Keyword Cache
+local keywordCache = {
+    ["windy"]       = {["display"]="Windy", ["despawn"]=120},
+    ["snowy"]       = {["display"]="Snowy", ["despawn"]=120},
+    ["rainy"]       = {["display"]="Rainy", ["despawn"]=120},
+    ["blazingsun"] = {["display"]="Blazing Sun", ["despawn"]=140},
+    ["graveyard"] = {["display"]="Graveyard", ["despawn"]=140},
+    ["pumpkinmoon"] = {["display"]="Pumpkin Moon", ["despawn"]=140},
+    ["bloodrain"] = {["display"]="Blood Rain", ["despawn"]=600},
+    ["sandstorm"]  = {["display"]="Sand Storm", ["despawn"]=660, ["ping"]=_G["SandStorm"]},
+    ["hell"]        = {["display"]="Hell", ["despawn"]=660, ["ping"]=_G["Hell"]},
+    ["starfall"]    = {["display"]="Starfall", ["despawn"]=600, ["ping"]=_G["Starfall"]},
+    ["corruption"]  = {["display"]="Corruption", ["despawn"]=660, ["ping"]=_G["Corruption"]},
+    ["null"]        = {["display"]="Null", ["despawn"]=99, ["ping"]=_G["Null"]},
+    ["manager"]     = {["display"]="Glitched", ["despawn"]=124, ["ping"]=_G["Glitched"]},
+    ["dreamspace"]  = {["display"]="Dreamspace", ["despawn"]=128, ["ping"]=_G["Dreamspace"]},
+    ["mari"]        = {["display"]="Mari", ["despawn"]=180},
+    ["jester"]      = {["display"]="Jester", ["despawn"]=180, ["ping"]=_G["Jester"]},
+    ["eden"]        = {["display"]="Eden", ["despawn"]=1800, ["ping"]=_G["Eden"]},
+}
+local native = {
+    ["windy"]       = { display = "Windy",       multiplier = 3  },
+    ["snowy"]       = { display = "Snowy",       multiplier = 3  },
+    ["rainy"]       = { display = "Rainy",       multiplier = 4  },
+    ["sandstorm"]   = { display = "Sand Storm",   multiplier = 4  },
+    ["starfall"]    = { display = "Starfall",    multiplier = 5  },
+    ["corruption"]  = { display = "Corruption",  multiplier = 5  },
+    ["hell"]        = { display = "Hell",        multiplier = 6  },
+    ["day"]         = { display = "Day",         multiplier = 10 },
+    ["night"]       = { display = "Night", multiplier = 10},
+    ["null"]        = { display = "Null", multiplier = 1000},
+}
+
+-- AntiAFK
+task.spawn(function()
+    while task.wait(60) do
+        VirtualUser:CaptureController()
+        VirtualUser:ClickButton1(Vector2.new(0,0))
+    end
+end)
+
+-- Channel2: Aura (rarity checks + keywords)
+task.spawn(function()
+    channel2["MessageReceived"]:Connect(function(message)
+        if not message["Text"] then return end
+        if string.match(message.Text:lower(), "global") then return end
+
+        local text = message["Text"]
+        local playerRolled = nil
+        local blacklistedPlayer = nil
+                
+        -- check player name in message sent
+        for _, v in pairs(Players:GetPlayers()) do
+            if string.match(text, v.Name) then
+                playerRolled = v
+                break  -- found, break the loop
             end
         end
-    elseif string.match(text,"PIXELATED") then
-local contentmsg = "<@&1404039598400737341>"
-                   local color = 0xFF70D9
-                local time = os.time()
-                local discordTime = "<t:" .. time .. ":F>"
-      SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
-             elseif string.match(text,"Blinding") then
-local contentmsg = "<@&1404039598400737341>"
-                   local color = 0xFFFFFF
-                local time = os.time()
-                local discordTime = "<t:" .. time .. ":F>"
-      SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
-             elseif string.match(text,"POSITIVE") then
-local contentmsg = "<@&1404039598400737341>"
-                   local color = 0x000000
-                local time = os.time()
-                local discordTime = "<t:" .. time .. ":F>"
-      SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
-             elseif string.match(text,"GLORIOUS") then
-local contentmsg = "<@&1404039499587260416>"
-                   local color = 0xFF0000
-                local time = os.time()
-                local discordTime = "<t:" .. time .. ":F>"
-      SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
-         elseif string.match(text,"EXALTED") then
-                   local color = 0x0000FF
-                local time = os.time()
-                local discordTime = "<t:" .. time .. ":F>"
-      SendAuraWebhook("**Aura Detected**",text,"",color,text,AuraURL, discordTime, contentmsg)
-    end
-    elseif message.TextChannel and message.TextChannel.Name == "RBXGeneral" then
-          if message.TextSource == nil then
-       local keyword, color, display, image = findKeyword(message.Text)
-       if keyword then
-           local cleanMsg = message.Text:gsub('<font color=".-">', ""):gsub("</font>","")
-           if keyword ~= "mari" and keyword ~= "jester" and keyword ~= "eden" then
-               local despawnTime = 0
-               local contentmsg = ""
-               if display == "Windy" then
-                   despawnTime = 120
-               elseif display == "Snowy" then
-                   despawnTime = 120
-               elseif display == "Rainy" then
-                   despawnTime = 120
-               elseif display == "Blazing Sun" then
-                   despawnTime = 140
-               elseif display == "Sand Storm" then
-                   despawnTime = 660
-                  contentmsg = "<@&1404697152537497770>"
-               elseif display == "Hell" then
-                   despawnTime = 660
-                  contentmsg = "<@&1404697074611519509>"
-               elseif display == "Starfall" then
-                   despawnTime = 600
-                  contentmsg = "<@&1404697006353678356>"
-               elseif display == "Corruption" then
-                   despawnTime = 660
-                  contentmsg = "<@&1404696919430795284>"
-               elseif display == "Null" then
-                   despawnTime = 99
-                  contentmsg = "<@&1404696767420825760>"
-               elseif display == "Glitched" then
-                   despawnTime = 124
-                   contentmsg = "@everyone"
-               elseif display == "Dreamspace" then
-                   despawnTime = 128
-                   contentmsg = "@everyone"
-               end
-               local time = os.time()
-               local discordTime = "<t:" .. time .. ":F>"
-               local discordDespawnTime = "<t:" .. time + despawnTime .. ":F>"
-               SendBiomeWebhook("**Biome Detected**", display .. " Has Spawned!", image, color, cleanMsg, BiomeURL, discordTime, discordDespawnTime, contentmsg, "https://www.roblox.com/th/games/15532962292/Sols-RNG-Fishing-Beta?privateServerLinkCode=60426804869505446691875439115801")
-           else
-               local despawnTime = 180
-               if display == "Eden" then
-                  despawnTime = 1800
-               end
-               local time = os.time()
-               local discordTime = "<t:" .. time .. ":F>"
-               local discordDespawnTime = "<t:" .. time + despawnTime .. ":F>"
-               local contentmsg = ""
-           if keyword == "jester" then
-                          contentmsg = "<@&1404029495073046619>"
-                         SendMerchantWebhook("**Merchant Detected**", display .. " Has Spawned!", image, color, cleanMsg, MerchantURL, discordTime, discordDespawnTime, contentmsg)
-           elseif keyword == "mari" then
-                      SendMerchantWebhook("**Merchant Detected**", display .. " Has Spawned!", image, color, cleanMsg, MerchantURL, discordTime, discordDespawnTime,contentmsg)
-         elseif keyword == "eden" then
-                  contentmsg = "<@&1405497438638178365>"
-                SendBiomeWebhook("**Eden Detected**","Eden Has Spawned On "..  game.Players.LocalPlayer.Name .. " Side!", image, color, cleanMsg, AuraURL, discordTime, discordDespawnTime, contentmsg, "")
-           end
-           end
-       end
-   end
-    end
-end
 
-print("V15 Loaded")
+        if playerRolled then
+            for _,v in pairs(Blacklisted) do
+                if string.match(playerRolled.Name, v) then
+                    blacklistedPlayer = v
+                    break
+                end
+            end
+            if blacklistedPlayer then return end
+        end
 
-SendAuraWebhook("**Macro Status**","Macro Status: Started","",tonumber(0xFFFFFF),"","https://discord.com/api/webhooks/1407327551092949094/gb1tGaFkepie8povvZA60IT3B27BB9Er9B7DQXzCLlSKn8Df7W9wGznocqvZvytieMBQ","<t:" .. os.time() .. ":F>", "")
+        local color = extractHexColor(message.Text)
+        text = text:gsub("<.->", "")
+
+        local lowerText = text:lower()
+        local numberStr = string.match(text, "CHANCE OF 1 IN ([%d,]+)")
+                
+        local RollAmount = playerRolled and formatNumberWithCommas(playerRolled:GetAttribute("Rolls")) or "[ Unknown ]"
+        local contentmsg = ""
+        local pingRole = ""
+
+        -- check global aura (1 in 99,999,999+)
+        if numberStr then
+            numberStr = numberStr:gsub(",", "")
+            if string.match(lowerText, "from") then
+                local biome, data
+                for k, v in pairs(native) do
+                    if string.find(gsubText, k) then
+                       biome = k
+                       data = v
+                       break
+                    end
+                end
+                if biome and data then
+                   local multi = data["multiplier"]
+                   local trueRarity = tonumber(numberStr * multi)
+                   if trueRarity >= 99999999 then
+                      print("true")
+                   end
+                end
+            end
+            
+            local number = tonumber(numberStr)
+            if number >= 99999999 then
+                contentmsg = _G["Globals"]
+            end
+
+            local discordTime = "<t:" .. os.time() .. ":F>" .. " Or " .. "<t:" .. os.time() .. ":R>"
+            SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, contentmsg, RollAmount)
+
+        else
+            -- 1B auras check + special auras
+            if string.match(lowerText, "pixelated")
+                or string.match(lowerText, "blinding")
+                or string.match(lowerText, "positive")
+                or string.match(lowerText, "transcendent")
+                or string.match(lowerText, "the truth")
+                or string.match(lowerText, "neferkhaf")
+                or string.match(lowerText, "nightmare")
+                or string.match(lowerText, "calamity") then
+
+                pingRole = BillionPing
+
+            elseif string.match(lowerText, "glorious")
+                or string.match(lowerText, "memory") then
+
+                pingRole = GlobalPing
+            end
+
+            local discordTime = "<t:" .. os.time() .. ":F>" .. " Or " .. "<t:" .. os.time() .. ":R>"
+            SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, pingRole, RollAmount)
+        end
+    end)
+end)
+
+-- Channel1: Biome / Merchant / Eden
+task.spawn(function()
+    channel1["MessageReceived"]:Connect(function(message)
+        if not message["Text"] or message["TextSource"] ~= nil then return end
+        local text = message["Text"]:lower()
+        local gsubText = message.Text:lower():gsub(" ","")
+        local color = extractHexColor(message.Text)
+        local keyword, data
+        for k, v in pairs(keywordCache) do
+            if string.find(gsubText, k) then
+                keyword = k
+                data = v
+                break
+            end
+        end
+        if not keyword or not data then return end
+
+        local cleanMsg = message["Text"]:gsub('<font color=".-">', ""):gsub("</font>", "")
+        local despawnTime = data["despawn"]
+        local contentmsg = data["ping"] or ""
+
+        local time = os.time()
+        local discordTime = "<t:" .. time .. ":F>" .. " Or " .. "<t:" .. time .. ":R>"
+        local discordDespawnTime = "<t:" .. (time + despawnTime) .. ":F>" .. " Or " .. "<t:" .. (time + despawnTime) .. ":R>"
+
+        if keyword == "mari" or keyword == "jester" then
+            SendMerchantWebhook(
+                "**Merchant Detected**",
+                data["display"] .. " Has Spawned!",
+                color,
+                cleanMsg,
+                _G["MerchantWebhook"],
+                discordTime,
+                discordDespawnTime,
+                contentmsg
+            )
+        elseif keyword == "eden" then
+            SendBiomeWebhook(
+                "**Eden Detected**",
+                "Eden Has Spawned On " .. player["Name"] .. " Side!",
+                color,
+                cleanMsg,
+                _G["AuraWebhook"],
+                discordTime,
+                discordDespawnTime,
+                contentmsg,
+                ""
+            )
+        else
+            local imageURL = ""
+            if keyword == "windy" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2039_20251108101501.png?raw=true"
+            elseif keyword == "snowy" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2040_20251108101523.png?raw=true"
+            elseif keyword == "rainy" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2041_20251108101642.png?raw=true"
+            elseif keyword == "sandstorm" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2042_20251108101707.png?raw=true"
+            elseif keyword == "hell" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2043_20251108101728.png?raw=true"
+            elseif keyword == "starfall" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2044_20251108101751.png?raw=true"
+            elseif keyword == "corruption" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2045_20251108101812.png?raw=true"
+            elseif keyword == "null" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2046_20251108101901.png?raw=true"
+            elseif keyword == "manager" then
+                imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2038_20251108095656.png?raw=true"
+                if string.match(cleanMsg:lower(), "resolved") then return end
+            elseif keyword == "dreamspace" then
+                imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2037_20251108095605.png?raw=true"
+                if string.match(cleanMsg:lower(), "waking") then return end
+            elseif keyword == "graveyard" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2048_20251108102000.png?raw=true"
+            elseif keyword == "pumpkinmoon" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2047_20251108101932.png?raw=true"
+            elseif keyword == "bloodrain" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2049_20251108102024.png?raw=true"
+            elseif keyword == "blazingsun" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2050_20251108102110.png?raw=true"
+            end
+            SendBiomeWebhook(
+                "**Biome Detected**",
+                data["display"] .. " Has Spawned!",
+                color,
+                cleanMsg,
+                _G["BiomeWebhook"],
+                discordTime,
+                discordDespawnTime,
+                contentmsg,
+                imageURL
+            )
+        end
+    end)
+end)
+
+StarterGui:SetCore("SendNotification", {
+    ["Title"] = "Macro Script (V. " ..currentVersion ..")",
+    ["Text"] = "Made by Chosen and P Joe",
+    ["Duration"] = 5
+})
+
+print("Script Loaded")
+print(currentVersion)
