@@ -233,7 +233,7 @@ task.spawn(function()
             if string.match(lowerText, "from") then
                 local biome, data
                 for k, v in pairs(native) do
-                    if string.find(gsubText, k) then
+                    if string.find(lowerText, k) then
                        biome = k
                        data = v
                        break
