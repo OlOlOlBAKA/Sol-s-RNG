@@ -249,7 +249,7 @@ task.spawn(function()
                    if trueRarity >= 99999999 then
                       nativeMSG = _G.Native
                    end
-                   SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, _G.Native, RollAmount)
+                   SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, NativeMSG, RollAmount)
                 else
                     local number = tonumber(numberStr)
                     if number >= 99999999 then
