@@ -33,6 +33,7 @@ local DreamspacePing = _G["Dreamspace"]
 local JesterPing = _G["Jester"]
 local GlobalPing = _G["Globals"]
 local BillionPing = _G["OneBillion"]
+local NativePing = _G["Native"]
 local EdenPing = _G["Eden"]
 
 local Blacklisted = _G.BlacklistedUsers or loadstring(game:HttpGet("https://raw.githubusercontent.com/OlOlOlBAKA/Sol-s-RNG/refs/heads/main/Blacklisted.lua"))()
@@ -242,10 +243,19 @@ task.spawn(function()
                 end
                 if biome and data then
                    local multi = data["multiplier"]
-                   local trueRarity = tonumber(numberStr * multi)
+                   local trueRarity = tonumber(numberStr)
+                   trueRarity = trueRarity * multi
+                   local nativeMSG = ""
                    if trueRarity >= 99999999 then
-                      SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, _G.Native, RollAmount)
+                      nativeMSG = _G.Native
                    end
+                   SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, _G.Native, RollAmount)
+                else
+                    local number = tonumber(numberStr)
+                    if number >= 99999999 then
+                       contentmsg = _G["Globals"]
+                    end
+                    SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, contentmsg, RollAmount)
                 end
             else
                 local number = tonumber(numberStr)
