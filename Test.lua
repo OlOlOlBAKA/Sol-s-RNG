@@ -230,14 +230,30 @@ task.spawn(function()
         -- check global aura (1 in 99,999,999+)
         if numberStr then
             numberStr = numberStr:gsub(",", "")
-            local number = tonumber(numberStr)
-            if number >= 99999999 then
-                contentmsg = _G["Globals"]
-            end
-
             local discordTime = "<t:" .. os.time() .. ":F>" .. " Or " .. "<t:" .. os.time() .. ":R>"
-            SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, contentmsg, RollAmount)
-
+            if string.match(lowerText, "from") then
+                local biome, data
+                for k, v in pairs(native) do
+                    if string.find(lowerText, k) then
+                       biome = k
+                       data = v
+                       break
+                    end
+                end
+                if biome and data then
+                   local multi = data["multiplier"]
+                   local trueRarity = tonumber(numberStr * multi)
+                   if trueRarity >= 99999999 then
+                      SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, _G.Native, RollAmount)
+                   end
+                end
+            else
+                local number = tonumber(numberStr)
+                if number >= 99999999 then
+                   contentmsg = _G["Globals"]
+                end
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, contentmsg, RollAmount)
+            end
         else
             -- 1B auras check + special auras
             if string.match(lowerText, "pixelated")
