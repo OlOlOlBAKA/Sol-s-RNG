@@ -182,6 +182,29 @@ local native = {
     ["null"]        = { display = "Null",        multiplier = 1000 },
 }
 
+local function IsNative(text)
+    local lower = text:lower():gsub(" ", "")
+    
+    local isNative = false
+    local nativeMultiplier = 1
+    local biomeName = nil
+
+    -- detect biome keyword
+    for key, data in pairs(native) do
+        if string.find(lower, key) then
+            biomeName = data.display
+            nativeMultiplier = data.multiplier
+            isNative = true
+            break
+        end
+    end
+
+    if isNative then
+        return biomeName, nativeMultiplier, isNative
+    end
+    return false
+end
+
 -- AntiAFK
 task.spawn(function()
     while task.wait(60) do
@@ -232,31 +255,13 @@ task.spawn(function()
         if numberStr then
             numberStr = numberStr:gsub(",", "")
             local discordTime = "<t:" .. os.time() .. ":F>" .. " Or " .. "<t:" .. os.time() .. ":R>"
-            if string.match(lowerText, "from") then
-                local biome, data
-                for k, v in pairs(native) do
-                    if string.find(lowerText, k) then
-                       biome = k
-                       data = v
-                       break
-                    end
+            local biome, multi, isNative = IsNative(text, numberStr)
+            if isNative then
+                local trueRarity = tonumber(numberStr) * multi
+                if trueRarity >= 99999999 then
+                    contentmsg = _G["Native"]
                 end
-                if biome and data then
-                   local multi = data["multiplier"]
-                   local trueRarity = tonumber(numberStr)
-                   trueRarity = trueRarity * multi
-                   local nativeMSG = ""
-                   if trueRarity >= 99999999 then
-                      nativeMSG = _G.Native
-                   end
-                   SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, NativeMSG, RollAmount)
-                else
-                    local number = tonumber(numberStr)
-                    if number >= 99999999 then
-                       contentmsg = _G["Globals"]
-                    end
-                    SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, contentmsg, RollAmount)
-                end
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, contentmsg, RollAmount)
             else
                 local number = tonumber(numberStr)
                 if number >= 99999999 then
