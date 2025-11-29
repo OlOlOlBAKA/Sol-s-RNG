@@ -4,7 +4,7 @@ else
     return
 end
 
-local currentVersion = "1.26.3"
+local currentVersion = "1.26.4"
 local macroLOGO = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2036_20251104174445.png?raw=true"
 
 local HttpService = game:GetService("HttpService")
@@ -164,7 +164,7 @@ local keywordCache = {
     ["corruption"]  = {["display"]="Corruption", ["despawn"]=660, ["ping"]=_G["Corruption"]},
     ["null"]        = {["display"]="Null", ["despawn"]=99, ["ping"]=_G["Null"]},
     ["manager"]     = {["display"]="Glitched", ["despawn"]=124},
-    ["dreamspace"]  = {["display"]="Dreamspace", ["despawn"]=19},
+    ["dreamspace"]  = {["display"]="Dreamspace", ["despawn"]=192},
     ["cyberspace"]  = {["display"]="Cyberspace", ["despawn"]=720},
     ["mari"]        = {["display"]="Mari", ["despawn"]=180},
     ["jester"]      = {["display"]="Jester", ["despawn"]=180, ["ping"]=_G["Jester"]},
