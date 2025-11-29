@@ -4,7 +4,7 @@ else
     return
 end
 
-local currentVersion = "1.26.4"
+local currentVersion = "1.26.5"
 local macroLOGO = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2036_20251104174445.png?raw=true"
 
 local HttpService = game:GetService("HttpService")
@@ -377,6 +377,7 @@ task.spawn(function()
                 if string.match(cleanMsg:lower(), "waking") then return end
             elseif keyword == "cyberspace" then
                 imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2053_20251129034504.png?raw=true"
+                if string.match(cleanMsg:lower(), "signal") then return end
             elseif keyword == "graveyard" then
                imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2048_20251108102000.png?raw=true"
             elseif keyword == "pumpkinmoon" then
