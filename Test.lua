@@ -4,7 +4,7 @@ else
     return
 end
 
-local currentVersion = "1.25.3"
+local currentVersion = "1.26.1"
 local macroLOGO = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2036_20251104174445.png?raw=true"
 
 local HttpService = game:GetService("HttpService")
@@ -164,8 +164,8 @@ local keywordCache = {
     ["corruption"]  = {["display"]="Corruption", ["despawn"]=660, ["ping"]=_G["Corruption"]},
     ["null"]        = {["display"]="Null", ["despawn"]=99, ["ping"]=_G["Null"]},
     ["manager"]     = {["display"]="Glitched", ["despawn"]=124, ["ping"]=_G["Glitched"]},
-    ["dreamspace"]  = {["display"]="Dreamspace", ["despawn"]=128, ["ping"]=_G["Dreamspace"]},
-    ["cyberspace"]  = {["display"]="Cyberspace", ["despawn"]=128},
+    ["dreamspace"]  = {["display"]="Dreamspace", ["despawn"]=192, ["ping"]=_G["Dreamspace"]},
+    ["cyberspace"]  = {["display"]="Cyberspace", ["despawn"]=720},
     ["mari"]        = {["display"]="Mari", ["despawn"]=180},
     ["jester"]      = {["display"]="Jester", ["despawn"]=180, ["ping"]=_G["Jester"]},
     ["eden"]        = {["display"]="Eden", ["despawn"]=1800, ["ping"]=_G["Eden"]},
@@ -181,6 +181,7 @@ local native = {
     ["day"]         = { display = "Day",         multiplier = 10 },
     ["night"]       = { display = "Night",       multiplier = 10 },
     ["null"]        = { display = "Null",        multiplier = 1000 },
+    ["cyberspace"]  = { display = "Cyberspace",        multiplier = 2 },
 }
 
 local function IsNative(text)
