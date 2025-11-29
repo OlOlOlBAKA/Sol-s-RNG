@@ -165,7 +165,7 @@ local keywordCache = {
     ["null"]        = {["display"]="Null", ["despawn"]=99, ["ping"]=_G["Null"]},
     ["manager"]     = {["display"]="Glitched", ["despawn"]=124, ["ping"]=_G["Glitched"]},
     ["dreamspace"]  = {["display"]="Dreamspace", ["despawn"]=192, ["ping"]=_G["Dreamspace"]},
-    ["cyberspace"]  = {["display"]="Cyberspace", ["despawn"]=720},
+    ["cyberspace"]  = {["display"]="Cyberspace", ["despawn"]=720, ["ping"]=_G["Dreamspace"] or _G["Glitched"]},
     ["mari"]        = {["display"]="Mari", ["despawn"]=180},
     ["jester"]      = {["display"]="Jester", ["despawn"]=180, ["ping"]=_G["Jester"]},
     ["eden"]        = {["display"]="Eden", ["despawn"]=1800, ["ping"]=_G["Eden"]},
@@ -316,7 +316,13 @@ task.spawn(function()
 
         local cleanMsg = message["Text"]:gsub('<font color=".-">', ""):gsub("</font>", "")
         local despawnTime = data["despawn"]
-        local contentmsg = data["ping"] or ""
+        local contentmsg
+
+        if keyword == "dreamspace" or keyword == "cyberspace" or keyword == "manager" then
+            contentmsg = "@everyone"
+        else
+            contentmsg = data["ping"] or ""
+        end
 
         local time = os.time()
         local discordTime = "<t:" .. time .. ":F>" .. " Or " .. "<t:" .. time .. ":R>"
