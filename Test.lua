@@ -281,7 +281,7 @@ task.spawn(function()
                 or string.match(lowerText, "neferkhaf")
                 or string.match(lowerText, "nightmare")
                 or string.match(lowerText, "calamity")
-                or string.match(lowerText, "digital void") then
+                or string.match(lowerText, "perfect puppet") then
 
                 pingRole = BillionPing
 
