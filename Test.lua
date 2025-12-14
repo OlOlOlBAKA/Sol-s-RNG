@@ -40,6 +40,7 @@ local Blacklisted = _G.BlacklistedUsers or loadstring(game:HttpGet("https://raw.
 
 -- Webhook Functions
 local function SendBiomeWebhook(title, desc, color, anothermessage, webhookURL, spawnTime, despawnTime, contentmsg, image)
+    if webhookURL == "" and webhookURL == nil then return end
     request({
         ["Url"] = webhookURL,
         ["Method"] = "POST",
@@ -70,6 +71,7 @@ local function SendBiomeWebhook(title, desc, color, anothermessage, webhookURL, 
 end
 
 local function SendAuraWebhook(title, desc, color, anothermessage, webhookURL, GotTime, contentmsg, rolls)
+    if webhookURL == "" and webhookURL == nil then return end
     request({
         ["Url"] = webhookURL,
         ["Method"] = "POST",
@@ -96,6 +98,7 @@ local function SendAuraWebhook(title, desc, color, anothermessage, webhookURL, G
 end
 
 local function SendMerchantWebhook(title, desc, color, anothermessage, webhookURL, spawnTime, despawnTime, contentmsg)
+    if webhookURL == "" and webhookURL == nil then return end
     request({
         ["Url"] = webhookURL,
         ["Method"] = "POST",
