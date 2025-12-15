@@ -1,3 +1,15 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+if not _G["AlreadyRun"] then
+    _G["AlreadyRun"] = true
+else
+Rayfield:Notify({
+   Title = "Error",
+   Content = "The Script Is Already Run!",
+   Duration = 4,
+   Image = 4483362458,
+})
+    return
+end
 local enableMacro = true
 
 local currentVersion = "1.27.2"
@@ -144,10 +156,10 @@ local keywordCache = {
     ["starfall"]    = {["display"]="Starfall", ["despawn"]=600, ["ping"]=_G["Starfall"]},
     ["corruption"]  = {["display"]="Corruption", ["despawn"]=660, ["ping"]=_G["Corruption"]},
     ["null"]        = {["display"]="Null", ["despawn"]=99, ["ping"]=_G["Null"]},
-    ["manager"]     = {["display"]="Glitched", ["despawn"]=124},
-    ["dreamspace"]  = {["display"]="Dreamspace", ["despawn"]=192},
-    ["cyberspace"]  = {["display"]="Cyberspace", ["despawn"]=720},
-    ["mari"]        = {["display"]="Mari", ["despawn"]=180},
+    ["manager"]     = {["display"]="Glitched", ["despawn"]=124, ["ping"]=_G["Glitched"]},
+    ["dreamspace"]  = {["display"]="Dreamspace", ["despawn"]=192, ["ping"]=_G["Dreamspace"]},
+    ["cyberspace"]  = {["display"]="Cyberspace", ["despawn"]=720, ["ping"]=_G["Cyberspace"]},
+    ["mari"]        = {["display"]="Mari", ["despawn"]=180, ["ping"]=_G["Mari"]},
     ["jester"]      = {["display"]="Jester", ["despawn"]=180, ["ping"]=_G["Jester"]},
     ["eden"]        = {["display"]="Eden", ["despawn"]=1800, ["ping"]=_G["Eden"]},
 }
@@ -189,6 +201,8 @@ local function IsNative(text)
     return false
 end
 
+local antiAFK = true
+
 _G.BiomeWebhook = ""
 _G.AuraWebhook = ""
 _G.MerchantWebhook = ""
@@ -212,7 +226,6 @@ _G.OneBillion = ""
 _G.Native = ""
 _G.Eden = ""
 
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Window = Rayfield:CreateWindow({
    Name = "Macro Script (v."..currentVersion..")",
    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
@@ -250,18 +263,6 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
-if not _G["AlreadyRun"] then
-    _G["AlreadyRun"] = true
-else
-Rayfield:Notify({
-   Title = "Error",
-   Content = "The Script Is Already Run!",
-   Duration = 4,
-   Image = 4483362458,
-})
-    return
-end
-
 local Tab = Window:CreateTab("Main", 4483362458) -- Title, Image
 local Section = Tab:CreateSection("Main")
 local MacroToggle = Tab:CreateToggle({
@@ -270,6 +271,14 @@ local MacroToggle = Tab:CreateToggle({
    Flag = "EnableMacro",
    Callback = function(Value)
       enableMacro = Value
+   end,
+})
+local AntiAFKToggle = Tab:CreateToggle({
+   Name = "Anti AFK",
+   CurrentValue = true,
+   Flag = "AntiAFK",
+   Callback = function(Value)
+      antiAFK = Value
    end,
 })
 local BiomeLabel = Tab:CreateLabel("Biome Setting", 4483362458, Color3.fromRGB(255, 255, 255), false) -- Title, Icon, Color, IgnoreTheme
@@ -440,4 +449,206 @@ local JesterInput = Tab:CreateInput({
    end,
 })
 
+task.spawn(function()
+    while task.wait(600) do
+        if antiAFK then
+            VirtualUser:CaptureController()
+            VirtualUser:ClickButton1(Vector2.new(0,0))
+        end
+    end
+end)
+
+-- Channel2: Aura (rarity checks + keywords)
+task.spawn(function()
+    channel2["MessageReceived"]:Connect(function(message)
+        if not message["Text"] then return end
+        if string.match(message.Text:lower(), "global") then return end
+
+        local text = message["Text"]
+        local playerRolled = nil
+        local blacklistedPlayer = nil
+                
+        -- check player name in message sent
+        for _, v in pairs(Players:GetPlayers()) do
+            if string.match(text, v.Name) then
+                playerRolled = v
+                break  -- found, break the loop
+            end
+        end
+
+        if playerRolled then
+            for _,v in pairs(Blacklisted) do
+                if string.match(playerRolled.Name, v) then
+                    blacklistedPlayer = v
+                    break
+                end
+            end
+            if blacklistedPlayer then return end
+        end
+
+        local color = extractHexColor(message.Text)
+        text = text:gsub("<.->", "")
+
+        local lowerText = text:lower()
+        local numberStr = string.match(text, "CHANCE OF 1 IN ([%d,]+)")
+                
+        local RollAmount = playerRolled and formatNumberWithCommas(playerRolled:GetAttribute("Rolls")) or "[ Unknown ]"
+        local contentmsg = ""
+        local pingRole = ""
+
+        -- check global aura (1 in 99,999,999+)
+        if numberStr then
+            numberStr = numberStr:gsub(",", "")
+            local discordTime = "<t:" .. os.time() .. ":F>" .. " Or " .. "<t:" .. os.time() .. ":R>"
+            local biome, multi, isNative = IsNative(text, numberStr)
+            if isNative then
+                local trueRarity = tonumber(numberStr) * multi
+                if trueRarity >= 99999999 then
+                    contentmsg = _G["Native"]
+                end
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, contentmsg, RollAmount)
+            else
+                local number = tonumber(numberStr)
+                if number >= 99999999 then
+                   contentmsg = _G["Globals"]
+                end
+                SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, contentmsg, RollAmount)
+            end
+        else
+            -- 1B auras check + special auras
+            if string.match(lowerText, "pixelated")
+                or string.match(lowerText, "blinding")
+                or string.match(lowerText, "positive")
+                or string.match(lowerText, "transcendent")
+                or string.match(lowerText, "the truth")
+                or string.match(lowerText, "neferkhaf")
+                or string.match(lowerText, "nightmare")
+                or string.match(lowerText, "calamity")
+                or string.match(lowerText, "perfect puppet") then
+
+                pingRole = _G.OneBillion
+
+            elseif string.match(lowerText, "glorious")
+                or string.match(lowerText, "memory") then
+
+                pingRole = _G.Globals
+            end
+
+            local discordTime = "<t:" .. os.time() .. ":F>" .. " Or " .. "<t:" .. os.time() .. ":R>"
+            SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, pingRole, RollAmount)
+        end
+    end)
+end)
+
+-- Channel1: Biome / Merchant / Eden
+task.spawn(function()
+    channel1["MessageReceived"]:Connect(function(message)
+        if not message["Text"] or message["TextSource"] ~= nil then return end
+        local text = message["Text"]:lower()
+        local gsubText = message.Text:lower():gsub(" ","")
+        local color = extractHexColor(message.Text)
+        local keyword, data
+        for k, v in pairs(keywordCache) do
+            if string.find(gsubText, k) then
+                keyword = k
+                data = v
+                break
+            end
+        end
+        if not keyword or not data then return end
+
+        local cleanMsg = message["Text"]:gsub('<font color=".-">', ""):gsub("</font>", "")
+        local despawnTime = data["despawn"]
+        local contentmsg = ""
+
+        if keyword == "dreamspace" or keyword == "cyberspace" or keyword == "manager" then
+            if data["ping"] == true then
+                contentmsg = "@everyone"
+            end
+        else
+            contentmsg = data["ping"] or ""
+        end
+
+        local time = os.time()
+        local discordTime = "<t:" .. time .. ":F>" .. " Or " .. "<t:" .. time .. ":R>"
+        local discordDespawnTime = "<t:" .. (time + despawnTime) .. ":F>" .. " Or " .. "<t:" .. (time + despawnTime) .. ":R>"
+
+        if keyword == "mari" or keyword == "jester" then
+            SendMerchantWebhook(
+                "**Merchant Detected**",
+                data["display"] .. " Has Spawned!",
+                color,
+                cleanMsg,
+                _G["MerchantWebhook"],
+                discordTime,
+                discordDespawnTime,
+                contentmsg
+            )
+        elseif keyword == "eden" then
+            SendBiomeWebhook(
+                "**Eden Detected**",
+                "Eden Has Spawned On " .. player["Name"] .. " Side!",
+                color,
+                cleanMsg,
+                _G["AuraWebhook"],
+                discordTime,
+                discordDespawnTime,
+                contentmsg,
+                ""
+            )
+        else
+            local imageURL = ""
+            if keyword == "windy" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2039_20251108101501.png?raw=true"
+            elseif keyword == "snowy" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2040_20251108101523.png?raw=true"
+            elseif keyword == "rainy" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2041_20251108101642.png?raw=true"
+            elseif keyword == "sandstorm" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2042_20251108101707.png?raw=true"
+            elseif keyword == "hell" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2043_20251108101728.png?raw=true"
+            elseif keyword == "heaven" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2056_20251207074340.png?raw=true"
+            elseif keyword == "starfall" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2044_20251108101751.png?raw=true"
+            elseif keyword == "corruption" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2045_20251108101812.png?raw=true"
+            elseif keyword == "null" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2046_20251108101901.png?raw=true"
+            elseif keyword == "manager" then
+                imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2038_20251108095656.png?raw=true"
+                if string.match(cleanMsg:lower(), "resolved") then return end
+            elseif keyword == "dreamspace" then
+                imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2037_20251108095605.png?raw=true"
+                if string.match(cleanMsg:lower(), "waking") then return end
+            elseif keyword == "cyberspace" then
+                imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2053_20251129034504.png?raw=true"
+                if string.match(cleanMsg:lower(), "lost") then return end
+            elseif keyword == "graveyard" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2048_20251108102000.png?raw=true"
+            elseif keyword == "pumpkinmoon" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2047_20251108101932.png?raw=true"
+            elseif keyword == "bloodrain" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2049_20251108102024.png?raw=true"
+            elseif keyword == "blazingsun" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2050_20251108102110.png?raw=true"
+            end
+            SendBiomeWebhook(
+                "**Biome Detected**",
+                data["display"] .. " Has Spawned!",
+                color,
+                cleanMsg,
+                _G["BiomeWebhook"],
+                discordTime,
+                discordDespawnTime,
+                contentmsg,
+                imageURL
+            )
+        end
+    end)
+end)
+
 Rayfield:LoadConfiguration()
+print(currentVersion)
+print("Loaded Script.")
