@@ -203,28 +203,28 @@ end
 
 local antiAFK = true
 
-_G.BiomeWebhook = ""
-_G.AuraWebhook = ""
-_G.MerchantWebhook = ""
+local BiomeWebhook = ""
+local AuraWebhook = ""
+local MerchantWebhook = ""
 
-_G.SandStorm = ""
-_G.Hell = ""
-_G.Heaven = ""
-_G.Starfall = ""
-_G.Corruption = ""
-_G.Null = ""
+local SandStorm = ""
+local Hell = ""
+local Heaven = ""
+local Starfall = ""
+local Corruption = ""
+local Null = ""
 
-_G.Glitched = false
-_G.Dreamspace = false
-_G.Cyberspace = false
+local Glitched = false
+local Dreamspace = false
+local Cyberspace = false
 
-_G.Mari = ""
-_G.Jester = ""
+local Mari = ""
+local Jester = ""
 
-_G.Globals = ""
-_G.OneBillion = ""
-_G.Native = ""
-_G.Eden = ""
+local Globals = ""
+local OneBillion = ""
+local Native = ""
+local Eden = ""
 
 local Window = Rayfield:CreateWindow({
    Name = "Macro Script (v."..currentVersion..")",
