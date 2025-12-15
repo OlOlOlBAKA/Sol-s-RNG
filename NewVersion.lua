@@ -204,6 +204,7 @@ _G.Glitched = false
 _G.Dreamspace = false
 _G.Cyberspace = false
 
+_G.Mari = ""
 _G.Jester = ""
 
 _G.Globals = ""
@@ -289,7 +290,7 @@ local SandStormInput = Tab:CreateInput({
    RemoveTextAfterFocusLost = false,
    Flag = "Config1",
    Callback = function(Text)
-      _G.SandStorm = Text
+      _G.SandStorm = "<@&"..Text..">"
    end,
 })
 local HellInput = Tab:CreateInput({
@@ -299,7 +300,7 @@ local HellInput = Tab:CreateInput({
    RemoveTextAfterFocusLost = false,
    Flag = "Config2",
    Callback = function(Text)
-      _G.Hell = Text
+      _G.Hell = "<@&"..Text..">"
    end,
 })
 local StarfallInput = Tab:CreateInput({
@@ -309,7 +310,7 @@ local StarfallInput = Tab:CreateInput({
    RemoveTextAfterFocusLost = false,
    Flag = "Config3",
    Callback = function(Text)
-      _G.Starfall = Text
+      _G.Starfall = "<@&"..Text..">"
    end,
 })
 local HeavenInput = Tab:CreateInput({
@@ -319,7 +320,7 @@ local HeavenInput = Tab:CreateInput({
    RemoveTextAfterFocusLost = false,
    Flag = "Config4",
    Callback = function(Text)
-      _G.Heaven = Text
+      _G.Heaven = "<@&"..Text..">"
    end,
 })
 local CorruptionInput = Tab:CreateInput({
@@ -329,7 +330,7 @@ local CorruptionInput = Tab:CreateInput({
    RemoveTextAfterFocusLost = false,
    Flag = "Config5",
    Callback = function(Text)
-      _G.Corruption = Text
+      _G.Corruption = "<@&"..Text..">"
    end,
 })
 local NullInput = Tab:CreateInput({
@@ -339,7 +340,7 @@ local NullInput = Tab:CreateInput({
    RemoveTextAfterFocusLost = false,
    Flag = "Config6",
    Callback = function(Text)
-      _G.Null = Text
+      _G.Null = "<@&"..Text..">"
    end,
 })
 local CyberspaceToggle = Tab:CreateToggle({
@@ -364,6 +365,78 @@ local GlitchedToggle = Tab:CreateToggle({
    Flag = "Config9",
    Callback = function(Value)
       _G.Glitched = Value
+   end,
+})
+local AuraLabel = Tab:CreateLabel("Aura Setting (Detect from message of chat, so you need to setting your server message ignore rarity in game setting.", 4483362458, Color3.fromRGB(255, 255, 255), false) -- Title, Icon, Color, IgnoreTheme
+local BiomeInput = Tab:CreateInput({
+   Name = "Biome Webhook",
+   CurrentValue = "",
+   PlaceholderText = "Enter Webhook Link",
+   RemoveTextAfterFocusLost = false,
+   Flag = "AuraWebhookConfig",
+   Callback = function(Text)
+      _G.AuraWebhook = Text
+   end,
+})
+local GlobalInput = Tab:CreateInput({
+   Name = "Global Ping Role",
+   CurrentValue = "",
+   PlaceholderText = "Enter Discord Role ID",
+   RemoveTextAfterFocusLost = false,
+   Flag = "AuraConfig1",
+   Callback = function(Text)
+      _G.Globals = "<@&"..Text..">"
+   end,
+})
+local NativeInput = Tab:CreateInput({
+   Name = "Native Global Ping Role",
+   CurrentValue = "",
+   PlaceholderText = "Enter Discord Role ID",
+   RemoveTextAfterFocusLost = false,
+   Flag = "AuraConfig2",
+   Callback = function(Text)
+      _G.Native = "<@&"..Text..">"
+   end,
+})
+local OneBillionInput = Tab:CreateInput({
+   Name = "1B Ping Role",
+   CurrentValue = "",
+   PlaceholderText = "Enter Discord Role ID",
+   RemoveTextAfterFocusLost = false,
+   Flag = "AuraConfig3",
+   Callback = function(Text)
+      _G.OneBillion = "<@&"..Text..">"
+   end,
+})
+local EdenInput = Tab:CreateInput({
+   Name = "Eden Ping Role",
+   CurrentValue = "",
+   PlaceholderText = "Enter Discord Role ID",
+   RemoveTextAfterFocusLost = false,
+   Flag = "AuraConfig4",
+   Callback = function(Text)
+      _G.Eden = "<@&"..Text..">"
+   end,
+})
+local MerchantLabel = Tab:CreateLabel("Merchant Setting", 4483362458, Color3.fromRGB(255, 255, 255), false) -- Title, Icon, Color, IgnoreTheme
+local MariInput = Tab:CreateInput({
+   Name = "Mari Ping Role",
+   CurrentValue = "",
+   PlaceholderText = "Enter Discord Role ID",
+   RemoveTextAfterFocusLost = false,
+   Flag = "MerchantConfig1",
+   Callback = function(Text)
+      _G.Mari = "<@&"..Text..">"
+   end,
+})
+local JesterInput = Tab:CreateInput({
+   Name = "Jester Ping Role",
+   CurrentValue = "",
+   PlaceholderText = "Enter Discord Role ID",
+   RemoveTextAfterFocusLost = false,
+   Flag = "MerchantConfig2",
+   Callback = function(Text)
+      _G.Jester = "<@&"..Text..">"
    end,
 })
 
