@@ -209,7 +209,7 @@ _G.Jester = ""
 _G.Globals = ""
 _G.OneBillion = ""
 _G.Native = ""
-_G.Eden ‎ = "" 
+_G.Eden = ""
 
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Window = Rayfield:CreateWindow({
