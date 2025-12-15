@@ -37,7 +37,7 @@ _G.OneBillion = ""
 _G.Native = ""
 _G.Eden = ""
 
-local currentVersion = "2.0.4"
+local currentVersion = "2.0.5"
 local macroLOGO = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2036_20251104174445.png?raw=true"
 
 local HttpService = game:GetService("HttpService")
@@ -167,7 +167,8 @@ local function formatNumberWithCommas(number)
 end
 
 -- Keyword Cache
-local keywordCache = {
+local function GetKeywordCache()
+    return {
     ["windy"]       = {["display"]="Windy", ["despawn"]=120},
     ["snowy"]       = {["display"]="Snowy", ["despawn"]=120},
     ["rainy"]       = {["display"]="Rainy", ["despawn"]=120},
@@ -188,6 +189,7 @@ local keywordCache = {
     ["jester"]      = {["display"]="Jester", ["despawn"]=180, ["ping"]=_G["Jester"]},
     ["eden"]        = {["display"]="Eden", ["despawn"]=1800, ["ping"]=_G["Eden"]},
 }
+end
 local native = {
     ["windy"]       = { display = "Windy",       multiplier = 3  },
     ["snowy"]       = { display = "Snowy",       multiplier = 3  },
@@ -557,6 +559,7 @@ task.spawn(function()
         local text = message["Text"]:lower()
         local gsubText = message.Text:lower():gsub(" ","")
         local color = extractHexColor(message.Text)
+        local keywordCache = GetKeywordCache()
         local keyword, data
         for k, v in pairs(keywordCache) do
             if string.find(gsubText, k) then
