@@ -10,9 +10,34 @@ Rayfield:Notify({
 })
     return
 end
-local enableMacro = true
 
-local currentVersion = "2.0.1"
+local enableMacro = true
+local antiAFK = true
+
+_G.BiomeWebhook = ""
+_G.AuraWebhook = ""
+_G.MerchantWebhook = ""
+
+_G.SandStorm = ""
+_G.Hell = ""
+_G.Heaven = ""
+_G.Starfall = ""
+_G.Corruption = ""
+_G.Null = ""
+
+_G.Glitched = false
+_G.Dreamspace = false
+_G.Cyberspace = false
+
+_G.Mari = ""
+_G.Jester = ""
+
+_G.Globals = ""
+_G.OneBillion = ""
+_G.Native = ""
+_G.Eden = ""
+
+local currentVersion = "2.0.4"
 local macroLOGO = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2036_20251104174445.png?raw=true"
 
 local HttpService = game:GetService("HttpService")
@@ -200,31 +225,6 @@ local function IsNative(text)
     end
     return false
 end
-
-local antiAFK = true
-
-local BiomeWebhook = ""
-local AuraWebhook = ""
-local MerchantWebhook = ""
-
-local SandStorm = ""
-local Hell = ""
-local Heaven = ""
-local Starfall = ""
-local Corruption = ""
-local Null = ""
-
-local Glitched = false
-local Dreamspace = false
-local Cyberspace = false
-
-local Mari = ""
-local Jester = ""
-
-local Globals = ""
-local OneBillion = ""
-local Native = ""
-local Eden = ""
 
 local Window = Rayfield:CreateWindow({
    Name = "Macro Script (v."..currentVersion..")",
