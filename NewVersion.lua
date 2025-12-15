@@ -650,5 +650,13 @@ task.spawn(function()
 end)
 
 Rayfield:LoadConfiguration()
+Rayfield:SetVisibility(false)
+
 print(currentVersion)
 print("Loaded Script.")
+Rayfield:Notify({
+   Title = "Loaded Script",
+   Content = "The Script is Loaded!",
+   Duration = 5,
+   Image = 4483362458,
+})
