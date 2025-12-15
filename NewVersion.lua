@@ -428,6 +428,16 @@ local EdenInput = Tab:CreateInput({
    end,
 })
 local MerchantLabel = Tab:CreateLabel("Merchant Setting", 4483362458, Color3.fromRGB(255, 255, 255), false) -- Title, Icon, Color, IgnoreTheme
+local MerchantInput = Tab:CreateInput({
+   Name = "Merchant Webhook",
+   CurrentValue = "",
+   PlaceholderText = "Enter Webhook Link",
+   RemoveTextAfterFocusLost = false,
+   Flag = "MerchantWebhookConfig",
+   Callback = function(Text)
+      _G.MerchantWebhook = Text
+   end,
+})
 local MariInput = Tab:CreateInput({
    Name = "Mari Ping Role",
    CurrentValue = "",
