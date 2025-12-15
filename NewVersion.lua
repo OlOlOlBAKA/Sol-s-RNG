@@ -12,7 +12,7 @@ Rayfield:Notify({
 end
 local enableMacro = true
 
-local currentVersion = "1.27.2"
+local currentVersion = "2.0.1"
 local macroLOGO = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2036_20251104174445.png?raw=true"
 
 local HttpService = game:GetService("HttpService")
@@ -281,7 +281,7 @@ local AntiAFKToggle = Tab:CreateToggle({
       antiAFK = Value
    end,
 })
-local BiomeLabel = Tab:CreateLabel("Biome Setting", 4483362458, Color3.fromRGB(255, 255, 255), false) -- Title, Icon, Color, IgnoreTheme
+local BiomeLabel = Tab:CreateLabel("Biome Setting", 4483362458, Color3.fromRGB(80,80,80), false) -- Title, Icon, Color, IgnoreTheme
 local BiomeInput = Tab:CreateInput({
    Name = "Biome Webhook",
    CurrentValue = "",
@@ -376,9 +376,9 @@ local GlitchedToggle = Tab:CreateToggle({
       _G.Glitched = Value
    end,
 })
-local AuraLabel = Tab:CreateLabel("Aura Setting (Detect from message of chat, so you need to setting your server message ignore rarity in game setting.", 4483362458, Color3.fromRGB(255, 255, 255), false) -- Title, Icon, Color, IgnoreTheme
+local AuraLabel = Tab:CreateLabel("Aura Setting (Detect from message of chat, so you need to setting your server message ignore rarity in game setting.", 4483362458, Color3.fromRGB(80,80,80), false) -- Title, Icon, Color, IgnoreTheme
 local BiomeInput = Tab:CreateInput({
-   Name = "Biome Webhook",
+   Name = "Aura Webhook",
    CurrentValue = "",
    PlaceholderText = "Enter Webhook Link",
    RemoveTextAfterFocusLost = false,
@@ -427,7 +427,7 @@ local EdenInput = Tab:CreateInput({
       _G.Eden = "<@&"..Text..">"
    end,
 })
-local MerchantLabel = Tab:CreateLabel("Merchant Setting", 4483362458, Color3.fromRGB(255, 255, 255), false) -- Title, Icon, Color, IgnoreTheme
+local MerchantLabel = Tab:CreateLabel("Merchant Setting", 4483362458, Color3.fromRGB(80,80,80), false) -- Title, Icon, Color, IgnoreTheme
 local MerchantInput = Tab:CreateInput({
    Name = "Merchant Webhook",
    CurrentValue = "",
