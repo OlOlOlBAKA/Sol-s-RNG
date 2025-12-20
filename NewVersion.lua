@@ -13,6 +13,8 @@ end
 
 local enableMacro = true
 local antiAFK = true
+local baseAfkNumber = 60
+local currentAfkNumber = baseAfkNumber
 
 _G.BiomeWebhook = ""
 _G.AuraWebhook = ""
@@ -283,6 +285,21 @@ local AntiAFKToggle = Tab:CreateToggle({
       antiAFK = Value
    end,
 })
+local AFKInput = Tab:CreateInput({
+   Name = "Click Screen Every (Seconds)",
+   CurrentValue = "",
+   PlaceholderText = "Type Number Here",
+   RemoveTextAfterFocusLost = false,
+   Flag = "AntiAFKSetting",
+   Callback = function(Text)
+      if tonumber(Text) == nil then
+         currentAfkNumber = baseAfkNumber
+         CurrentValue = ""
+      else
+         currentAfkNumber = tonumber(Text)
+      end
+   end,
+})
 local BiomeLabel = Tab:CreateLabel("Biome Setting", 4483362458, Color3.fromRGB(80,80,80), false) -- Title, Icon, Color, IgnoreTheme
 local BiomeInput = Tab:CreateInput({
    Name = "Biome Webhook",
@@ -462,7 +479,8 @@ local JesterInput = Tab:CreateInput({
 })
 
 task.spawn(function()
-    while task.wait(600) do
+    while true do
+        task.wait(currentAfkNumber)
         if antiAFK then
             VirtualUser:CaptureController()
             VirtualUser:ClickButton1(Vector2.new(0,0))
