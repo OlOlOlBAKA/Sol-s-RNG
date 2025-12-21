@@ -40,7 +40,7 @@ _G.OneBillion = ""
 _G.Native = ""
 _G.Eden = ""
 
-local currentVersion = "2.1.4"
+local currentVersion = "2.1.6"
 local macroLOGO = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2036_20251104174445.png?raw=true"
 
 local HttpService = game:GetService("HttpService")
@@ -680,7 +680,9 @@ task.spawn(function()
             elseif keyword == "blazingsun" then
                imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2050_20251108102110.png?raw=true"
             elseif keyword == "aurora" then
+               imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2057_20251221212241.png?raw=true"
                if string.match(cleanMsg:lower(), "disappears") then return end
+               color = "0x9258FC"
             end
             SendBiomeWebhook(
                 "**Biome Detected**",
