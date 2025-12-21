@@ -680,7 +680,7 @@ task.spawn(function()
             elseif keyword == "blazingsun" then
                imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2050_20251108102110.png?raw=true"
             elseif keyword == "aurora" then
-               if string.match(cleanMsg:lower(), "disappears" then return end
+               if string.match(cleanMsg:lower(), "disappears") then return end
             end
             SendBiomeWebhook(
                 "**Biome Detected**",
