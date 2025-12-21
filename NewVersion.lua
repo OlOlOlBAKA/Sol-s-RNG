@@ -26,6 +26,7 @@ _G.Heaven = ""
 _G.Starfall = ""
 _G.Corruption = ""
 _G.Null = ""
+_G.Aurora = ""
 
 _G.Glitched = false
 _G.Dreamspace = false
@@ -39,7 +40,7 @@ _G.OneBillion = ""
 _G.Native = ""
 _G.Eden = ""
 
-local currentVersion = "2.0.5"
+local currentVersion = "2.1.4"
 local macroLOGO = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2036_20251104174445.png?raw=true"
 
 local HttpService = game:GetService("HttpService")
@@ -178,7 +179,7 @@ local function GetKeywordCache()
     ["graveyard"] = {["display"]="Graveyard", ["despawn"]=140},
     ["pumpkinmoon"] = {["display"]="Pumpkin Moon", ["despawn"]=140},
     ["bloodrain"] = {["display"]="Blood Rain", ["despawn"]=600},
-    ["aurora"] = {["display"]="Aurora", ["despawn"]=300},
+    ["aurora"] = {["display"]="Aurora", ["despawn"]=300, ["ping"]=_G["Aurora"]},
     ["sandstorm"]  = {["display"]="Sand Storm", ["despawn"]=660, ["ping"]=_G["SandStorm"]},
     ["hell"]        = {["display"]="Hell", ["despawn"]=660, ["ping"]=_G["Hell"]},
     ["heaven"]      = {["display"]="Heaven", ["despawn"]=240, ["ping"]=_G["Heaven"]},
@@ -371,6 +372,16 @@ local NullInput = Tab:CreateInput({
    Flag = "Config6",
    Callback = function(Text)
       _G.Null = "<@&"..Text..">"
+   end,
+})
+local AuroraInput = Tab:CreateInput({
+   Name = "Aurora Ping Role",
+   CurrentValue = "",
+   PlaceholderText = "Enter Discord Role ID",
+   RemoveTextAfterFocusLost = false,
+   Flag = "AuroraBiomeConfig",
+   Callback = function(Text)
+      _G.Aurora = "<@&"..Text..">"
    end,
 })
 local CyberspaceToggle = Tab:CreateToggle({
@@ -668,6 +679,8 @@ task.spawn(function()
                imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2049_20251108102024.png?raw=true"
             elseif keyword == "blazingsun" then
                imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2050_20251108102110.png?raw=true"
+            elseif keyword == "aurora" then
+               if string.match(cleanMsg:lower(), "disappears" then return end
             end
             SendBiomeWebhook(
                 "**Biome Detected**",
