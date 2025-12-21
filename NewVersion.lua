@@ -178,6 +178,7 @@ local function GetKeywordCache()
     ["graveyard"] = {["display"]="Graveyard", ["despawn"]=140},
     ["pumpkinmoon"] = {["display"]="Pumpkin Moon", ["despawn"]=140},
     ["bloodrain"] = {["display"]="Blood Rain", ["despawn"]=600},
+    ["aurora"] = {["display"]="Aurora", ["despawn"]=300},
     ["sandstorm"]  = {["display"]="Sand Storm", ["despawn"]=660, ["ping"]=_G["SandStorm"]},
     ["hell"]        = {["display"]="Hell", ["despawn"]=660, ["ping"]=_G["Hell"]},
     ["heaven"]      = {["display"]="Heaven", ["despawn"]=240, ["ping"]=_G["Heaven"]},
@@ -205,6 +206,7 @@ local native = {
     ["night"]       = { display = "Night",       multiplier = 10 },
     ["null"]        = { display = "Null",        multiplier = 1000 },
     ["cyberspace"]  = { display = "Cyberspace",  multiplier = 2 },
+    ["aurora"]  = { display = "Aurora",  multiplier = 2 },
 }
 
 local function IsNative(text)
@@ -541,6 +543,8 @@ task.spawn(function()
                 local number = tonumber(numberStr)
                 if number >= 99999999 then
                    contentmsg = _G["Globals"]
+                elseif number >= 999999999 then
+                   contentmsg = _G["OneBillion"]
                 end
                 SendAuraWebhook("**Aura Detected**", text, color, text, _G["AuraWebhook"], discordTime, contentmsg, RollAmount)
             end
