@@ -569,7 +569,8 @@ task.spawn(function()
                 or string.match(lowerText, "neferkhaf")
                 or string.match(lowerText, "nightmare")
                 or string.match(lowerText, "calamity")
-                or string.match(lowerText, "perfect puppet") then
+                or string.match(lowerText, "perfect puppet")
+                or string.match(lowerText, "frozen sovereign") then
 
                 pingRole = _G.OneBillion
 
