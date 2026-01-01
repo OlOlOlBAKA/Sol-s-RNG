@@ -18,7 +18,7 @@ local currentAfkNumber = baseAfkNumber
 
 -- Single webhooks (Aura & Merchant)
 _G.AuraWebhook = ""
-_G.MerchantWebhook = ""
+_G.MerchantWebhooks = _G.MerchantWebhooks or {}
 
 -- Multi webhooks (Biome only)
 _G.BiomeWebhooks = _G.BiomeWebhooks or {}
@@ -159,32 +159,49 @@ local function SendAuraWebhook(title, desc, color, anothermessage, GotTime, cont
 end
 
 local function SendMerchantWebhook(title, desc, color, anothermessage, spawnTime, despawnTime, contentmsg)
-    if _G.MerchantWebhook == "" or not enableMacro then return end
-    request({
-        ["Url"] = _G.MerchantWebhook,
-        ["Method"] = "POST",
-        ["Headers"] = {["Content-Type"] = "application/json"},
-        ["Body"] = HttpService:JSONEncode({
-            ["content"] = contentmsg,
-            ["embeds"] = {{
-                ["title"] = title,
-                ["description"] = desc,
-                ["image"] = {["url"] = ""},
-                ["type"] = "rich",
-                ["color"] = tonumber(color),
-                ["footer"] = {
-                    ["text"] = "Bao Macro (v." .. currentVersion ..")",
-                    ["icon_url"] = macroLOGO,
-                },
-                ["fields"] = {
-                    {["name"]="Spawn Time", ["value"]=spawnTime, ["inline"]=true},
-                    {["name"]="Despawn Time", ["value"]=despawnTime, ["inline"]=true},
-                    {["name"]="Original Message", ["value"]=anothermessage, ["inline"]=false},
-                    {["name"]="Private Server Link", ["value"]=privateServerLink, ["inline"]=true}
-                }
-            }}
-        })
-    })
+    if not enableMacro or #_G.MerchantWebhooks == 0 then return end
+
+    local lowerDesc = string.lower(desc)
+    local isMari = string.find(lowerDesc, "mari")
+    local isJester = string.find(lowerDesc, "jester")
+
+    local baseEmbed = {
+        ["title"] = title,
+        ["description"] = desc,
+        ["image"] = {["url"] = ""},
+        ["type"] = "rich",
+        ["color"] = tonumber(color),
+        ["footer"] = {
+            ["text"] = "Bao Macro (v." .. currentVersion ..")",
+            ["icon_url"] = macroLOGO,
+        },
+        ["fields"] = {
+            {["name"]="Spawn Time", ["value"]=spawnTime, ["inline"]=true},
+            {["name"]="Despawn Time", ["value"]=despawnTime, ["inline"]=true},
+            {["name"]="Original Message", ["value"]=anothermessage, ["inline"]=true},
+            {["name"]="Private Server Link", ["value"]=privateServerLink, ["inline"]=true}
+        }
+    }
+
+    for i, url in pairs(_G.MerchantWebhooks) do
+        local ping = (i == 1) and contentmsg or ""
+
+        if i == 1 then
+            if isMari then ping = _G.Mari or ""
+            elseif isJester then ping = _G.Jester or "" end
+        else
+            ping = ""
+        end
+
+        spawn(function()
+            request({
+                Url = url,
+                Method = "POST",
+                Headers = {["Content-Type"] = "application/json"},
+                Body = HttpService:JSONEncode({content = ping, embeds = {baseEmbed}})
+            })
+        end)
+    end
 end
 
 local function extractHexColor(input)
@@ -354,7 +371,22 @@ Tab:CreateInput({ Name = "1B Ping Role", PlaceholderText = "Enter Discord Role I
 Tab:CreateInput({ Name = "Eden Ping Role", PlaceholderText = "Enter Discord Role ID", Flag = "AuraConfig4", Callback = function(Text) _G.Eden = "<@&"..Text..">" end })
 
 local MerchantLabel = Tab:CreateLabel("Merchant Setting", 4483362458, Color3.fromRGB(80,80,80), false)
-Tab:CreateInput({ Name = "Merchant Webhook", PlaceholderText = "Enter Webhook Link", Flag = "MerchantWebhookConfig", Callback = function(Text) _G.MerchantWebhook = Text end })
+local MerchantWebhooksInput = Tab:CreateInput({
+   Name = "Merchant Webhooks (comma separated)",
+   CurrentValue = "",
+   PlaceholderText = "Enter multiple merchant webhooks, separate with commas",
+   RemoveTextAfterFocusLost = false,
+   Flag = "MerchantWebhookConfig",
+   Callback = function(Text)
+      _G.MerchantWebhooks = {}
+      for url in string.gmatch(Text or "", "([^,]+)") do
+         url = url:gsub("^%s*(.-)%s*$", "%1")
+         if url ~= "" and string.find(url, "^https?://discord%.com/api/webhooks/") then
+            table.insert(_G.MerchantWebhooks, url)
+         end
+      end
+   end,
+})
 Tab:CreateInput({ Name = "Mari Ping Role", PlaceholderText = "Enter Discord Role ID", Flag = "MerchantConfig1", Callback = function(Text) _G.Mari = "<@&"..Text..">" end })
 Tab:CreateInput({ Name = "Jester Ping Role", PlaceholderText = "Enter Discord Role ID", Flag = "MerchantConfig2", Callback = function(Text) _G.Jester = "<@&"..Text..">" end })
 
