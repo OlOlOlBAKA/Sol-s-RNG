@@ -83,7 +83,7 @@ local function SendBiomeWebhook(title, desc, color, anothermessage, spawnTime, d
         ["type"] = "rich",
         ["color"] = tonumber(color),
         ["footer"] = {
-            ["text"] = "Bao Macro (v." .. currentVersion ..")",
+            ["text"] = "Unnamed Macro (v." .. currentVersion ..")",
             ["icon_url"] = macroLOGO,
         },
         ["thumbnail"] = { ["url"] = image or "" },
@@ -146,7 +146,7 @@ local function SendAuraWebhook(title, desc, color, anothermessage, GotTime, cont
                 ["type"] = "rich",
                 ["color"] = tonumber(color),
                 ["footer"] = {
-                    ["text"] = "Bao Macro (v." .. currentVersion ..")",
+                    ["text"] = "Unnamed Macro (v." .. currentVersion ..")",
                     ["icon_url"] = macroLOGO,
                 },
                 ["fields"] = {
@@ -172,7 +172,7 @@ local function SendMerchantWebhook(title, desc, color, anothermessage, spawnTime
         ["type"] = "rich",
         ["color"] = tonumber(color),
         ["footer"] = {
-            ["text"] = "Bao Macro (v." .. currentVersion ..")",
+            ["text"] = "Unnamed Macro (v." .. currentVersion ..")",
             ["icon_url"] = macroLOGO,
         },
         ["fields"] = {
@@ -492,22 +492,22 @@ task.spawn(function()
         local discordDespawnTime = "<t:" .. (time + despawnTime) .. ":F>" .. " Or " .. "<t:" .. (time + despawnTime) .. ":R>"
 
         local imageURL = ""
-        if keyword == "windy" then imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2039_20251108101501.png?raw=true"
-        elseif keyword == "snowy" then imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2040_20251108101523.png?raw=true"
-        elseif keyword == "rainy" then imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2041_20251108101642.png?raw=true"
-        elseif keyword == "sandstorm" then imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2042_20251108101707.png?raw=true"
-        elseif keyword == "hell" then imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2043_20251108101728.png?raw=true"
-        elseif keyword == "heaven" then imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2056_20251207074340.png?raw=true"
-        elseif keyword == "starfall" then imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2044_20251108101751.png?raw=true"
-        elseif keyword == "corruption" then imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2045_20251108101812.png?raw=true"
-        elseif keyword == "null" then imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2046_20251108101901.png?raw=true"
-        elseif keyword == "manager" then imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2038_20251108095656.png?raw=true"
+        if keyword == "windy" then imageURL = "https://images-ext-1.discordapp.net/external/eo1JYqLLEdIz9Fa6lO4vq67nuwP-WRwTwUwGawZxFhE/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/WINDY.png"
+        elseif keyword == "snowy" then imageURL = "https://images-ext-1.discordapp.net/external/sWb2oiEYrmUNKNkCtv6JKynYKRUvRqhc4ADSS7C2z1E/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/SNOWY.png"
+        elseif keyword == "rainy" then imageURL = "https://images-ext-1.discordapp.net/external/h0Ia04sYgDtxzz_UPKyNxpC7V4EYPoQv8NG2W1VU1RA/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/RAINY.png"
+        elseif keyword == "sandstorm" then imageURL = "https://images-ext-1.discordapp.net/external/DDds7hi6Fvis70CJJNKIrtX276EcinbBSzDr-1w410s/%3Fcb%3D20260101235000/https/cdn.mongoosee.com/assets/biomes/SAND%2520STORM.png"
+        elseif keyword == "hell" then imageURL = "https://images-ext-1.discordapp.net/external/dzf7wwtggtJrTtGm2gmVjBdygGFrSphMj6m1cJCHVyk/%3Fcb%3D20260102003000/https/cdn.mongoosee.com/assets/biomes/HELL.png"
+        elseif keyword == "heaven" then imageURL = "https://images-ext-1.discordapp.net/external/9u3imY3UUVyeG_YbKI1wM2d_mPYAjlU2JYGCTfgEOUk/%3Fcb%3D20260101234000/https/cdn.mongoosee.com/assets/biomes/HEAVEN.png"
+        elseif keyword == "starfall" then imageURL = "https://images-ext-1.discordapp.net/external/fvrAcNOIkLGcRLt_oYvmbb5rEVxy18WRFzW5xRmKvAE/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/STARFALL.png"
+        elseif keyword == "corruption" then imageURL = "https://images-ext-1.discordapp.net/external/8DjoqCte5sN1qwxk6i72W5KHR_ZQklBKmkgt0SnMHf4/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/CORRUPTION.png"
+        elseif keyword == "null" then imageURL = "https://images-ext-1.discordapp.net/external/52UYmSQzxuFU8Ic3ynXdB2jORcht7PGkOQi-c50jLrE/%3Fcb%3D20260102003000/https/cdn.mongoosee.com/assets/biomes/NULL.png"
+        elseif keyword == "manager" then imageURL = "https://images-ext-1.discordapp.net/external/5SQy_HFQ9qnNKrpddi_zNH1Nb9t10WXPqggSJqVg_A8/%3Fcb%3D20260101162000/https/cdn.mongoosee.com/assets/biomes/GLITCHED.png"
             if string.match(cleanMsg:lower(), "resolved") then return end
-        elseif keyword == "dreamspace" then imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2037_20251108095605.png?raw=true"
+        elseif keyword == "dreamspace" then imageURL = "https://images-ext-1.discordapp.net/external/xCsP-8SbE5Z5HSoZP8uCe-eYZvxzSapISP969dyJ52M/%3Fcb%3D20260101141000/https/cdn.mongoosee.com/assets/biomes/DREAMSPACE.png"
             if string.match(cleanMsg:lower(), "waking") then return end
-        elseif keyword == "cyberspace" then imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2053_20251129034504.png?raw=true"
+        elseif keyword == "cyberspace" then imageURL = "https://images-ext-1.discordapp.net/external/2wCNSYyhRB-yxKOSt6qsLNohgam0TCUOQ6ITZP3o5_s/%3Fcb%3D20260101161000/https/cdn.mongoosee.com/assets/biomes/CYBERSPACE.png"
             if string.match(cleanMsg:lower(), "lost") then return end
-        elseif keyword == "aurora" then imageURL = "https://github.com/OlOlOlBAKA/Sol-s-RNG/blob/main/Images/%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%2057_20251221212241.png?raw=true"
+        elseif keyword == "aurora" then imageURL = "https://images-ext-1.discordapp.net/external/rm6JpGpB0Mlxe28ULtYy2L8nbY0O7X5qYKje0Zfrmk4/%3Fcb%3D20260101231000/https/cdn.mongoosee.com/assets/biomes/AURORA.png"
             if string.match(cleanMsg:lower(), "disappears") then return end
             color = "0x9258FC"
         end
