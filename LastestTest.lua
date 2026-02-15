@@ -421,6 +421,23 @@ local BiomeWebhooksInput = Tab:CreateInput({
    end,
 })
 
+local RareBiomeWebhooksInput = Tab:CreateInput({
+   Name = "Rare Biome Webhooks (comma separated)",
+   CurrentValue = "",
+   PlaceholderText = "Enter multiple biome webhooks, separate with commas",
+   RemoveTextAfterFocusLost = false,
+   Flag = "RareBiomeWebhookConfig",
+   Callback = function(Text)
+      _G.BiomeWebhooks = {}
+      for url in string.gmatch(Text or "", "([^,]+)") do
+         url = url:gsub("^%s*(.-)%s*$", "%1")
+         if url ~= "" and string.find(url, "^https?://discord%.com/api/webhooks/") then
+            table.insert(_G.RareBiomeWebhooks, url)
+         end
+      end
+   end,
+})
+
 -- Role ping inputs (unchanged)
 local SandStormInput = Tab:CreateInput({ Name = "Sand Storm Ping Role", PlaceholderText = "Enter Discord Role ID", Flag = "Config1", Callback = function(Text) _G.SandStorm = "<@&"..Text..">" end })
 local HellInput = Tab:CreateInput({ Name = "Hell Ping Role", PlaceholderText = "Enter Discord Role ID", Flag = "Config2", Callback = function(Text) _G.Hell = "<@&"..Text..">" end })
