@@ -45,7 +45,7 @@ _G.OneBillion = ""
 _G.Native = ""
 _G.Eden = ""
 
-local currentVersion = "3.0.1"
+local currentVersion = "3.0.2"
 local macroLOGO = "https://images-ext-1.discordapp.net/external/5SQy_HFQ9qnNKrpddi_zNH1Nb9t10WXPqggSJqVg_A8/%3Fcb%3D20260101162000/https/cdn.mongoosee.com/assets/biomes/GLITCHED.png"
 
 local HttpService = game:GetService("HttpService")
@@ -428,7 +428,7 @@ local RareBiomeWebhooksInput = Tab:CreateInput({
    RemoveTextAfterFocusLost = false,
    Flag = "RareBiomeWebhookConfig",
    Callback = function(Text)
-      _G.BiomeWebhooks = {}
+      _G.RareBiomeWebhooks = {}
       for url in string.gmatch(Text or "", "([^,]+)") do
          url = url:gsub("^%s*(.-)%s*$", "%1")
          if url ~= "" and string.find(url, "^https?://discord%.com/api/webhooks/") then
@@ -617,9 +617,9 @@ task.spawn(function()
         elseif keyword == "eden" then
             SendBiomeWebhook("**Eden Detected**", "Eden Has Spawned On " .. player["Name"] .. " Side!", color, cleanMsg, discordTime, discordDespawnTime, contentmsg, "")
         elseif keyword == "rainy" or keyword == "windy" or keyword == "snowy" then
-            SendBiomeWebhook("**Biome Detected**", data["display"] .. " Has Spawned!", color, cleanMsg, discordTime, discordDespawnTime, contentmsg, imageURL)
+            SendBiomeWebhook("**Common Biome Detected**", data["display"] .. " Has Spawned!", color, cleanMsg, discordTime, discordDespawnTime, contentmsg, imageURL)
         else
-            SendRareBiomeWebhook("**Biome Detected**", data["display"] .. " Has Spawned!", color, cleanMsg, discordTime, discordDespawnTime, contentmsg, imageURL)
+            SendRareBiomeWebhook("**Rare Biome Detected**", data["display"] .. " Has Spawned!", color, cleanMsg, discordTime, discordDespawnTime, contentmsg, imageURL)
         end
     end)
 end)
