@@ -1,3 +1,5 @@
+if game:IsLoaded() then else game.Loaded:Wait() end
+
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 if not _G["AlreadyRun"] then
     _G["AlreadyRun"] = true
