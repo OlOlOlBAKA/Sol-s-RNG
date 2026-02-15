@@ -238,6 +238,7 @@ local function SendMerchantWebhook(title, desc, color, anothermessage, spawnTime
     local lowerDesc = string.lower(desc)
     local isMari = string.find(lowerDesc, "mari")
     local isJester = string.find(lowerDesc, "jester")
+    local isRin = string.find(lowerDesc, "rin")
 
     local baseEmbed = {
         ["title"] = title,
@@ -262,7 +263,9 @@ local function SendMerchantWebhook(title, desc, color, anothermessage, spawnTime
 
         if i == 1 then
             if isMari then ping = _G.Mari or ""
-            elseif isJester then ping = _G.Jester or "" end
+            elseif isJester then ping = _G.Jester or "" 
+            elseif isRin then ping = _G.Rin or ""
+            end
         else
             ping = ""
         end
@@ -562,7 +565,6 @@ end)
 task.spawn(function()
     channel1["MessageReceived"]:Connect(function(message)
         if not message["Text"] or message["TextSource"] ~= nil then return end
-        if string.match(message.Text:lower(), "tip") then return end
         local text = message["Text"]:lower()
         local gsubText = message.Text:lower():gsub(" ","")
         local color = extractHexColor(message.Text)
