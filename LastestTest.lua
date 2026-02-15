@@ -45,7 +45,7 @@ _G.OneBillion = ""
 _G.Native = ""
 _G.Eden = ""
 
-local currentVersion = "2.5.1"
+local currentVersion = "3.0.0"
 local macroLOGO = "https://images-ext-1.discordapp.net/external/5SQy_HFQ9qnNKrpddi_zNH1Nb9t10WXPqggSJqVg_A8/%3Fcb%3D20260101162000/https/cdn.mongoosee.com/assets/biomes/GLITCHED.png"
 
 local HttpService = game:GetService("HttpService")
@@ -517,10 +517,19 @@ task.spawn(function()
             end
         else
             local pingRole = ""
-            if string.match(lowerText, "pixelated") or string.match(lowerText, "blinding") or string.match(lowerText, "positive")
-                or string.match(lowerText, "transcendent") or string.match(lowerText, "the truth") or string.match(lowerText, "neferkhaf")
-                or string.match(lowerText, "nightmare") or string.match(lowerText, "calamity") or string.match(lowerText, "perfect puppet")
-                or string.match(lowerText, "frozen sovereign") or string.match(lowerText, "all hail") or string.match(lowerText, "beneath") or string.match(lowerText, "breakthrough")  then
+            if string.match(lowerText, "pixelated") 
+                or string.match(lowerText, "blinding") 
+                or string.match(lowerText, "positive")
+                or string.match(lowerText, "transcendent") 
+                or string.match(lowerText, "the truth") 
+                or string.match(lowerText, "neferkhaf")
+                or string.match(lowerText, "nightmare") 
+                or string.match(lowerText, "calamity") 
+                or string.match(lowerText, "perfect puppet")
+                or string.match(lowerText, "frozen sovereign") 
+                or string.match(lowerText, "all hail")
+                or string.match(lowerText, "beneath") 
+                or string.match(lowerText, "breakthrough") then
                 pingRole = _G.OneBillion
             elseif string.match(lowerText, "glorious") or string.match(lowerText, "memory") then
                 pingRole = _G.Globals
