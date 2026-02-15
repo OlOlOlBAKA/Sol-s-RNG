@@ -1,3 +1,5 @@
+if game.PlaceId ~= "15532962292" then return end
+
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 if not _G["AlreadyRun"] then
     _G["AlreadyRun"] = true
