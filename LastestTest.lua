@@ -21,6 +21,7 @@ _G.AuraWebhook = ""
 _G.MerchantWebhooks = _G.MerchantWebhooks or {}
 
 -- Multi webhooks (Biome only)
+_G.RareBiomeWebhooks = _G.RareBiomeWebhooks or {}
 _G.BiomeWebhooks = _G.BiomeWebhooks or {}
 
 _G.SandStorm = ""
@@ -37,6 +38,7 @@ _G.Cyberspace = false
 
 _G.Mari = ""
 _G.Jester = ""
+_G.Rin = ""
 
 _G.Globals = ""
 _G.OneBillion = ""
@@ -96,6 +98,76 @@ local function SendBiomeWebhook(title, desc, color, anothermessage, spawnTime, d
     }
 
     for i, webhookURL in pairs(_G.BiomeWebhooks) do
+        local finalContent = contentmsg or ""
+
+        if isEveryoneBiome then
+            finalContent = "@everyone"  -- Always @everyone for these in ALL webhooks
+        elseif isRoleLimitedBiome then
+            if i == 1 then  -- Only ping role in FIRST webhook
+                if string.find(lowerTitleDesc, "sand storm") then finalContent = _G.SandStorm or ""
+                elseif string.find(lowerTitleDesc, "hell") then finalContent = _G.Hell or ""
+                elseif string.find(lowerTitleDesc, "starfall") then finalContent = _G.Starfall or ""
+                elseif string.find(lowerTitleDesc, "heaven") then finalContent = _G.Heaven or ""
+                elseif string.find(lowerTitleDesc, "corruption") then finalContent = _G.Corruption or ""
+                elseif string.find(lowerTitleDesc, "null") then finalContent = _G.Null or "" end
+            else
+                finalContent = ""  -- No ping in other webhooks
+            end
+        end
+        -- For all other biomes: use original contentmsg (from toggles/inputs)
+
+        local payload = HttpService:JSONEncode({
+            ["content"] = finalContent,
+            ["embeds"] = { baseEmbed }
+        })
+
+        spawn(function()
+            request({
+                ["Url"] = webhookURL,
+                ["Method"] = "POST",
+                ["Headers"] = {["Content-Type"] = "application/json"},
+                ["Body"] = payload
+            })
+        end)
+    end
+end
+
+local function SendRareBiomeWebhook(title, desc, color, anothermessage, spawnTime, despawnTime, contentmsg, image)
+    if not enableMacro or #_G.RareBiomeWebhooks == 0 then return end
+
+    local lowerTitleDesc = string.lower(title .. " " .. desc)
+
+    local isEveryoneBiome = string.find(lowerTitleDesc, "glitched") 
+        or string.find(lowerTitleDesc, "dreamspace") 
+        or string.find(lowerTitleDesc, "cyberspace")
+
+    local isRoleLimitedBiome = string.find(lowerTitleDesc, "sand storm")
+        or string.find(lowerTitleDesc, "hell")
+        or string.find(lowerTitleDesc, "starfall")
+        or string.find(lowerTitleDesc, "heaven")
+        or string.find(lowerTitleDesc, "corruption")
+        or string.find(lowerTitleDesc, "null")
+
+    local baseEmbed = {
+        ["title"] = title,
+        ["description"] = desc,
+        ["image"] = {["url"] = ""},
+        ["type"] = "rich",
+        ["color"] = tonumber(color),
+        ["footer"] = {
+            ["text"] = "Unnamed Macro (v." .. currentVersion ..")",
+            ["icon_url"] = macroLOGO,
+        },
+        ["thumbnail"] = { ["url"] = image or "" },
+        ["fields"] = {
+            {["name"]="Spawn Time", ["value"]=spawnTime, ["inline"]=true},
+            {["name"]="Despawn Time", ["value"]=despawnTime, ["inline"]=true},
+            {["name"]="Original Message", ["value"]=anothermessage, ["inline"]=true},
+            {["name"]="Private Server Link", ["value"]=privateServerLink, ["inline"]=true}
+        }
+    }
+
+    for i, webhookURL in pairs(_G.RareBiomeWebhooks) do
         local finalContent = contentmsg or ""
 
         if isEveryoneBiome then
@@ -244,6 +316,7 @@ local function GetKeywordCache()
         ["cyberspace"]  = {["display"]="Cyberspace", ["despawn"]=720, ["ping"]=_G["Cyberspace"]},
         ["mari"]        = {["display"]="Mari", ["despawn"]=180, ["ping"]=_G["Mari"]},
         ["jester"]      = {["display"]="Jester", ["despawn"]=180, ["ping"]=_G["Jester"]},
+        ["rin"]         = {["display"]="Rin", ["despawn"]=180, ["ping"]=_G["Rin"]},
         ["eden"]        = {["display"]="Eden", ["despawn"]=1800, ["ping"]=_G["Eden"]},
     }
 end
@@ -389,6 +462,7 @@ local MerchantWebhooksInput = Tab:CreateInput({
 })
 Tab:CreateInput({ Name = "Mari Ping Role", PlaceholderText = "Enter Discord Role ID", Flag = "MerchantConfig1", Callback = function(Text) _G.Mari = "<@&"..Text..">" end })
 Tab:CreateInput({ Name = "Jester Ping Role", PlaceholderText = "Enter Discord Role ID", Flag = "MerchantConfig2", Callback = function(Text) _G.Jester = "<@&"..Text..">" end })
+Tab:CreateInput({ Name = "Rin Ping Role", PlaceholderText = "Enter Discord Role ID", Flag = "MerchantConfig3", Callback = function(Text) _G.Rin = "<@&"..Text..">" end })
 
 -- Anti-AFK Loop
 task.spawn(function()
@@ -446,7 +520,7 @@ task.spawn(function()
             if string.match(lowerText, "pixelated") or string.match(lowerText, "blinding") or string.match(lowerText, "positive")
                 or string.match(lowerText, "transcendent") or string.match(lowerText, "the truth") or string.match(lowerText, "neferkhaf")
                 or string.match(lowerText, "nightmare") or string.match(lowerText, "calamity") or string.match(lowerText, "perfect puppet")
-                or string.match(lowerText, "frozen sovereign") then
+                or string.match(lowerText, "frozen sovereign") or string.match(lowerText, "all hail") or string.match(lowerText, "beneath") or string.match(lowerText, "breakthrough")  then
                 pingRole = _G.OneBillion
             elseif string.match(lowerText, "glorious") or string.match(lowerText, "memory") then
                 pingRole = _G.Globals
@@ -512,12 +586,14 @@ task.spawn(function()
             color = "0x9258FC"
         end
 
-        if keyword == "mari" or keyword == "jester" then
+        if keyword == "mari" or keyword == "jester" or keyword == "rin" then
             SendMerchantWebhook("**Merchant Detected**", data["display"] .. " Has Spawned!", color, cleanMsg, discordTime, discordDespawnTime, contentmsg)
         elseif keyword == "eden" then
             SendBiomeWebhook("**Eden Detected**", "Eden Has Spawned On " .. player["Name"] .. " Side!", color, cleanMsg, discordTime, discordDespawnTime, contentmsg, "")
-        else
+        elseif keyword == "rainy" or "windy" or "snowy" then
             SendBiomeWebhook("**Biome Detected**", data["display"] .. " Has Spawned!", color, cleanMsg, discordTime, discordDespawnTime, contentmsg, imageURL)
+        else
+            SendRareBiomeWebhook("**Biome Detected**", data["display"] .. " Has Spawned!", color, cleanMsg, discordTime, discordDespawnTime, contentmsg, imageURL)
         end
     end)
 end)
