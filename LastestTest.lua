@@ -445,7 +445,7 @@ local StarfallInput = Tab:CreateInput({ Name = "Starfall Ping Role", Placeholder
 local HeavenInput = Tab:CreateInput({ Name = "Heaven Ping Role", PlaceholderText = "Enter Discord Role ID", Flag = "Config4", Callback = function(Text) _G.Heaven = "<@&"..Text..">" end })
 local CorruptionInput = Tab:CreateInput({ Name = "Corruption Ping Role", PlaceholderText = "Enter Discord Role ID", Flag = "Config5", Callback = function(Text) _G.Corruption = "<@&"..Text..">" end })
 local NullInput = Tab:CreateInput({ Name = "Null Ping Role", PlaceholderText = "Enter Discord Role ID", Flag = "Config6", Callback = function(Text) _G.Null = "<@&"..Text..">" end })
-local AuroraInput = Tab:CreateInput({ Name = "Aurora Ping Role", PlaceholderText = "Enter Discord Role ID", Flag = "AuroraBiomeConfig", Callback = function(Text) _G.Aurora = "<@&"..Text..">" end })
+--local AuroraInput = Tab:CreateInput({ Name = "Aurora Ping Role", PlaceholderText = "Enter Discord Role ID", Flag = "AuroraBiomeConfig", Callback = function(Text) _G.Aurora = "<@&"..Text..">" end })
 local PSInput = Tab:CreateInput({ Name = "Private Server Link", PlaceholderText = "Enter Your Private Server Link", Flag = "privateServerLinkConfig", Callback = function(Text) privateServerLink = Text end })
 
 local CyberspaceToggle = Tab:CreateToggle({ Name = "Cyberspace Ping Everyone", CurrentValue = true, Flag = "Config7", Callback = function(Value) _G.Cyberspace = Value end })
