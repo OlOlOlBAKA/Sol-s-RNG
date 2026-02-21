@@ -15,8 +15,36 @@ end
 
 local enableMacro = true
 local antiAFK = true
+local UpdateStatus = true
 local baseAfkNumber = 60
 local currentAfkNumber = baseAfkNumber
+local baseStatusNumber = 30
+local currentStatusNumber = baseStatusNumber
+
+-- Biome
+local totalWindy = 0
+local totalSnowy = 0
+local totalRainy = 0
+local totalSandStorm = 0
+local totalHell = 0
+local totalStarfall = 0
+local totalHeaven = 0
+local totalCorruption = 0
+local totalNull = 0
+local totalGlitched = 0
+local totalDreamspace = 0
+local totalCyberspace = 0
+-- Auras
+local total1M = 0
+local total10M = 0
+local total100M = 0
+local total1B = 0
+-- Merchants
+local totalMari = 0
+local totalRin = 0
+local totalJester = 0
+
+local saveFile = "macro_stats.txt" 
 
 -- Single webhooks (Aura & Merchant)
 _G.AuraWebhook = ""
@@ -25,6 +53,8 @@ _G.MerchantWebhooks = _G.MerchantWebhooks or {}
 -- Multi webhooks (Biome only)
 _G.RareBiomeWebhooks = _G.RareBiomeWebhooks or {}
 _G.BiomeWebhooks = _G.BiomeWebhooks or {}
+
+_G.StatusWebhook = ""
 
 _G.SandStorm = ""
 _G.Hell = ""
@@ -47,7 +77,7 @@ _G.OneBillion = ""
 _G.Native = ""
 _G.Eden = ""
 
-local currentVersion = "3.1.1"
+local currentVersion = "3.2"
 local macroLOGO = "https://images-ext-1.discordapp.net/external/5SQy_HFQ9qnNKrpddi_zNH1Nb9t10WXPqggSJqVg_A8/%3Fcb%3D20260101162000/https/cdn.mongoosee.com/assets/biomes/GLITCHED.png"
 
 local HttpService = game:GetService("HttpService")
@@ -281,6 +311,54 @@ local function SendMerchantWebhook(title, desc, color, anothermessage, spawnTime
     end
 end
 
+local function SendStatusWebhook()
+    if webhookURL == "" or not enableMacro then return end
+    request({
+        ["Url"] = _G.StatusWebhook,
+        ["Method"] = "POST",
+        ["Headers"] = {["Content-Type"] = "application/json"},
+        ["Body"] = HttpService:JSONEncode({
+            ["content"] = "",
+            ["embeds"] = {{
+                ["title"] = "Macro Detection Status,
+                ["description"] = "Total of biomes, auras and merchant in past" .. tostring(currentStatusNumber) .. "seconds",
+                ["image"] = {["url"] = ""},
+                ["type"] = "rich",
+                ["color"] = tonumber(color),
+                ["footer"] = {
+                    ["text"] = "Unnamed Macro (v." .. currentVersion ..")",
+                    ["icon_url"] = macroLOGO,
+                },
+                ["fields"] = {
+                    {["name"]="Total Normal Biomes Found", ["value"]=totalWindy+totalSnowy+totalRainy, ["inline"]=false},
+                    {["name"]="Windy", ["value"]=totalWindy, ["inline"]=false},
+                    {["name"]="Snowy", ["value"]=totalSnowy, ["inline"]=false},
+                    {["name"]="Rainy", ["value"]=totalRainy, ["inline"]=false},
+                    {["name"]="Total Rare Biomes Found", ["value"]=totalSandStorm+totalHell+totalStarfall+totalHeaven+totalCorruption+totalNull+totalGlitched+totalDreamspace+totalCyberspace, ["inline"]=false},
+                    {["name"]="Sand Storm", ["value"]=totalSandStorm, ["inline"]=false},
+                    {["name"]="Hell", ["value"]=totalHell, ["inline"]=false},
+                    {["name"]="Starfall", ["value"]=totalStarfall, ["inline"]=false},
+                    {["name"]="Heaven", ["value"]=totalHeaven, ["inline"]=false},
+                    {["name"]="Corruption", ["value"]=totalCorruption, ["inline"]=false},
+                    {["name"]="Null", ["value"]=totalNull, ["inline"]=false},
+                    {["name"]="Glitched", ["value"]=totalGlitched, ["inline"]=false},
+                    {["name"]="Dreamspace", ["value"]=totalDreamspace, ["inline"]=false},
+                    {["name"]="Cyberspace", ["value"]=totalCyberspace, ["inline"]=false},
+                    {["name"]="Total Auras Found (1M+ only)", ["value"]=total1M+total10M+total100M+total1B, ["inline"]=false},
+                    {["name"]="1M Auras", ["value"]=total1M, ["inline"]=false},
+                    {["name"]="10M Auras", ["value"]=total10M, ["inline"]=false},
+                    {["name"]="100M Auras", ["value"]=total100M, ["inline"]=false},
+                    {["name"]="1B Auras", ["value"]=total1B, ["inline"]=false},
+                    {["name"]="Total Merchants Found", ["value"]=totalMari+totalRin+totalJester, ["inline"]=false},
+                    {["name"]="Mari", ["value"]=totalMari, ["inline"]=false},
+                    {["name"]="Rin", ["value"]=totalRin, ["inline"]=false},
+                    {["name"]="Jester", ["value"]=totalJester, ["inline"]=false},
+                }
+            }}
+        })
+    })
+end
+
 local function extractHexColor(input)
     local hex = string.match(input, 'color="[#]?(%x%x%x%x%x%x)"')
     if hex then return "0x"..hex end
@@ -359,6 +437,52 @@ local function IsNative(text)
     return false
 end
 
+local function saveBiomes()
+    local data = {
+        "totalWindy = " .. totalWindy,
+        "totalSnowy = " .. totalSnowy,
+        "totalRainy = " .. totalRainy,
+        "totalSandStorm = " .. totalSandStorm,
+        "totalHell = " .. totalHell,
+        "totalStarfall = " .. totalStarfall,
+        "totalHeaven = " .. totalHeaven,
+        "totalCorruption = " .. totalCorruption,
+        "totalNull = " .. totalNull,
+        "totalGlitched = " .. totalGlitched,
+        "totalDreamspace = " .. totalDreamspace,
+        "totalCyberspace = " .. totalCyberspace,
+        "total1M = " .. total1M,
+        "total10M = " .. total10M,
+        "total100M = " .. total100M,
+        "total1B = " .. total1B,
+        "totalMari = " .. totalMari,
+        "totalRin = " .. totalRin,
+        "totalJester = " .. totalJester
+    }
+    
+    local content = table.concat(data, "\n")
+    
+    -- replaced file
+    writefile(saveFile, content)
+    print("Successfully saved file " .. saveFile)
+end
+
+local function loadBiomes()
+    if isfile(saveFile) then
+        local content = readfile(saveFile)
+        for line in content:gmatch("[^\r\n]+") do
+            local var, val = line:match("([^=]+)%s*=%s*(%d+)")
+            if var and val then
+                var = var:match("^%s*(.-)%s*$")  -- trim ช่องว่าง
+                _G[var] = tonumber(val) or 0     -- อัปเดตตัวแปร global
+            end
+        end
+        print("Successfully loaded file")
+    else
+        warn("Cannot find the old file")
+    end
+end
+
 local Window = Rayfield:CreateWindow({
    Name = "Macro Script (v."..currentVersion..")",
    Icon = 0,
@@ -398,13 +522,34 @@ local AntiAFKToggle = Tab:CreateToggle({
 local AFKInput = Tab:CreateInput({
    Name = "Click Screen Every (Seconds)",
    CurrentValue = "",
-   PlaceholderText = "Type Number Here",
+   PlaceholderText = "Type Number Here (Min = 3)",
    RemoveTextAfterFocusLost = false,
    Flag = "AntiAFKSetting",
    Callback = function(Text)
       currentAfkNumber = tonumber(Text) or baseAfkNumber
+      if currentAfkNumber <= 3 then currentAfkNumber = 4 end
    end,
 })
+
+local DetectionStatusToggle = Tab:CreateToggle({
+   Name = "Update Total Macro Detection",
+   CurrentValue = true,
+   Flag = "UpdateStatus",
+   Callback = function(Value) UpdateStatus = Value end,
+})
+
+local StatusInput = Tab:CreateInput({
+   Name = "Update Status Every (Seconds)",
+   CurrentValue = "",
+   PlaceholderText = "Type Number Here (Min = 30)",
+   RemoveTextAfterFocusLost = false,
+   Flag = "StatusMacroSetting",
+   Callback = function(Text)
+      currentStatusNumber = tonumber(Text) or baseStatusNumber
+      if currentStatusNumber < 30 then currentStatusNumber = 30 end
+   end,
+})
+Tab:CreateInput({ Name = "Status Webhook", PlaceholderText = "Enter Webhook Link", Flag = "StatusWebhookConfig", Callback = function(Text) _G.StatusWebhook = Text end })
 
 local BiomeLabel = Tab:CreateLabel("Biome Setting", 4483362458, Color3.fromRGB(80,80,80), false)
 
@@ -497,6 +642,15 @@ task.spawn(function()
     end
 end)
 
+task.spawn(function()
+    while true do
+        task.wait(currentStatusNumber)
+        if UpdateStatus then
+            SendStatusWebhook()
+        end
+    end
+end)
+
 -- Aura Detection (channel2)
 task.spawn(function()
     channel2["MessageReceived"]:Connect(function(message)
@@ -530,12 +684,25 @@ task.spawn(function()
             if isNative then
                 local trueRarity = tonumber(numberStr) * multi
                 if trueRarity >= 99999999 then contentmsg = _G["Native"] end
+                total100M += 1
                 SendAuraWebhook("**Aura Detected**", text, color, text, discordTime, contentmsg, RollAmount)
+                saveBiomes()
             else
                 local number = tonumber(numberStr)
-                if number >= 99999999 then contentmsg = _G["Globals"]
-                elseif number >= 999999999 then contentmsg = _G["OneBillion"] end
+                
+                if number >= 999999999 then 
+                    contentmsg = _G["OneBillion"] 
+                    total1B += 1
+                elseif number >= 999999999 then 
+                    contentmsg = _G["Globals"]
+                    total100M += 1
+                elseif number >= 9999999 then
+                    total10M += 1
+                elseif number >= 999999 then
+                    total1M += 1
+                end
                 SendAuraWebhook("**Aura Detected**", text, color, text, discordTime, contentmsg, RollAmount)
+                saveBiomes()
             end
         else
             local pingRole = ""
@@ -552,11 +719,14 @@ task.spawn(function()
                 or string.match(lowerText, "all hail")
                 or string.match(lowerText, "beneath") 
                 or string.match(lowerText, "breakthrough") then
+                total1B += 1
                 pingRole = _G.OneBillion
             elseif string.match(lowerText, "glorious") or string.match(lowerText, "memory") then
+                total100M += 1
                 pingRole = _G.Globals
             end
             SendAuraWebhook("**Aura Detected**", text, color, text, discordTime, pingRole, RollAmount)
+            saveBiomes()
         end
     end)
 end)
@@ -598,27 +768,34 @@ task.spawn(function()
         local discordDespawnTime = "<t:" .. (time + despawnTime) .. ":F>" .. " Or " .. "<t:" .. (time + despawnTime) .. ":R>"
 
         local imageURL = ""
-        if keyword == "windy" then imageURL = "https://images-ext-1.discordapp.net/external/eo1JYqLLEdIz9Fa6lO4vq67nuwP-WRwTwUwGawZxFhE/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/WINDY.png"
-        elseif keyword == "snowy" then imageURL = "https://images-ext-1.discordapp.net/external/sWb2oiEYrmUNKNkCtv6JKynYKRUvRqhc4ADSS7C2z1E/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/SNOWY.png"
-        elseif keyword == "rainy" then imageURL = "https://images-ext-1.discordapp.net/external/h0Ia04sYgDtxzz_UPKyNxpC7V4EYPoQv8NG2W1VU1RA/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/RAINY.png"
-        elseif keyword == "sandstorm" then imageURL = "https://images-ext-1.discordapp.net/external/DDds7hi6Fvis70CJJNKIrtX276EcinbBSzDr-1w410s/%3Fcb%3D20260101235000/https/cdn.mongoosee.com/assets/biomes/SAND%2520STORM.png"
-        elseif keyword == "hell" then imageURL = "https://images-ext-1.discordapp.net/external/dzf7wwtggtJrTtGm2gmVjBdygGFrSphMj6m1cJCHVyk/%3Fcb%3D20260102003000/https/cdn.mongoosee.com/assets/biomes/HELL.png"
-        elseif keyword == "heaven" then imageURL = "https://images-ext-1.discordapp.net/external/9u3imY3UUVyeG_YbKI1wM2d_mPYAjlU2JYGCTfgEOUk/%3Fcb%3D20260101234000/https/cdn.mongoosee.com/assets/biomes/HEAVEN.png"
-        elseif keyword == "starfall" then imageURL = "https://images-ext-1.discordapp.net/external/fvrAcNOIkLGcRLt_oYvmbb5rEVxy18WRFzW5xRmKvAE/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/STARFALL.png"
-        elseif keyword == "corruption" then imageURL = "https://images-ext-1.discordapp.net/external/8DjoqCte5sN1qwxk6i72W5KHR_ZQklBKmkgt0SnMHf4/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/CORRUPTION.png"
-        elseif keyword == "null" then imageURL = "https://images-ext-1.discordapp.net/external/52UYmSQzxuFU8Ic3ynXdB2jORcht7PGkOQi-c50jLrE/%3Fcb%3D20260102003000/https/cdn.mongoosee.com/assets/biomes/NULL.png"
+        if keyword == "windy" then totalWindy += 1 imageURL = "https://images-ext-1.discordapp.net/external/eo1JYqLLEdIz9Fa6lO4vq67nuwP-WRwTwUwGawZxFhE/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/WINDY.png"
+        elseif keyword == "snowy" then totalSnowy += 1 imageURL = "https://images-ext-1.discordapp.net/external/sWb2oiEYrmUNKNkCtv6JKynYKRUvRqhc4ADSS7C2z1E/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/SNOWY.png"
+        elseif keyword == "rainy" then totalRainy += 1 imageURL = "https://images-ext-1.discordapp.net/external/h0Ia04sYgDtxzz_UPKyNxpC7V4EYPoQv8NG2W1VU1RA/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/RAINY.png"
+        elseif keyword == "sandstorm" then totalSandStorm += 1 imageURL = "https://images-ext-1.discordapp.net/external/DDds7hi6Fvis70CJJNKIrtX276EcinbBSzDr-1w410s/%3Fcb%3D20260101235000/https/cdn.mongoosee.com/assets/biomes/SAND%2520STORM.png"
+        elseif keyword == "hell" then totalHell += 1 imageURL = "https://images-ext-1.discordapp.net/external/dzf7wwtggtJrTtGm2gmVjBdygGFrSphMj6m1cJCHVyk/%3Fcb%3D20260102003000/https/cdn.mongoosee.com/assets/biomes/HELL.png"
+        elseif keyword == "heaven" then totalHeaven += 1 imageURL = "https://images-ext-1.discordapp.net/external/9u3imY3UUVyeG_YbKI1wM2d_mPYAjlU2JYGCTfgEOUk/%3Fcb%3D20260101234000/https/cdn.mongoosee.com/assets/biomes/HEAVEN.png"
+        elseif keyword == "starfall" then totalStarfall += 1 imageURL = "https://images-ext-1.discordapp.net/external/fvrAcNOIkLGcRLt_oYvmbb5rEVxy18WRFzW5xRmKvAE/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/STARFALL.png"
+        elseif keyword == "corruption" then totalCorruption += 1 imageURL = "https://images-ext-1.discordapp.net/external/8DjoqCte5sN1qwxk6i72W5KHR_ZQklBKmkgt0SnMHf4/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/CORRUPTION.png"
+        elseif keyword == "null" then totalNull += 1 imageURL = "https://images-ext-1.discordapp.net/external/52UYmSQzxuFU8Ic3ynXdB2jORcht7PGkOQi-c50jLrE/%3Fcb%3D20260102003000/https/cdn.mongoosee.com/assets/biomes/NULL.png"
         elseif keyword == "manager" then imageURL = "https://images-ext-1.discordapp.net/external/5SQy_HFQ9qnNKrpddi_zNH1Nb9t10WXPqggSJqVg_A8/%3Fcb%3D20260101162000/https/cdn.mongoosee.com/assets/biomes/GLITCHED.png"
-            if string.match(cleanMsg:lower(), "resolved") then return end
+            if string.match(cleanMsg:lower(), "resolved") then return end totalGlitched += 1
         elseif keyword == "dreamspace" then imageURL = "https://images-ext-1.discordapp.net/external/xCsP-8SbE5Z5HSoZP8uCe-eYZvxzSapISP969dyJ52M/%3Fcb%3D20260101141000/https/cdn.mongoosee.com/assets/biomes/DREAMSPACE.png"
-            if string.match(cleanMsg:lower(), "waking") then return end
+            if string.match(cleanMsg:lower(), "waking") then return end totalDreamspace += 1
         elseif keyword == "cyberspace" then imageURL = "https://images-ext-1.discordapp.net/external/2wCNSYyhRB-yxKOSt6qsLNohgam0TCUOQ6ITZP3o5_s/%3Fcb%3D20260101161000/https/cdn.mongoosee.com/assets/biomes/CYBERSPACE.png"
-            if string.match(cleanMsg:lower(), "lost") then return end
+            if string.match(cleanMsg:lower(), "lost") then return end totalCyberspace += 1
         elseif keyword == "aurora" then imageURL = "https://images-ext-1.discordapp.net/external/rm6JpGpB0Mlxe28ULtYy2L8nbY0O7X5qYKje0Zfrmk4/%3Fcb%3D20260101231000/https/cdn.mongoosee.com/assets/biomes/AURORA.png"
             if string.match(cleanMsg:lower(), "disappears") then return end
             color = "0x9258FC"
         end
 
         if keyword == "mari" or keyword == "jester" or keyword == "rin" then
+            if keyword == "mari" then 
+                totalMari += 1
+            elseif keyword == "rin" then
+                totalRin += 1
+            else
+                totalJester += 1
+            end
             SendMerchantWebhook("**Merchant Detected**", data["display"] .. " Has Spawned!", color, cleanMsg, discordTime, discordDespawnTime, contentmsg)
         elseif keyword == "eden" then
             SendBiomeWebhook("**Eden Detected**", "Eden Has Spawned On " .. player["Name"] .. " Side!", color, cleanMsg, discordTime, discordDespawnTime, contentmsg, "")
@@ -627,10 +804,12 @@ task.spawn(function()
         else
             SendRareBiomeWebhook("**Rare Biome Detected**", data["display"] .. " Has Spawned!", color, cleanMsg, discordTime, discordDespawnTime, contentmsg, imageURL)
         end
+        saveBiomes()
     end)
 end)
 
 Rayfield:LoadConfiguration()
+loadBiomes()
 Rayfield:SetVisibility(false)
 
 print(currentVersion)
