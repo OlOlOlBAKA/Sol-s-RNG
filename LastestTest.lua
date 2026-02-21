@@ -77,7 +77,7 @@ _G.OneBillion = ""
 _G.Native = ""
 _G.Eden = ""
 
-local currentVersion = "3.2"
+local currentVersion = "3.2.1"
 local macroLOGO = "https://images-ext-1.discordapp.net/external/5SQy_HFQ9qnNKrpddi_zNH1Nb9t10WXPqggSJqVg_A8/%3Fcb%3D20260101162000/https/cdn.mongoosee.com/assets/biomes/GLITCHED.png"
 
 local HttpService = game:GetService("HttpService")
@@ -236,7 +236,7 @@ end
 
 -- Aura & Merchant remain single webhook (unchanged)
 local function SendAuraWebhook(title, desc, color, anothermessage, GotTime, contentmsg, rolls)
-    if webhookURL == "" or not enableMacro then return end
+    if not enableMacro then return end
     request({
         ["Url"] = _G.AuraWebhook,
         ["Method"] = "POST",
@@ -312,7 +312,7 @@ local function SendMerchantWebhook(title, desc, color, anothermessage, spawnTime
 end
 
 local function SendStatusWebhook()
-    if webhookURL == "" or not enableMacro then return end
+    if not enableMacro then return end
     request({
         ["Url"] = _G.StatusWebhook,
         ["Method"] = "POST",
@@ -320,11 +320,11 @@ local function SendStatusWebhook()
         ["Body"] = HttpService:JSONEncode({
             ["content"] = "",
             ["embeds"] = {{
-                ["title"] = "Macro Detection Status,
+                ["title"] = "Macro Detection Status",
                 ["description"] = "Total of biomes, auras and merchant in past" .. tostring(currentStatusNumber) .. "seconds",
                 ["image"] = {["url"] = ""},
                 ["type"] = "rich",
-                ["color"] = tonumber(color),
+                ["color"] = tonumber(0xFF0000),
                 ["footer"] = {
                     ["text"] = "Unnamed Macro (v." .. currentVersion ..")",
                     ["icon_url"] = macroLOGO,
@@ -549,7 +549,7 @@ local StatusInput = Tab:CreateInput({
       if currentStatusNumber < 30 then currentStatusNumber = 30 end
    end,
 })
-Tab:CreateInput({ Name = "Status Webhook", PlaceholderText = "Enter Webhook Link", Flag = "StatusWebhookConfig", Callback = function(Text) _G.StatusWebhook = Text end })
+local StatusWebhook = Tab:CreateInput({ Name = "Status Webhook", PlaceholderText = "Enter Webhook Link", Flag = "StatusWebhookConfig", Callback = function(Text) _G.StatusWebhook = Text end })
 
 local BiomeLabel = Tab:CreateLabel("Biome Setting", 4483362458, Color3.fromRGB(80,80,80), false)
 
@@ -693,7 +693,7 @@ task.spawn(function()
                 if number >= 999999999 then 
                     contentmsg = _G["OneBillion"] 
                     total1B += 1
-                elseif number >= 999999999 then 
+                elseif number >= 99999999 then 
                     contentmsg = _G["Globals"]
                     total100M += 1
                 elseif number >= 9999999 then
