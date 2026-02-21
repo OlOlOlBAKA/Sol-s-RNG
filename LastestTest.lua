@@ -76,7 +76,7 @@ _G.OneBillion = ""
 _G.Native = ""
 _G.Eden = ""
 
-local currentVersion = "3.2.2"
+local currentVersion = "3.2.3"
 local macroLOGO = "https://images-ext-1.discordapp.net/external/5SQy_HFQ9qnNKrpddi_zNH1Nb9t10WXPqggSJqVg_A8/%3Fcb%3D20260101162000/https/cdn.mongoosee.com/assets/biomes/GLITCHED.png"
 
 local HttpService = game:GetService("HttpService")
@@ -329,30 +329,33 @@ local function SendStatusWebhook()
                     ["icon_url"] = macroLOGO,
                 },
                 ["fields"] = {
-                    {["name"]="Total Normal Biomes Found", ["value"]=totalWindy+totalSnowy+totalRainy, ["inline"]=false},
-                    {["name"]="Windy", ["value"]=totalWindy, ["inline"]=false},
-                    {["name"]="Snowy", ["value"]=totalSnowy, ["inline"]=false},
-                    {["name"]="Rainy", ["value"]=totalRainy, ["inline"]=false},
-                    {["name"]="Total Rare Biomes Found", ["value"]=totalSandStorm+totalHell+totalStarfall+totalHeaven+totalCorruption+totalNull+totalGlitched+totalDreamspace+totalCyberspace, ["inline"]=false},
-                    {["name"]="Sand Storm", ["value"]=totalSandStorm, ["inline"]=false},
-                    {["name"]="Hell", ["value"]=totalHell, ["inline"]=false},
-                    {["name"]="Starfall", ["value"]=totalStarfall, ["inline"]=false},
-                    {["name"]="Heaven", ["value"]=totalHeaven, ["inline"]=false},
-                    {["name"]="Corruption", ["value"]=totalCorruption, ["inline"]=false},
-                    {["name"]="Null", ["value"]=totalNull, ["inline"]=false},
-                    {["name"]="Glitched", ["value"]=totalGlitched, ["inline"]=false},
-                    {["name"]="Dreamspace", ["value"]=totalDreamspace, ["inline"]=false},
-                    {["name"]="Cyberspace", ["value"]=totalCyberspace, ["inline"]=false},
-                    {["name"]="Total Auras Found (1M+ only)", ["value"]=total1M+total10M+total100M+total1B, ["inline"]=false},
-                    {["name"]="1M Auras", ["value"]=total1M, ["inline"]=false},
-                    {["name"]="10M Auras", ["value"]=total10M, ["inline"]=false},
-                    {["name"]="100M Auras", ["value"]=total100M, ["inline"]=false},
-                    {["name"]="1B Auras", ["value"]=total1B, ["inline"]=false},
-                    {["name"]="Total Merchants Found", ["value"]=totalMari+totalRin+totalJester, ["inline"]=false},
-                    {["name"]="Mari", ["value"]=totalMari, ["inline"]=false},
-                    {["name"]="Rin", ["value"]=totalRin, ["inline"]=false},
-                    {["name"]="Jester", ["value"]=totalJester, ["inline"]=false},
-                }
+    {["name"] = "Total Normal Biomes Found", ["value"] = _G.totalWindy + _G.totalSnowy + _G.totalRainy, ["inline"] = false},
+    {["name"] = "Windy",                     ["value"] = _G.totalWindy,   ["inline"] = false},
+    {["name"] = "Snowy",                     ["value"] = _G.totalSnowy,   ["inline"] = false},
+    {["name"] = "Rainy",                     ["value"] = _G.totalRainy,   ["inline"] = false},
+
+    {["name"] = "Total Rare Biomes Found",   ["value"] = _G.totalSandStorm + _G.totalHell + _G.totalStarfall + _G.totalHeaven + _G.totalCorruption + _G.totalNull + _G.totalGlitched + _G.totalDreamspace + _G.totalCyberspace, ["inline"] = false},
+    {["name"] = "Sand Storm",                ["value"] = _G.totalSandStorm,   ["inline"] = false},
+    {["name"] = "Hell",                      ["value"] = _G.totalHell,        ["inline"] = false},
+    {["name"] = "Starfall",                  ["value"] = _G.totalStarfall,    ["inline"] = false},
+    {["name"] = "Heaven",                    ["value"] = _G.totalHeaven,      ["inline"] = false},
+    {["name"] = "Corruption",                ["value"] = _G.totalCorruption,  ["inline"] = false},
+    {["name"] = "Null",                      ["value"] = _G.totalNull,        ["inline"] = false},
+    {["name"] = "Glitched",                  ["value"] = _G.totalGlitched,    ["inline"] = false},
+    {["name"] = "Dreamspace",                ["value"] = _G.totalDreamspace,  ["inline"] = false},
+    {["name"] = "Cyberspace",                ["value"] = _G.totalCyberspace,  ["inline"] = false},
+
+    {["name"] = "Total Auras Found (1M+ only)", ["value"] = _G.total1M + _G.total10M + _G.total100M + _G.total1B, ["inline"] = false},
+    {["name"] = "1M Auras",                  ["value"] = _G.total1M,     ["inline"] = false},
+    {["name"] = "10M Auras",                 ["value"] = _G.total10M,    ["inline"] = false},
+    {["name"] = "100M Auras",                ["value"] = _G.total100M,   ["inline"] = false},
+    {["name"] = "1B Auras",                  ["value"] = _G.total1B,     ["inline"] = false},
+
+    {["name"] = "Total Merchants Found",     ["value"] = _G.totalMari + _G.totalRin + _G.totalJester, ["inline"] = false},
+    {["name"] = "Mari",                      ["value"] = _G.totalMari,   ["inline"] = false},
+    {["name"] = "Rin",                       ["value"] = _G.totalRin,    ["inline"] = false},
+    {["name"] = "Jester",                    ["value"] = _G.totalJester, ["inline"] = false},
+}
             }}
         })
     })
