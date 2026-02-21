@@ -691,8 +691,10 @@ task.spawn(function()
             local biome, multi, isNative = IsNative(text)
             if isNative then
                 local trueRarity = tonumber(numberStr) * multi
-                if trueRarity >= 99999999 then contentmsg = _G["Native"] end
-                _G.total100M += 1
+                if trueRarity >= 99999999 then
+                   contentmsg = _G["Native"]
+                   _G.total100M += 1
+                end
                 SendAuraWebhook("**Aura Detected**", text, color, text, discordTime, contentmsg, RollAmount)
                 saveBiomes()
             else
