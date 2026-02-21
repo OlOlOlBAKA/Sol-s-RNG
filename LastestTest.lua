@@ -21,28 +21,27 @@ local currentAfkNumber = baseAfkNumber
 local baseStatusNumber = 30
 local currentStatusNumber = baseStatusNumber
 
--- Biome
-local totalWindy = 0
-local totalSnowy = 0
-local totalRainy = 0
-local totalSandStorm = 0
-local totalHell = 0
-local totalStarfall = 0
-local totalHeaven = 0
-local totalCorruption = 0
-local totalNull = 0
-local totalGlitched = 0
-local totalDreamspace = 0
-local totalCyberspace = 0
--- Auras
-local total1M = 0
-local total10M = 0
-local total100M = 0
-local total1B = 0
--- Merchants
-local totalMari = 0
-local totalRin = 0
-local totalJester = 0
+_G.totalWindy       = 0
+_G.totalSnowy       = 0
+_G.totalRainy       = 0
+_G.totalSandStorm   = 0
+_G.totalHell        = 0
+_G.totalStarfall    = 0
+_G.totalHeaven      = 0
+_G.totalCorruption  = 0
+_G.totalNull        = 0
+_G.totalGlitched    = 0
+_G.totalDreamspace  = 0
+_G.totalCyberspace  = 0
+
+_G.total1M          = 0
+_G.total10M         = 0
+_G.total100M        = 0
+_G.total1B          = 0
+
+_G.totalMari        = 0
+_G.totalRin         = 0
+_G.totalJester      = 0
 
 local saveFile = "macro_stats.txt" 
 
@@ -321,7 +320,7 @@ local function SendStatusWebhook()
             ["content"] = "",
             ["embeds"] = {{
                 ["title"] = "Macro Detection Status",
-                ["description"] = "Total of biomes, auras and merchant in past" .. tostring(currentStatusNumber) .. "seconds",
+                ["description"] = "Total of biomes, auras and merchant in past " .. tostring(currentStatusNumber) .. " seconds",
                 ["image"] = {["url"] = ""},
                 ["type"] = "rich",
                 ["color"] = tonumber(0xFF0000),
@@ -684,7 +683,7 @@ task.spawn(function()
             if isNative then
                 local trueRarity = tonumber(numberStr) * multi
                 if trueRarity >= 99999999 then contentmsg = _G["Native"] end
-                total100M += 1
+                _G.total100M += 1
                 SendAuraWebhook("**Aura Detected**", text, color, text, discordTime, contentmsg, RollAmount)
                 saveBiomes()
             else
@@ -692,14 +691,14 @@ task.spawn(function()
                 
                 if number >= 999999999 then 
                     contentmsg = _G["OneBillion"] 
-                    total1B += 1
+                    _G.total1B += 1
                 elseif number >= 99999999 then 
                     contentmsg = _G["Globals"]
-                    total100M += 1
+                    _G.total100M += 1
                 elseif number >= 9999999 then
-                    total10M += 1
+                    _G.total10M += 1
                 elseif number >= 999999 then
-                    total1M += 1
+                    _G.total1M += 1
                 end
                 SendAuraWebhook("**Aura Detected**", text, color, text, discordTime, contentmsg, RollAmount)
                 saveBiomes()
@@ -719,10 +718,10 @@ task.spawn(function()
                 or string.match(lowerText, "all hail")
                 or string.match(lowerText, "beneath") 
                 or string.match(lowerText, "breakthrough") then
-                total1B += 1
+                _G.total1B += 1
                 pingRole = _G.OneBillion
             elseif string.match(lowerText, "glorious") or string.match(lowerText, "memory") then
-                total100M += 1
+                _G.total100M += 1
                 pingRole = _G.Globals
             end
             SendAuraWebhook("**Aura Detected**", text, color, text, discordTime, pingRole, RollAmount)
@@ -768,21 +767,21 @@ task.spawn(function()
         local discordDespawnTime = "<t:" .. (time + despawnTime) .. ":F>" .. " Or " .. "<t:" .. (time + despawnTime) .. ":R>"
 
         local imageURL = ""
-        if keyword == "windy" then totalWindy += 1 imageURL = "https://images-ext-1.discordapp.net/external/eo1JYqLLEdIz9Fa6lO4vq67nuwP-WRwTwUwGawZxFhE/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/WINDY.png"
-        elseif keyword == "snowy" then totalSnowy += 1 imageURL = "https://images-ext-1.discordapp.net/external/sWb2oiEYrmUNKNkCtv6JKynYKRUvRqhc4ADSS7C2z1E/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/SNOWY.png"
-        elseif keyword == "rainy" then totalRainy += 1 imageURL = "https://images-ext-1.discordapp.net/external/h0Ia04sYgDtxzz_UPKyNxpC7V4EYPoQv8NG2W1VU1RA/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/RAINY.png"
-        elseif keyword == "sandstorm" then totalSandStorm += 1 imageURL = "https://images-ext-1.discordapp.net/external/DDds7hi6Fvis70CJJNKIrtX276EcinbBSzDr-1w410s/%3Fcb%3D20260101235000/https/cdn.mongoosee.com/assets/biomes/SAND%2520STORM.png"
-        elseif keyword == "hell" then totalHell += 1 imageURL = "https://images-ext-1.discordapp.net/external/dzf7wwtggtJrTtGm2gmVjBdygGFrSphMj6m1cJCHVyk/%3Fcb%3D20260102003000/https/cdn.mongoosee.com/assets/biomes/HELL.png"
-        elseif keyword == "heaven" then totalHeaven += 1 imageURL = "https://images-ext-1.discordapp.net/external/9u3imY3UUVyeG_YbKI1wM2d_mPYAjlU2JYGCTfgEOUk/%3Fcb%3D20260101234000/https/cdn.mongoosee.com/assets/biomes/HEAVEN.png"
-        elseif keyword == "starfall" then totalStarfall += 1 imageURL = "https://images-ext-1.discordapp.net/external/fvrAcNOIkLGcRLt_oYvmbb5rEVxy18WRFzW5xRmKvAE/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/STARFALL.png"
-        elseif keyword == "corruption" then totalCorruption += 1 imageURL = "https://images-ext-1.discordapp.net/external/8DjoqCte5sN1qwxk6i72W5KHR_ZQklBKmkgt0SnMHf4/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/CORRUPTION.png"
-        elseif keyword == "null" then totalNull += 1 imageURL = "https://images-ext-1.discordapp.net/external/52UYmSQzxuFU8Ic3ynXdB2jORcht7PGkOQi-c50jLrE/%3Fcb%3D20260102003000/https/cdn.mongoosee.com/assets/biomes/NULL.png"
+        if keyword == "windy" then _G.totalWindy += 1 imageURL = "https://images-ext-1.discordapp.net/external/eo1JYqLLEdIz9Fa6lO4vq67nuwP-WRwTwUwGawZxFhE/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/WINDY.png"
+        elseif keyword == "snowy" then _G.totalSnowy += 1 imageURL = "https://images-ext-1.discordapp.net/external/sWb2oiEYrmUNKNkCtv6JKynYKRUvRqhc4ADSS7C2z1E/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/SNOWY.png"
+        elseif keyword == "rainy" then _G.totalRainy += 1 imageURL = "https://images-ext-1.discordapp.net/external/h0Ia04sYgDtxzz_UPKyNxpC7V4EYPoQv8NG2W1VU1RA/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/RAINY.png"
+        elseif keyword == "sandstorm" then _G.totalSandStorm += 1 imageURL = "https://images-ext-1.discordapp.net/external/DDds7hi6Fvis70CJJNKIrtX276EcinbBSzDr-1w410s/%3Fcb%3D20260101235000/https/cdn.mongoosee.com/assets/biomes/SAND%2520STORM.png"
+        elseif keyword == "hell" then _G.totalHell += 1 imageURL = "https://images-ext-1.discordapp.net/external/dzf7wwtggtJrTtGm2gmVjBdygGFrSphMj6m1cJCHVyk/%3Fcb%3D20260102003000/https/cdn.mongoosee.com/assets/biomes/HELL.png"
+        elseif keyword == "heaven" then _G.totalHeaven += 1 imageURL = "https://images-ext-1.discordapp.net/external/9u3imY3UUVyeG_YbKI1wM2d_mPYAjlU2JYGCTfgEOUk/%3Fcb%3D20260101234000/https/cdn.mongoosee.com/assets/biomes/HEAVEN.png"
+        elseif keyword == "starfall" then _G.totalStarfall += 1 imageURL = "https://images-ext-1.discordapp.net/external/fvrAcNOIkLGcRLt_oYvmbb5rEVxy18WRFzW5xRmKvAE/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/STARFALL.png"
+        elseif keyword == "corruption" then _G.totalCorruption += 1 imageURL = "https://images-ext-1.discordapp.net/external/8DjoqCte5sN1qwxk6i72W5KHR_ZQklBKmkgt0SnMHf4/%3Fcb%3D20260102004000/https/cdn.mongoosee.com/assets/biomes/CORRUPTION.png"
+        elseif keyword == "null" then _G.totalNull += 1 imageURL = "https://images-ext-1.discordapp.net/external/52UYmSQzxuFU8Ic3ynXdB2jORcht7PGkOQi-c50jLrE/%3Fcb%3D20260102003000/https/cdn.mongoosee.com/assets/biomes/NULL.png"
         elseif keyword == "manager" then imageURL = "https://images-ext-1.discordapp.net/external/5SQy_HFQ9qnNKrpddi_zNH1Nb9t10WXPqggSJqVg_A8/%3Fcb%3D20260101162000/https/cdn.mongoosee.com/assets/biomes/GLITCHED.png"
-            if string.match(cleanMsg:lower(), "resolved") then return end totalGlitched += 1
+            if string.match(cleanMsg:lower(), "resolved") then return end _G.totalGlitched += 1
         elseif keyword == "dreamspace" then imageURL = "https://images-ext-1.discordapp.net/external/xCsP-8SbE5Z5HSoZP8uCe-eYZvxzSapISP969dyJ52M/%3Fcb%3D20260101141000/https/cdn.mongoosee.com/assets/biomes/DREAMSPACE.png"
-            if string.match(cleanMsg:lower(), "waking") then return end totalDreamspace += 1
+            if string.match(cleanMsg:lower(), "waking") then return end _G.totalDreamspace += 1
         elseif keyword == "cyberspace" then imageURL = "https://images-ext-1.discordapp.net/external/2wCNSYyhRB-yxKOSt6qsLNohgam0TCUOQ6ITZP3o5_s/%3Fcb%3D20260101161000/https/cdn.mongoosee.com/assets/biomes/CYBERSPACE.png"
-            if string.match(cleanMsg:lower(), "lost") then return end totalCyberspace += 1
+            if string.match(cleanMsg:lower(), "lost") then return end _G.totalCyberspace += 1
         elseif keyword == "aurora" then imageURL = "https://images-ext-1.discordapp.net/external/rm6JpGpB0Mlxe28ULtYy2L8nbY0O7X5qYKje0Zfrmk4/%3Fcb%3D20260101231000/https/cdn.mongoosee.com/assets/biomes/AURORA.png"
             if string.match(cleanMsg:lower(), "disappears") then return end
             color = "0x9258FC"
@@ -790,11 +789,11 @@ task.spawn(function()
 
         if keyword == "mari" or keyword == "jester" or keyword == "rin" then
             if keyword == "mari" then 
-                totalMari += 1
+                _G.totalMari += 1
             elseif keyword == "rin" then
-                totalRin += 1
+                _G.totalRin += 1
             else
-                totalJester += 1
+                _G.totalJester += 1
             end
             SendMerchantWebhook("**Merchant Detected**", data["display"] .. " Has Spawned!", color, cleanMsg, discordTime, discordDespawnTime, contentmsg)
         elseif keyword == "eden" then
