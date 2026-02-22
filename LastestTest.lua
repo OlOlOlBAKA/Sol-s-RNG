@@ -76,7 +76,7 @@ _G.OneBillion = ""
 _G.Native = ""
 _G.Eden = ""
 
-local currentVersion = "3.2.4"
+local currentVersion = "3.2.5"
 local macroLOGO = "https://images-ext-1.discordapp.net/external/5SQy_HFQ9qnNKrpddi_zNH1Nb9t10WXPqggSJqVg_A8/%3Fcb%3D20260101162000/https/cdn.mongoosee.com/assets/biomes/GLITCHED.png"
 
 local HttpService = game:GetService("HttpService")
@@ -319,8 +319,8 @@ local function SendStatusWebhook()
         ["Body"] = HttpService:JSONEncode({
             ["content"] = "",
             ["embeds"] = {{
-                ["title"] = "Macro Detection Status",
-                ["description"] = "Total of biomes, auras and merchant in past " .. tostring(currentStatusNumber) .. " seconds",
+                ["title"] = "Macro Detection Stats",
+                ["description"] = "Total of biomes, auras and merchant since start using macro",
                 ["image"] = {["url"] = ""},
                 ["type"] = "rich",
                 ["color"] = tonumber(0xFF0000),
